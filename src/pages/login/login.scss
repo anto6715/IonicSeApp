@@ -1,0 +1,31 @@
+page-login {
+  .master{
+    background-color: #959595;
+  }
+  #cardHeader{
+    text-align: center;
+    font-size:  large;
+    font-style: inherit;
+    font-weight: bold;
+    color: white;
+    background-color: #ffd700;
+  }
+
+  #btn{
+    margin-right: auto;
+    margin-left: auto;
+    align-items: center;
+    display: block !important;
+    background-color: #ffd700;
+    font-weight: bold;
+  }
+  #logo{
+    height: 80%;
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+    align-items: center;
+    display: block !important;
+  }
+
+}
