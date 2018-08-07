@@ -16,7 +16,7 @@ import { Storage } from "@ionic/storage";
 })
 export class HomeStudentPage {
   user: any;
-  name: any;
+  course: any;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -25,8 +25,9 @@ export class HomeStudentPage {
 
 
   this.user =    JSON.parse(localStorage.getItem('user'));
-    console.log(this.user);
+  console.log(this.user.courseDTO.name);
   }
+
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomeStudentPage');

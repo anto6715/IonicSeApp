@@ -4,13 +4,14 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header padding class="header">
-  <ion-navbar padding class="nvb" color="yellow">
+<ion-header>
+  <ion-navbar class="nvb" color="yellowdark">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title id="tit">Benvenuto</ion-title>
   </ion-navbar>
+
 </ion-header>
 
 
@@ -19,25 +20,34 @@
   <ion-card class="card">
 
     <ion-card-header class="headerCard">
-      Info
+      Studente
     </ion-card-header>
 
     <ion-card-content>
 
       <ion-list>
+        <hr>
         <ion-item>
           <ion-label>
-            Name:   {{user.name}}
+            <b>Nome: </b>&emsp;{{user.name}}
           </ion-label>
         </ion-item>
+        <hr>
         <ion-item>
           <ion-label>
-            Surname: {{user.surname}}
+            <b>Cognome: </b>&emsp;{{user.surname}}
           </ion-label>
         </ion-item>
+        <hr>
         <ion-item>
           <ion-label>
-            Matricola:    {{user.matricola}}
+           <b> Matricola:</b>&emsp;{{user.matricola}}
+          </ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>
+            <b>Anno Iscrizione:</b>&emsp; {{user.yearStart}}
           </ion-label>
         </ion-item>
 
@@ -49,25 +59,27 @@
   <ion-card class="card">
 
     <ion-card-header class="headerCard">
-      Course
+      Corso di Laurea
     </ion-card-header>
 
     <ion-card-content>
 
       <ion-list>
         <ion-item>
-          <ion-label>
-            Name:
+          <ion-label text-center>
+           <b>{{user.courseDTO.name}}</b>
           </ion-label>
         </ion-item>
+        <hr>
         <ion-item>
           <ion-label>
-            Location:
+            <b>Sede:</b> &emsp;&emsp; {{user.courseDTO.location}}
           </ion-label>
         </ion-item>
+        <hr>
         <ion-item>
           <ion-label>
-            Language:
+            <b>Lingua:</b> &emsp;&emsp;  {{user.courseDTO.language}}
           </ion-label>
         </ion-item>
 

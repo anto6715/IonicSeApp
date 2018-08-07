@@ -43,6 +43,7 @@ export class LoginPage {
       .then(data =>{
         this.getUser(data.user.uid);
         this.showAlert('Successfull log in');
+
         this.navCtrl.setRoot(HomeStudentPage);
       })
       .catch(err =>{
@@ -66,6 +67,7 @@ export class LoginPage {
   getUser(uid: string) {
     this.restProvider.getUserByUid(uid)
       .then(data=>{
+        console.log(data);
         localStorage.setItem('user', JSON.stringify(data));
       })
       .catch(err=>{

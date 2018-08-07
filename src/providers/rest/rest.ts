@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
 */
 @Injectable()
 export class RestProvider {
-  apiUserUrl = 'http://localhost:8080/SeApp/student/getByUid/'
+  apiUserUrl = 'http://192.168.1.3:8080/SeApp/student/getByUid/'
 
   constructor(public http: HttpClient) {
   }
