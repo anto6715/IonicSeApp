@@ -12,9 +12,13 @@
 
 </ion-header>
 
+<ion-content class="title">
+  <ion-title>
+    {{title}}
+  </ion-title>
+</ion-content>
 
-
-<ion-content padding-bottom *ngIf="lesson.length > 0">
+<ion-content >
 
 
   <ion-card *ngFor="let l of lesson" class="list">

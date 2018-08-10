@@ -25,8 +25,8 @@ export class LessonPage{
 
   user:any;
   lesson: Lesson[] = [];
-  key:any;
   searchDate: string;
+  title: string;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -51,6 +51,11 @@ export class LessonPage{
     this.restProvider.getLessonByDate(date,id).subscribe(data=>{
       //console.log(data);
       this.zone.run(()=>this.lesson = data);
+      if (data.length ==0){
+        this.title= 'Nessuna lezione oggi';
+      } else {
+        this.title = date;
+      }
       console.log(this.lesson);
 
     })
@@ -78,9 +83,6 @@ export class LessonPage{
       if (type === 'done') {
         this.searchDate = date.years+"-"+date.months+"-"+date.date;
         this.getLesson(this.searchDate,this.user.idCourse);
-
-
-
       }
     })
   }
