@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {Observable} from "rxjs";
+import {Lesson} from "../../models/lesson";
 
 /*
   Generated class for the RestProvider provider.
@@ -9,7 +11,8 @@ import { Injectable } from '@angular/core';
 */
 @Injectable()
 export class RestProvider {
-  apiUserUrl = 'http://192.168.1.3:8080/SeApp/student/getByUid/'
+  apiUserUrl = 'http://localhost:8080/SeApp/student/getByUid/'
+  apiLessonUrl = 'http://localhost:8080/SeApp/lesson/getByDate/'
 
   constructor(public http: HttpClient) {
   }
@@ -22,6 +25,10 @@ export class RestProvider {
         console.log(err)
       })
     })
+  }
+
+  getLessonByDate(date:string, id: number):Observable<Lesson[]> {
+    return this.http.get<Lesson[]>(this.apiLessonUrl + date + "_" + id);
   }
 
 }

@@ -5,27 +5,36 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import {LoginPage} from "../pages/login/login";
-import {HomeStudentPage} from "../pages/home-student/home-student";
+import {HomeStudentPage} from "../pages/Student/home-student/home-student";
+import {LessonPage} from "../pages/Student/lesson/lesson";
+import {User} from "../models/user";
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-
-  rootPage: any = HomeStudentPage;
+  user: User = {} as User;
+  rootPage: any = LessonPage;
 
   pages: Array<{title: string, component: any}>;
+  pages2: Array<{title: string, component: any}>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp();
 
+    this.user = JSON.parse(localStorage.getItem('user'));
+
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage }
+      { title: 'Modifica', component: HomePage }
     ];
-
+    this.pages2 = [
+      { title: 'Orario Lezioni', component: LessonPage }
+    ];
   }
+
+
 
   initializeApp() {
     this.platform.ready().then(() => {

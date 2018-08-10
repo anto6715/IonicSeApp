@@ -1,4 +1,4 @@
-<ion-menu [persistent]="true" [content]="content">
+<ion-menu  [content]="content" id="menuProfessor">
   <ion-header color="yellow">
     <ion-toolbar color="yellow">
       <ion-title>Home</ion-title>
@@ -15,5 +15,23 @@
 
 </ion-menu>
 
+<ion-menu  [content]="content2" id="menuStudent">
+  <ion-header color="yellow">
+    <ion-toolbar color="yellow">
+      <ion-title *ngIf="user != null">{{user.name}} {{user.surname}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-list>
+      <button menuClose ion-item *ngFor="let p of pages2" (click)="openPage(p)">
+        {{p.title}}
+      </button>
+    </ion-list>
+    <button ion-item>Logout</button>
+  </ion-content>
+
+</ion-menu>
+
 <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
-<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
+<ion-nav [root]="rootPage" #content #content2 swipeBackEnabled="false"></ion-nav>

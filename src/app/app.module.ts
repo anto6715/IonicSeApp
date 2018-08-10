@@ -12,9 +12,10 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { RestProvider } from '../providers/rest/rest';
 import { IonicStorageModule } from "@ionic/storage";
-import { HomeStudentPage } from "../pages/home-student/home-student";
+import { HomeStudentPage } from "../pages/Student/home-student/home-student";
 import { HomeProfessorPage } from "../pages/home-professor/home-professor";
-
+import { LessonPage } from "../pages/Student/lesson/lesson";
+import { CalendarModule} from "ion2-calendar";
 
 var config = {
   apiKey: "AIzaSyCZ3Ha8coWfTCEFYbwnm2ia3iN6GvJpVls",
@@ -32,6 +33,7 @@ var config = {
     LoginPage,
     HomeStudentPage,
     HomeProfessorPage,
+    LessonPage,
   ],
   imports: [
     BrowserModule,
@@ -39,7 +41,8 @@ var config = {
     HttpClientModule,
     AngularFireModule.initializeApp(config),
     AngularFireAuthModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    CalendarModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -47,7 +50,8 @@ var config = {
     HomePage,
     LoginPage,
     HomeStudentPage,
-    HomeProfessorPage
+    HomeProfessorPage,
+    LessonPage
   ],
   providers: [
     StatusBar,

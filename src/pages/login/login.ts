@@ -5,7 +5,7 @@ import { AngularFireAuth } from "angularfire2/auth";
 import {HomePage} from "../home/home";
 import { RestProvider } from "../../providers/rest/rest";
 import { Storage } from "@ionic/storage";
-import {HomeStudentPage} from "../home-student/home-student";
+import {HomeStudentPage} from "../Student/home-student/home-student";
 
 
 /**

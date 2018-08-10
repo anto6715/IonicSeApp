@@ -1,0 +1,50 @@
+page-lesson {
+  .headerCard{
+    background-color: #ffd700;
+    font-weight: bold;
+
+  }
+
+  .list{
+    margin-top: inherit;
+  }
+
+  .btn{
+    margin-right: auto;
+    margin-left: auto;
+    background-color: #ffd700;
+    color: #222222;
+  }
+
+  .calendario{
+    .toolbar-background-md, .toolbar-background-ios, ion-calendar-week .week-title {
+      background-color: #424242;
+    }
+    .month-box {
+      background: #343434;
+      border-bottom: none;
+      h4 {
+        color: #fff;
+      }
+      button.days-btn > p {
+        color: #fff;
+      }
+    }
+  }
+
+  .my-cal {
+    button.days-btn.my-day {
+      small {
+        color: #fff;
+        background-color: red;
+      }
+    }
+
+  }
+
+  .date{
+    font-weight: bold;
+    margin-top: 10px;
+  }
+
+}
