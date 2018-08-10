@@ -19,7 +19,6 @@ import {User } from "../../../models/user";
 })
 export class HomeStudentPage {
   user: User;
-  pages: Array<{title: string, component: any}>;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,

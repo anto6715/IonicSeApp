@@ -6,6 +6,7 @@ import {HomePage} from "../home/home";
 import { RestProvider } from "../../providers/rest/rest";
 import { Storage } from "@ionic/storage";
 import {HomeStudentPage} from "../Student/home-student/home-student";
+import { UserRestProvider} from "../../providers/user-rest/user-rest";
 
 
 /**
@@ -30,8 +31,7 @@ export class LoginPage {
               public navParams: NavParams,
               public alertCtrl: AlertController,
               public fireAuth: AngularFireAuth,
-              public restProvider: RestProvider,
-              private storage: Storage) {
+              private userRestProvider: UserRestProvider) {
   }
 
   ionViewDidLoad() {
@@ -65,7 +65,7 @@ export class LoginPage {
   }
 
   getUser(uid: string) {
-    this.restProvider.getUserByUid(uid)
+    this.userRestProvider.getUserByUid(uid)
       .then(data=>{
         console.log(data);
         localStorage.setItem('user', JSON.stringify(data));

@@ -1,6 +1,7 @@
 import {Component, ViewChild, NgZone} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {RestProvider } from "../../../providers/rest/rest";
+import { LessonRestProvider } from "../../../providers/lesson-rest/lesson-rest";
 import {Lesson} from "../../../models/lesson";
 import {ModalController} from "ionic-angular";
 import { CalendarModal, CalendarModalOptions, DayConfig, CalendarResult } from "ion2-calendar";
@@ -27,10 +28,11 @@ export class LessonPage{
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              public restProvider: RestProvider,
+              public lessonRestProvider: LessonRestProvider,
               public modalCtrl: ModalController,
               public zone: NgZone
               ) {
+
     this.user = JSON.parse(localStorage.getItem('user'));
     var d = new Date();
     var MM = d.getMonth() +1;
@@ -44,11 +46,11 @@ export class LessonPage{
   }
 
   getLesson(date: string, id:number) {
-    this.restProvider.getLessonByDate(date,id).subscribe(data=>{
+    this.lessonRestProvider.getLessonStudentByDate(date,id).subscribe(data=>{
       //console.log(data);
       this.zone.run(()=>this.lesson = data);
       if (data.length ==0){
-        this.title= 'Nessuna lezione oggi';
+        this.title= 'Nessuna lezione    ' + this.searchDate;
       } else {
         this.title = date;
       }
