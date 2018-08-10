@@ -4,8 +4,6 @@ import {RestProvider } from "../../../providers/rest/rest";
 import {Lesson} from "../../../models/lesson";
 import {ModalController} from "ionic-angular";
 import { CalendarModal, CalendarModalOptions, DayConfig, CalendarResult } from "ion2-calendar";
-import { ViewController} from "ionic-angular";
-import { Content} from "ionic-angular";
 
 /**
  * Generated class for the LessonPage page.
@@ -20,7 +18,6 @@ import { Content} from "ionic-angular";
   templateUrl: 'lesson.html',
 })
 export class LessonPage{
-  @ViewChild(Content) content: Content;
 
 
   user:any;
@@ -32,7 +29,6 @@ export class LessonPage{
               public navParams: NavParams,
               public restProvider: RestProvider,
               public modalCtrl: ModalController,
-              public viewCtrl: ViewController,
               public zone: NgZone
               ) {
     this.user = JSON.parse(localStorage.getItem('user'));

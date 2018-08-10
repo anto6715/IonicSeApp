@@ -15,7 +15,7 @@ import {User} from "../models/user";
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
   user: User = {} as User;
-  rootPage: any = LoginPage;
+  rootPage: any = LessonPage;
 
   pages: Array<{title: string, component: any}>;
   pages2: Array<{title: string, component: any}>;

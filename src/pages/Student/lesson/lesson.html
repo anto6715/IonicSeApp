@@ -17,8 +17,14 @@
     {{title}}
   </ion-title>
 </ion-content>
+<ion-content>
+  <ion-fab bottom right>
+    <button ion-fab (click)="openCalendar()" color="yellowdark"><ion-icon name="search"></ion-icon></button>
+  </ion-fab>
 
-<ion-content >
+
+</ion-content>
+<ion-content  >
 
 
   <ion-card *ngFor="let l of lesson" class="list">
@@ -46,12 +52,8 @@
       </ion-buttons>
     </ion-card-content>
   </ion-card>
-</ion-content>
 
-<ion-content>
-  <ion-fab bottom right>
-    <button ion-fab (click)="openCalendar()" color="yellowdark"><ion-icon name="search"></ion-icon></button>
-  </ion-fab>
 
 
 </ion-content>
+
