@@ -1,8 +1,21 @@
 page-material {
 
+  ul {
+    padding: 10px;
+    &.rating li {
+      padding: 5px 10px !important;
+      background: none;
+      color: #ffb400;
+      ion-icon {
+        font-size: 40px;
+      }
+    }
+  }
+
   .headerCard{
     background-color: #ffd700;
     font-weight: bold;
+    font-size: large;
   }
   .close{
     align-self: right;
@@ -24,6 +37,21 @@ page-material {
     margin-left: auto;
     display: block !important;
     color: #000;
+  }
+
+  .review{
+    background-color: #eac400;
+    margin-right: auto;
+    margin-left: auto;
+    display: block !important;
+    color: #000;
+  }
+
+  .btn{
+    margin-right: auto;
+    margin-left: auto;
+    background-color: #ffd700;
+    color: #222222;
   }
 
 }

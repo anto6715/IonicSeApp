@@ -20,6 +20,7 @@ import { LessonRestProvider } from '../providers/lesson-rest/lesson-rest';
 import { UserRestProvider } from '../providers/user-rest/user-rest';
 import { MaterialPage } from "../pages/material/material";
 import { MaterialRestProvider } from '../providers/material-rest/material-rest';
+import { Ionic2RatingModule} from "ionic2-rating";
 
 var config = {
   apiKey: "AIzaSyCZ3Ha8coWfTCEFYbwnm2ia3iN6GvJpVls",
@@ -47,7 +48,8 @@ var config = {
     AngularFireModule.initializeApp(config),
     AngularFireAuthModule,
     IonicStorageModule.forRoot(),
-    CalendarModule
+    CalendarModule,
+    Ionic2RatingModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

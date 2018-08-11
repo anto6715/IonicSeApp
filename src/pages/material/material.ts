@@ -19,12 +19,16 @@ import { AlertController } from "ionic-angular";
 })
 export class MaterialPage {
   material: Material[] = [];
+  rate:any =3;
+  modify:boolean;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public viewCtrl: ViewController,
               public materialRestProvider: MaterialRestProvider,
               public alertCtrl: AlertController) {
+
+    this.modify=true;
 
     this.getMaterialByIdLesson(navParams.get('idLesson'))
   }
@@ -63,5 +67,10 @@ export class MaterialPage {
 
     });
     alert.present();
+  }
+
+  onModelChange(event) {
+    this.rate = event;
+    console.log(this.rate);
   }
 }
