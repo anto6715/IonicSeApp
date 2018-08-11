@@ -18,6 +18,7 @@ import { LessonPage } from "../pages/Student/lesson/lesson";
 import { CalendarModule} from "ion2-calendar";
 import { LessonRestProvider } from '../providers/lesson-rest/lesson-rest';
 import { UserRestProvider } from '../providers/user-rest/user-rest';
+import { MaterialPage } from "../pages/material/material";
 
 var config = {
   apiKey: "AIzaSyCZ3Ha8coWfTCEFYbwnm2ia3iN6GvJpVls",
@@ -36,6 +37,7 @@ var config = {
     HomeStudentPage,
     HomeProfessorPage,
     LessonPage,
+    MaterialPage
   ],
   imports: [
     BrowserModule,
@@ -53,7 +55,8 @@ var config = {
     LoginPage,
     HomeStudentPage,
     HomeProfessorPage,
-    LessonPage
+    LessonPage,
+    MaterialPage
   ],
   providers: [
     StatusBar,

@@ -1,10 +1,10 @@
 import {Component, ViewChild, NgZone} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {RestProvider } from "../../../providers/rest/rest";
 import { LessonRestProvider } from "../../../providers/lesson-rest/lesson-rest";
 import {Lesson} from "../../../models/lesson";
 import {ModalController} from "ionic-angular";
 import { CalendarModal, CalendarModalOptions, DayConfig, CalendarResult } from "ion2-calendar";
+import { MaterialPage } from "../../material/material";
 
 /**
  * Generated class for the LessonPage page.
@@ -25,6 +25,7 @@ export class LessonPage{
   lesson: Lesson[] = [];
   searchDate: string;
   title: string;
+  todayDate: string;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -36,8 +37,8 @@ export class LessonPage{
     this.user = JSON.parse(localStorage.getItem('user'));
     var d = new Date();
     var MM = d.getMonth() +1;
-    var date = d.getFullYear()+"-"+MM+"-"+d.getUTCDate();
-    this.getLesson(date,this.user.idCourse);
+    this.todayDate = d.getFullYear()+"-"+MM+"-"+d.getUTCDate();
+    this.getLesson(this.todayDate,this.user.idCourse);
 
   }
 
@@ -50,7 +51,12 @@ export class LessonPage{
       //console.log(data);
       this.zone.run(()=>this.lesson = data);
       if (data.length ==0){
-        this.title= 'Nessuna lezione    ' + this.searchDate;
+        if (this.searchDate == null){
+          this.title= 'Nessuna lezione    ' + this.todayDate;
+        } else {
+          this.title= 'Nessuna lezione    ' + this.searchDate;
+        }
+
       } else {
         this.title = date;
       }
@@ -84,5 +90,16 @@ export class LessonPage{
       }
     })
   }
+
+  materialModal() {
+    let profileModal = this.modalCtrl.create(MaterialPage);
+    profileModal.onDidDismiss(data => {
+      console.log(data);
+    });
+    profileModal.present();
+  }
+
+
+
 
 }

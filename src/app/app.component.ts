@@ -8,6 +8,7 @@ import {LoginPage} from "../pages/login/login";
 import {HomeStudentPage} from "../pages/Student/home-student/home-student";
 import {LessonPage} from "../pages/Student/lesson/lesson";
 import {User} from "../models/user";
+import {MaterialPage} from "../pages/material/material";
 
 @Component({
   templateUrl: 'app.html'
@@ -15,7 +16,7 @@ import {User} from "../models/user";
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
   user: User = {} as User;
-  rootPage: any = LessonPage;
+  rootPage: any = MaterialPage;
 
   pages: Array<{title: string, component: any}>;
   pages2: Array<{title: string, component: any}>;
