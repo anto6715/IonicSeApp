@@ -1,6 +1,9 @@
 page-material {
 
-
+  .headerCard{
+    background-color: #ffd700;
+    font-weight: bold;
+  }
   .close{
     align-self: right;
     color: #488aff;
@@ -9,9 +12,18 @@ page-material {
     float: left;
     display: inline-block;
   }
+  .headerCard{
 
+  }
   .title{
     float: right;
+  }
+  .download{
+    background-color: #eac400;
+    margin-right: auto;
+    margin-left: auto;
+    display: block !important;
+    color: #000;
   }
 
 }

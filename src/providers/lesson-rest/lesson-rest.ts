@@ -12,7 +12,7 @@ import {Lesson} from "../../models/lesson";
 */
 @Injectable()
 export class LessonRestProvider {
-  apiLessonUrl = 'http://192.168.1.5:8080/SeApp/lesson/'
+  apiLessonUrl = 'http://192.168.1.5:8080/SeApp/lesson/';
 
   constructor(public http: HttpClient) {
     console.log('Hello LessonRestProvider Provider');

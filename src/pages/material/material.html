@@ -10,7 +10,7 @@
 
     <ion-buttons>
       <button ion-button (click)="dismiss()" class="close">Close</button>
-      <ion-title class="title" text-right="">Materiale</ion-title>
+      <ion-title class="title" text-right>Materiale</ion-title>
     </ion-buttons>
 
   </ion-navbar>
@@ -18,6 +18,37 @@
 </ion-header>
 
 
-<ion-content padding>
+
+
+<ion-content  >
+
+
+  <ion-card *ngFor="let m of material" class="list">
+    <ion-card-header class="headerCard" text-center>
+      {{m.name}}
+    </ion-card-header>
+
+
+
+    <ion-item>
+      <b>Valutazione:</b>
+    </ion-item>
+    <hr>
+    <ion-item>
+      <b>Note:</b>
+    </ion-item>
+    <ion-item>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-buttons>
+        <button ion-button class="download" round (click)="download(m.link)">Download</button>
+      </ion-buttons>
+    </ion-item>
+
+  </ion-card>
+
+
 
 </ion-content>

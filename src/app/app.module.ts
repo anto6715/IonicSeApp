@@ -19,6 +19,7 @@ import { CalendarModule} from "ion2-calendar";
 import { LessonRestProvider } from '../providers/lesson-rest/lesson-rest';
 import { UserRestProvider } from '../providers/user-rest/user-rest';
 import { MaterialPage } from "../pages/material/material";
+import { MaterialRestProvider } from '../providers/material-rest/material-rest';
 
 var config = {
   apiKey: "AIzaSyCZ3Ha8coWfTCEFYbwnm2ia3iN6GvJpVls",
@@ -64,7 +65,8 @@ var config = {
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     RestProvider,
     LessonRestProvider,
-    UserRestProvider
+    UserRestProvider,
+    MaterialRestProvider
   ]
 })
 export class AppModule {}

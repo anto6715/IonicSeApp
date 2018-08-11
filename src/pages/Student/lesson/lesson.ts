@@ -91,8 +91,8 @@ export class LessonPage{
     })
   }
 
-  materialModal() {
-    let profileModal = this.modalCtrl.create(MaterialPage);
+  materialModal(id:number) {
+    let profileModal = this.modalCtrl.create(MaterialPage, {idLesson: id});
     profileModal.onDidDismiss(data => {
       console.log(data);
     });
