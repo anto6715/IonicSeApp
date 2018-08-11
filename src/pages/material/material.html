@@ -21,18 +21,15 @@
 
 
 <ion-content  >
+  <ion-card *ngFor="let m of material; let i = index" class="list">
 
-
-  <ion-card *ngFor="let m of material" class="list">
     <ion-card-header class="headerCard" text-center>
       {{m.name}}
     </ion-card-header>
 
-
-
-    <ion-item text-center="">
+    <ion-item text-center="" *ngIf="m.Review != null">
       <b>Valutazione</b>
-      <rating [(ngModel)]="rate"
+      <rating [(ngModel)]="m.Review.rate"
               readOnly="true"
       max="5"
       emptyStarIconName="star-outline"
@@ -40,26 +37,44 @@
       starIconName="star"
       nullable="false"
 
-      (ngModelChange)="onModelChange($event)">
+      (ngModelChange)="onModelChange($event, i)">
+      </rating>
+    </ion-item>
+
+    <ion-item text-center="" *ngIf="m.Review == null">
+      <b>Valutazione</b>
+      <rating [(ngModel)]="rate[i]"
+              readOnly="false"
+              max="5"
+              emptyStarIconName="star-outline"
+              halfStarIconName="star-half"
+              starIconName="star"
+              nullable="false"
+
+              (ngModelChange)="onModelChange($event, i)">
       </rating>
     </ion-item>
     <hr>
-    <ion-item>
-      <b>Note:</b>
+    <ion-item text-center>
+      <b>Note</b>
     </ion-item>
-    <ion-item>
+
+    <ion-item *ngIf="m.Review != null">
+      <ion-label *ngIf="m.Review.note != null">{{m.Review.note}}</ion-label>
+    </ion-item>
+
+    <ion-item *ngIf="m.Review == null">
+      <ion-label floating>Inserisci recensione</ion-label>
       <ion-input type="text"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-buttons>
-        <button ion-button class="btn" round (click)="sendReview">Invia</button>
+        <button ion-button class="btn" round [disabled]="m.Review || !rate[i]" (click)="sendReview">Invia</button>
         <button ion-button class="btn" round (click)="download(m.link)">Download</button>
       </ion-buttons>
     </ion-item>
 
   </ion-card>
-
-
 
 </ion-content>
