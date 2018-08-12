@@ -21,4 +21,14 @@ export class ReviewRestProvider {
     return this.http.get<Review>(this.apiReviewUrl+"getByIdStudentAndIdMaterial/"+idStudent+"_"+idMaterial);
   }
 
+  public sendReview(review:Review):Observable<Review>{
+    return this.http.post<Review>(this.apiReviewUrl+"save/",{
+      "note": review.note,
+      "rate": review.rate,
+      "idStudent": review.idStudent,
+      "idMaterial": review.idMaterial,
+      "idReviewType":2
+    });
+  }
+
 }

@@ -44,7 +44,7 @@
     <ion-item text-center="" *ngIf="m.Review == null">
       <b>Valutazione</b>
       <rating [(ngModel)]="rate[i]"
-              readOnly="false"
+              readOnly={{enableReview[i]}}
               max="5"
               emptyStarIconName="star-outline"
               halfStarIconName="star-half"
@@ -65,12 +65,12 @@
 
     <ion-item *ngIf="m.Review == null">
       <ion-label floating>Inserisci recensione</ion-label>
-      <ion-input type="text"></ion-input>
+      <ion-input [(ngModel)]="note[i]" [disabled]="!enableSend[i]" type="text" ></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-buttons>
-        <button ion-button class="btn" round [disabled]="m.Review || !rate[i]" (click)="sendReview">Invia</button>
+        <button ion-button class="btn" round [disabled]="!enableSend[i]" (click)="sendReview(i)">Invia</button>
         <button ion-button class="btn" round (click)="download(m.link)">Download</button>
       </ion-buttons>
     </ion-item>

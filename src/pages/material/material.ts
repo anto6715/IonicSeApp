@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, NgZone} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ViewController} from "ionic-angular";
 import {Material} from "../../models/material";
@@ -22,17 +22,21 @@ import {Review} from "../../models/review";
 })
 export class MaterialPage {
   material: Material[] = [];
-  review: Review;
+  note: string[] =[];
+  review:Review[]=[];
   rate:number[] =[];
-  modify:boolean;
   user: User;
+  newReview:Review= {} as Review;
+  enableSend:boolean[]= [];
+  enableReview:boolean[]=[];
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public viewCtrl: ViewController,
               public materialRestProvider: MaterialRestProvider,
               public alertCtrl: AlertController,
-              public reviewRestProvider: ReviewRestProvider) {
+              public reviewRestProvider: ReviewRestProvider,
+              public zone: NgZone) {
 
 
     this.user = JSON.parse(localStorage.getItem('user'));
@@ -96,6 +100,26 @@ export class MaterialPage {
 
   onModelChange(event, i:number) {
     this.rate[i] = event;
+    this.enableSend[i]=true;
     console.log(this.rate[i]);
+  }
+
+  sendReview(i:number){
+    this.newReview.rate= this.rate[i];
+    this.newReview.note= this.note[i];
+    this.newReview.idMaterial = this.material[i].id;
+    this.newReview.idReviewType=2;
+    this.newReview.idStudent= this.user.id;
+    //console.log(this.newReview);
+    this.reviewRestProvider.sendReview(this.newReview).subscribe(data=>{
+      console.log(data);
+
+      if(data != null){
+        this.enableSend[i]=false;
+        this.enableReview[i]=true;
+        this.showAlert('Recensione inviata correttamente');
+      }
+
+    });
   }
 }
