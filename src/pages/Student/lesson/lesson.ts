@@ -5,6 +5,7 @@ import {Lesson} from "../../../models/lesson";
 import {ModalController} from "ionic-angular";
 import { CalendarModal, CalendarModalOptions, DayConfig, CalendarResult } from "ion2-calendar";
 import { MaterialPage } from "../../material/material";
+import {LessonReviewPage} from "../lesson-review/lesson-review";
 
 /**
  * Generated class for the LessonPage page.
@@ -97,6 +98,15 @@ export class LessonPage{
       console.log(data);
     });
     profileModal.present();
+  }
+
+  reviewModal(i:number){
+    let profileModal = this.modalCtrl.create(LessonReviewPage, {lesson: this.lesson[i]});
+    profileModal.onDidDismiss(data => {
+      console.log(data);
+    });
+    profileModal.present();
+
   }
 
 

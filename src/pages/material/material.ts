@@ -92,7 +92,7 @@ export class MaterialPage {
   }
 
   getReview(idMaterial:number, iteration:number) {
-    this.reviewRestProvider.getReview(this.user.id, idMaterial).subscribe(data=>{
+    this.reviewRestProvider.getReviewMaterial(this.user.id, idMaterial).subscribe(data=>{
       console.log(data);
       this.material[iteration].Review = data;
     })

@@ -1,5 +1,6 @@
 import {Room} from "./room";
 import {Teaching} from "./teaching";
+import {Review} from "./review";
 
 export interface Lesson {
 
@@ -10,5 +11,6 @@ export interface Lesson {
   end:  String;
   roomDTO: Room;
   teachingDTO: Teaching;
+  review:Review;
 
 }

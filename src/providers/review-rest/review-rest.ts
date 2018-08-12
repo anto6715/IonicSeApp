@@ -17,8 +17,12 @@ export class ReviewRestProvider {
     console.log('Hello ReviewRestProvider Provider');
   }
 
-  public getReview(idStudent:number, idMaterial): Observable<Review>{
+  public getReviewMaterial(idStudent:number, idMaterial): Observable<Review>{
     return this.http.get<Review>(this.apiReviewUrl+"getByIdStudentAndIdMaterial/"+idStudent+"_"+idMaterial);
+  }
+
+  public getReviewLesson(idStudent:number, idLesson): Observable<Review>{
+    return this.http.get<Review>(this.apiReviewUrl+"getByIdStudentAndIdLesson/"+idStudent+"_"+idLesson);
   }
 
   public sendReview(review:Review):Observable<Review>{
@@ -27,7 +31,8 @@ export class ReviewRestProvider {
       "rate": review.rate,
       "idStudent": review.idStudent,
       "idMaterial": review.idMaterial,
-      "idReviewType":2
+      "idReviewType": review.idReviewType,
+      "idLesson": review.idLesson
     });
   }
 

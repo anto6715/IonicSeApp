@@ -27,7 +27,7 @@
 <ion-content  >
 
 
-  <ion-card *ngFor="let l of lesson" class="list">
+  <ion-card *ngFor="let l of lesson; let i = index" class="list">
     <ion-card-header class="headerCard">
       {{l.teachingDTO.name}}
     </ion-card-header>
@@ -44,13 +44,16 @@
       <b>Orario:</b> {{l.start}}-{{l.end}}
     </ion-item>
 
+
     <ion-card-content>
       <ion-buttons align-items-center="">
         <button ion-button  class="btn" round (click)="materialModal(l.id)">Materiale</button>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <button ion-button  align-items-end class="btn" round >Recensione</button>
+        <button ion-button  align-items-end class="btn" round (click)="reviewModal(i)">Recensione</button>
       </ion-buttons>
     </ion-card-content>
+
+
   </ion-card>
 
 

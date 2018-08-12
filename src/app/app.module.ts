@@ -22,6 +22,7 @@ import { MaterialPage } from "../pages/material/material";
 import { MaterialRestProvider } from '../providers/material-rest/material-rest';
 import { Ionic2RatingModule} from "ionic2-rating";
 import { ReviewRestProvider } from '../providers/review-rest/review-rest';
+import { LessonReviewPage} from "../pages/Student/lesson-review/lesson-review";
 
 var config = {
   apiKey: "AIzaSyCZ3Ha8coWfTCEFYbwnm2ia3iN6GvJpVls",
@@ -40,7 +41,8 @@ var config = {
     HomeStudentPage,
     HomeProfessorPage,
     LessonPage,
-    MaterialPage
+    MaterialPage,
+    LessonReviewPage
   ],
   imports: [
     BrowserModule,
@@ -60,7 +62,8 @@ var config = {
     HomeStudentPage,
     HomeProfessorPage,
     LessonPage,
-    MaterialPage
+    MaterialPage,
+    LessonReviewPage
   ],
   providers: [
     StatusBar,
