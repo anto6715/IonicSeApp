@@ -2,13 +2,17 @@ import {Component, ViewChild} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AlertController } from "ionic-angular";
 import { AngularFireAuth } from "angularfire2/auth";
-import {HomePage} from "../home/home";
-import { RestProvider } from "../../providers/rest/rest";
-import { Storage } from "@ionic/storage";
 import {HomeStudentPage} from "../Student/home-student/home-student";
 import { UserRestProvider} from "../../providers/user-rest/user-rest";
-
-
+import * as firebase from 'firebase'
+var config = {
+  apiKey: "AIzaSyCZ3Ha8coWfTCEFYbwnm2ia3iN6GvJpVls",
+  authDomain: "seapp-17679.firebaseapp.com",
+  databaseURL: "https://seapp-17679.firebaseio.com",
+  projectId: "seapp-17679",
+  storageBucket: "seapp-17679.appspot.com",
+  messagingSenderId: "462401369686"
+};
 /**
  * Generated class for the LoginPage page.
  *
@@ -39,11 +43,13 @@ export class LoginPage {
   }
 
   signInUser() {
-    this.fireAuth.auth.signInWithEmailAndPassword(this.uname.value, 'prova123')
+
+
+      this.fireAuth.auth.signInWithEmailAndPassword(this.uname.value, 'prova123')
       .then(data =>{
+        console.log(data);
         this.getUser(data.user.uid);
         this.showAlert('Successfull log in');
-
         this.navCtrl.setRoot(HomeStudentPage);
       })
       .catch(err =>{

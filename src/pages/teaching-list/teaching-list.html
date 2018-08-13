@@ -1,0 +1,46 @@
+<!--
+  Generated template for the TeachingListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar class="nvb" color="yellowdark" text-left>
+    <ion-title>Lista Insegnamenti</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+
+  <ion-title text-center class="title">
+    {{user.courseDTO.name}}
+  </ion-title>
+
+  <ion-card *ngFor="let t of teaching; let i = index" class="list">
+    <ion-card-header class="headerCard" text-center>
+      {{t.name}}
+    </ion-card-header>
+
+    <ion-item>
+      <b>Professore:</b> {{t.professorDTO.name}} {{t.professorDTO.surname}}
+    </ion-item>
+    <hr>
+    <ion-item>
+      <b>Year:</b> {{t.year}}
+    </ion-item>
+
+
+    <ion-card-content>
+      <ion-buttons align-items-center="">
+        <button ion-button  class="btn" round (click)="startChat(i)"><ion-icon name="chatboxes"></ion-icon></button>
+      </ion-buttons>
+    </ion-card-content>
+
+
+  </ion-card>
+
+
+
+</ion-content>

@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import * as firebase from 'firebase'
 
 import { HomePage } from '../pages/home/home';
 import {LoginPage} from "../pages/login/login";
@@ -9,6 +10,8 @@ import {HomeStudentPage} from "../pages/Student/home-student/home-student";
 import {LessonPage} from "../pages/Student/lesson/lesson";
 import {User} from "../models/user";
 import {MaterialPage} from "../pages/material/material";
+import {TeachingListPage} from "../pages/teaching-list/teaching-list";
+
 
 @Component({
   templateUrl: 'app.html'
@@ -16,7 +19,7 @@ import {MaterialPage} from "../pages/material/material";
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
   user: User = {} as User;
-  rootPage: any = LessonPage;
+  rootPage: any = TeachingListPage;
 
   pages: Array<{title: string, component: any}>;
   pages2: Array<{title: string, component: any}>;
@@ -31,7 +34,8 @@ export class MyApp {
       { title: 'Modifica', component: HomePage }
     ];
     this.pages2 = [
-      { title: 'Orario Lezioni', component: LessonPage }
+      { title: 'Orario Lezioni', component: LessonPage },
+      { title: 'Chat', component: TeachingListPage}
     ];
   }
 
@@ -44,6 +48,7 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+
   }
 
   openPage(page) {
