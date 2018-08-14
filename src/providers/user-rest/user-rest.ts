@@ -28,4 +28,8 @@ export class UserRestProvider {
       })
     })
   }
+
+  getStudentsByCourse(idCourse:number): Observable<User[]>{
+    return this.http.get<User[]>(this.apiUserUrl+'getByCourse/'+idCourse);
+  }
 }

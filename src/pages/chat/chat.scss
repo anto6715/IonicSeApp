@@ -1,12 +1,19 @@
 page-chat {
+  ion-content{
+   background: url(../../img.jpg) no-repeat center center fixed;
+  }
 
-
+  .private{
+    font-size: smaller;
+  }
   ion-footer {
+
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.11);
     background-color: #fff; }
 
   .line-breaker {
-    white-space: pre-line; }
+    white-space: pre-line;
+  font-size: medium}
 
   .input-wrap {
     padding: 10px;
@@ -18,15 +25,15 @@ page-chat {
     border-style: solid; }
 
   .message-wrap {
-    padding: 0 10px; }
+    padding: 0 7px; }
   .message-wrap .message {
     position: relative;
     padding: 7px 0; }
   .message-wrap .message .user-img {
     position: absolute;
-    border-radius: 45px;
-    width: 45px;
-    height: 45px;
+    border-radius: 30px;
+    width: 30px;
+    height: 30px;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.36); }
   .message-wrap .message .msg-detail {
     width: 100%;
@@ -35,14 +42,14 @@ page-chat {
     margin: 0; }
   .message-wrap .message .msg-detail .msg-info p {
     font-size: .8em;
-    color: #000000; }
+    color: #ffffff; } // colore nome utente
   .message-wrap .message .msg-detail .msg-content {
     position: relative;
     margin-top: 5px;
     border-radius: 5px;
     padding: 8px;
     border: 1px solid #ddd;
-    color: #000000;
+    color: #000000;   // testo messaggio destra
     width: auto;
     max-width: 80%; }
   .message-wrap .message .msg-detail .msg-content span.triangle {

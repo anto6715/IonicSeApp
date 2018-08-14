@@ -14,16 +14,19 @@ export class ChatProvider {
     console.log('Hello ChatProvider Provider');
   }
 
-  sendMessage(msg:string, type:number, receveir:string, teachingName:String, sender:string){
+  sendMessage(msg:string, type:number, emailReceveir:string, emailSender:string, teachingName:String,date: Date, nameSender:string, nameReceiver:string){
     firebase.database().ref('/'+teachingName).once('value',
       function (snapshot) {
       let i = snapshot.child('/messages').numChildren();
       console.log(i);
       let data = {
-        type:type,
-        sender:sender,
-        receiver:receveir,
+        date:date,
+        type:type,  // 0 se pubblico, 1 se privato
+        emailSender:emailSender,
+        emailReceiver:emailReceveir,  // 0 se tutti, altrimenti id destinatario
         msg:msg,
+        nameSender:nameSender,
+        nameReceiver:nameReceiver,
       };
 
       let updates = {};

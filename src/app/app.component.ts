@@ -19,7 +19,7 @@ import {TeachingListPage} from "../pages/teaching-list/teaching-list";
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
   user: User = {} as User;
-  rootPage: any = TeachingListPage;
+  rootPage: any = LoginPage;
 
   pages: Array<{title: string, component: any}>;
   pages2: Array<{title: string, component: any}>;

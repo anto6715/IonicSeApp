@@ -5,7 +5,9 @@ import {User} from "../../models/user";
 import {Teaching} from "../../models/teaching";
 import {Message} from "../../models/message";
 import { ChatProvider } from "../../providers/chat/chat";
-import * as firebase from "firebase";
+import { UserRestProvider } from "../../providers/user-rest/user-rest";
+import { PopoverController} from "ionic-angular";
+import { PopoverPage } from "./popover";
 
 /**
  * Generated class for the ChatPage page.
@@ -23,25 +25,38 @@ export class ChatPage implements OnInit{
 
   @ViewChild(Content) content: Content;
 
+  users: User[] = [];
   user: User = {} as User;
   teaching: Teaching = {} as Teaching;
   message:  Message[] =[];
   msg:string;
-  temp:any;
+  type:number =0;
+  emailReceiver:string='';
+  nameReceiver:string='';
+  receiver:{
+    type:number,
+    emailReceiver:string,
+    nameReceiver:string,
+  };
+  infoData:string[]=[];
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public angularFireDb: AngularFireDatabase,
-              public chatProvider: ChatProvider) {
+              public chatProvider: ChatProvider,
+              public userRestProvider: UserRestProvider,
+              public popoverCtrl: PopoverController) {
 
     this.user = JSON.parse(localStorage.getItem('user'));
     this.teaching = this.navParams.get('teaching');
 
-
     this.angularFireDb.list('/'+this.teaching.name + "/messages").valueChanges().subscribe(data=>{
       this.message = JSON.parse(JSON.stringify(data));
-      console.log(this.message[0].msg);
-    })
+      this.setInfoData();
+
+    });
+
+    this.getStudents();
 
   }
 
@@ -54,8 +69,9 @@ export class ChatPage implements OnInit{
 
   sendMessage(){
     console.log(this.msg);
-
-    this.chatProvider.sendMessage(this.msg, 1,'All', this.teaching.name, this.user.name);
+     var date = new Date();
+    console.log(date);
+    this.chatProvider.sendMessage(this.msg, this.type,this.emailReceiver, this.user.email, this.teaching.name, date, this.user.name, this.nameReceiver);
     this.msg =null;
   }
 
@@ -73,4 +89,52 @@ export class ChatPage implements OnInit{
     }, 400)
   }
 
+  getStudents(){
+    this.userRestProvider.getStudentsByCourse(this.user.idCourse).subscribe(data=>{
+      this.users = data;
+      console.log(this.users);
+    })
+  }
+
+  presentPopover(myEvent) {
+    console.log(this.teaching);
+    let popover = this.popoverCtrl.create(PopoverPage, {
+      users: this.users,
+      idUser: this.user.id,
+      receiver:this.type,
+      emailReceiver: this.emailReceiver,
+      professor: this.teaching.professorDTO,
+    });
+    popover.present({
+      ev: myEvent
+    });
+    popover.onDidDismiss(data => {
+      this.receiver = data;
+      if (this.receiver != null) {
+        this.type=this.receiver.type;
+        this.emailReceiver=this.receiver.emailReceiver;
+        this.nameReceiver = this.receiver.nameReceiver;
+        console.log(data);
+      }
+
+    })
+  }
+
+  setInfoData(){
+    let i =0;
+    var today = new Date();
+    this.message.forEach(data =>{
+      var d = new Date(data.date);
+      if(d.getDate()== today.getDate() && d.getMonth() == today.getMonth() && d.getFullYear() == today.getFullYear()){
+        this.infoData[i]=d.getHours()+":"+d.getMinutes();
+        i++;
+      } else {
+        var MM = d.getMonth()+1;
+        this.infoData[i] = d.getDate()+'/'+MM;
+        i++;
+      }
+
+    })
+
+  }
 }
