@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
 import {User} from "../../models/user";
+import {ServerUrl} from "../../Variable";
 
 
 /*
@@ -12,7 +13,7 @@ import {User} from "../../models/user";
 */
 @Injectable()
 export class UserRestProvider {
-  apiUserUrl = 'http://192.168.1.5:8080/SeApp/student/'
+  apiUserUrl = `${ServerUrl.url}/student`;
 
   constructor(public http: HttpClient) {
     console.log('Hello StudentRestProvider Provider');
@@ -21,7 +22,7 @@ export class UserRestProvider {
 
   getUserByUid(uid: String) {
     return new Promise( resolve => {
-      this.http.get(this.apiUserUrl+"getByUid/"+uid).subscribe(data =>{
+      this.http.get(this.apiUserUrl+"/getByUid/"+uid).subscribe(data =>{
         resolve(data);
       }, err =>{
         console.log(err)

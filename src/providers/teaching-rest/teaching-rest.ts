@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
 import {Teaching} from "../../models/teaching";
+import { ServerUrl } from "../../Variable";
 
 
 /*
@@ -13,7 +14,7 @@ import {Teaching} from "../../models/teaching";
 @Injectable()
 export class TeachingRestProvider {
 
-  apiTeachingUrl = 'http://192.168.1.5:8080/SeApp/teaching/';
+  apiTeachingUrl = `${ServerUrl.url}/teaching`;
 
   constructor(public http: HttpClient) {
     console.log('Hello TeachingRestProvider Provider');
@@ -21,7 +22,7 @@ export class TeachingRestProvider {
 
 
   getTeachingByCourse(idCourse:number): Observable<Teaching[]>{
-    return this.http.get<Teaching[]>(this.apiTeachingUrl+"getByIdCourse/"+idCourse);
+    return this.http.get<Teaching[]>(this.apiTeachingUrl+"/getByIdCourse/"+idCourse);
   }
 
 

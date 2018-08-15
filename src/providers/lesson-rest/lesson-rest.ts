@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
 import {Lesson} from "../../models/lesson";
+import {ServerUrl} from "../../Variable";
 
 
 /*
@@ -12,14 +13,14 @@ import {Lesson} from "../../models/lesson";
 */
 @Injectable()
 export class LessonRestProvider {
-  apiLessonUrl = 'http://192.168.1.5:8080/SeApp/lesson/';
+  apiLessonUrl = `${ServerUrl.url}/lesson`;
 
   constructor(public http: HttpClient) {
     console.log('Hello LessonRestProvider Provider');
   }
 
   getLessonStudentByDate(date:string, id: number):Observable<Lesson[]> {
-    return this.http.get<Lesson[]>(this.apiLessonUrl + "getByDate/" + date + "_" + id);
+    return this.http.get<Lesson[]>(this.apiLessonUrl + "/getByDate/" + date + "_" + id);
   }
 
 }

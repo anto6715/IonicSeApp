@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
 import {Material} from "../../models/material";
+import {ServerUrl} from "../../Variable";
 
 /*
   Generated class for the MaterialRestProvider provider.
@@ -11,14 +12,14 @@ import {Material} from "../../models/material";
 */
 @Injectable()
 export class MaterialRestProvider {
-  apiMaterialUrl = 'http://192.168.1.5:8080/SeApp/material/';
+  apiMaterialUrl = `${ServerUrl.url}/material`;
 
   constructor(public http: HttpClient) {
     console.log('Hello MaterialRestProvider Provider');
   }
 
   getMaterialByIdLesson(id:number): Observable<Material[]> {
-    return this.http.get<Material[]>(this.apiMaterialUrl+"getByIdLesson/"+id);
+    return this.http.get<Material[]>(this.apiMaterialUrl+"/getByIdLesson/"+id);
   }
 
 }
