@@ -4,6 +4,9 @@ import { Storage } from "@ionic/storage";
 import {HomePage} from "../../home/home";
 import { MenuController} from "ionic-angular";
 import {User } from "../../../models/user";
+import { FirebaseProvider } from "../../../providers/firebase/firebase";
+import {tap} from "rxjs/operators";
+import { ToastController} from "ionic-angular";
 
 /**
  * Generated class for the HomeStudentPage page.
@@ -23,7 +26,9 @@ export class HomeStudentPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public storage: Storage,
-              public menuCtrl: MenuController) {
+              public menuCtrl: MenuController,
+              public fcm: FirebaseProvider,
+              public toastCtrl: ToastController) {
 
   this.menuCtrl.enable(false,'menuProfessor');
   this.menuCtrl.enable(true,'menuStudent');
@@ -41,6 +46,19 @@ export class HomeStudentPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomeStudentPage');
+    //this.fcm.getToken();
+    this.fcm.listenToNotifications().pipe(
+      tap(msg => {
+        // show a toast
+        const toast = this.toastCtrl.create({
+          message: msg.body,
+          duration: 3000
+        });
+        toast.present();
+      })
+    )
+      .subscribe()
   }
 
 }
+
