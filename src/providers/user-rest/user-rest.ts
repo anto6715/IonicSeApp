@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
 import {User} from "../../models/user";
 import {ServerUrl} from "../../Variable";
+import { Token } from "../../models/token";
+import {AlertController} from "ionic-angular";
 
 
 /*
@@ -15,7 +17,9 @@ import {ServerUrl} from "../../Variable";
 export class UserRestProvider {
   apiUserUrl = `${ServerUrl.url}/student`;
 
-  constructor(public http: HttpClient) {
+
+  constructor(public http: HttpClient,
+              public alertCtrl: AlertController,) {
     console.log('Hello StudentRestProvider Provider');
   }
 
@@ -32,5 +36,18 @@ export class UserRestProvider {
 
   getStudentsByCourse(idCourse:number): Observable<User[]>{
     return this.http.get<User[]>(this.apiUserUrl+'/getByCourse/'+idCourse);
+  }
+
+
+
+
+  showAlert(message: string) {
+    let alert = this.alertCtrl.create({
+      title:'Login',
+      subTitle: message,
+      buttons:['OK']
+
+    });
+    alert.present();
   }
 }

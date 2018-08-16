@@ -45,12 +45,11 @@ export class LoginPage {
   signInUser() {
 
 
+
       this.fireAuth.auth.signInWithEmailAndPassword(this.uname.value, 'prova123')
       .then(data =>{
         console.log(data);
         this.getUser(data.user.uid);
-        this.showAlert('Successfull log in');
-        this.navCtrl.setRoot(HomeStudentPage);
       })
       .catch(err =>{
         console.log(err.message);
@@ -75,6 +74,9 @@ export class LoginPage {
       .then(data=>{
         console.log(data);
         localStorage.setItem('user', JSON.stringify(data));
+
+        this.showAlert('Successfull log in');
+        this.navCtrl.setRoot(HomeStudentPage);
       })
       .catch(err=>{
         console.log(err.message);

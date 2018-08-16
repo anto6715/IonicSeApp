@@ -14,6 +14,8 @@ export interface User {
   yearStart?: number;
   idCourse?: number;
   courseDTO?: Course;
+  token?:string;
+  idUser?:number;
 
 
 }

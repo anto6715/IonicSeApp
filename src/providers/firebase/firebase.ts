@@ -1,8 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Firebase } from "@ionic-native/firebase";
-import { Platform} from "ionic-angular";
+import {AlertController, Platform} from "ionic-angular";
 import { AngularFirestore} from "angularfire2/firestore";
+import { UserRestProvider } from "../user-rest/user-rest";
+import {Observable} from "rxjs";
+import {Token} from "../../models/token";
+import {ServerUrl} from "../../Variable";
+import {User} from "../../models/user";
 
 /*
   Generated class for the FirebaseProvider provider.
@@ -12,21 +17,25 @@ import { AngularFirestore} from "angularfire2/firestore";
 */
 @Injectable()
 export class FirebaseProvider {
+  apiFcmUrl = `${ServerUrl.url}/user`;
+  tkn:Token = {} as Token;
+  user:User;
 
   constructor(public http: HttpClient,
               public firebaseNative: Firebase,
+              public alertCtrl: AlertController,
               public afs: AngularFirestore,
-              private platform: Platform) {
+              private platform: Platform,
+              public userRest: UserRestProvider) {
     console.log('Hello FirebaseProvider Provider');
   }
 
 
-  async getToken(){
+  async getToken(idUser:number){
     let token;
-    console.log('qua');
     if (this.platform.is('android')) {
-      console.log('cordova');
       token = await this.firebaseNative.getToken();
+
       console.log(token);
     }
 
@@ -35,24 +44,46 @@ export class FirebaseProvider {
       await this.firebaseNative.grantPermission();
     }
 
-    return this.saveTokenToFirestore(token)
+    this.addFcmToken(token).subscribe(data=>{
+      this.tkn = data;
+      this.showAlert(this.tkn.token);
+      this.showAlert('fatto');
+    })
   }
 
-  private saveTokenToFirestore(token) {
-    if (!token) return;
+  private saveTokenToFirestore(token,idUser) {
 
-    const devicesRef = this.afs.collection('devices')
 
-    const docData = {
-      token,
-      userId: 'testUser',
-    };
-
-    return devicesRef.doc(token).set(docData)
+    this.addFcmToken(token).subscribe(data=>{
+      console.log(data);
+    }, err=>console.log(err));
   }
 
   listenToNotifications() {
     return this.firebaseNative.onNotificationOpen();
   }
 
+  addFcmToken(token:string):Observable<Token>{
+    if (!token) {
+      this.showAlert("nessun token");
+    }
+    this.user = JSON.parse(localStorage.getItem('user'));
+    this.showAlert(this.user.name);
+    this.showAlert(this.user.idUser.toString());
+
+    return this.http.post<Token>(this.apiFcmUrl+'/addFcmToken',{
+      "idUser":this.user.idUser,
+      "token":token,
+    } );
+  }
+
+  showAlert(message: string) {
+    let alert = this.alertCtrl.create({
+      title:'Login',
+      subTitle: message,
+      buttons:['OK']
+
+    });
+    alert.present();
+  }
 }

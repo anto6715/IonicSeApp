@@ -7,6 +7,8 @@ import {User } from "../../../models/user";
 import { FirebaseProvider } from "../../../providers/firebase/firebase";
 import {tap} from "rxjs/operators";
 import { ToastController} from "ionic-angular";
+import { UserRestProvider} from "../../../providers/user-rest/user-rest";
+import {Token} from "../../../models/token";
 
 /**
  * Generated class for the HomeStudentPage page.
@@ -21,19 +23,44 @@ import { ToastController} from "ionic-angular";
   templateUrl: 'home-student.html',
 })
 export class HomeStudentPage {
-  user: User;
+  user: User={} as User;
+  tkn: Token;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public storage: Storage,
               public menuCtrl: MenuController,
               public fcm: FirebaseProvider,
-              public toastCtrl: ToastController) {
+              public toastCtrl: ToastController,
+              public userRest: UserRestProvider) {
 
   this.menuCtrl.enable(false,'menuProfessor');
   this.menuCtrl.enable(true,'menuStudent');
-
   this.user =    JSON.parse(localStorage.getItem('user'));
+
+
+
+
+    if (!this.user.token) {
+      this.fcm.getToken(this.user.idUser);
+
+    }
+
+    this.fcm.listenToNotifications().pipe(
+      tap(msg => {
+        // show a toast
+        const toast = this.toastCtrl.create({
+          message: msg.body,
+          duration: 3000
+        });
+        toast.present();
+      })
+    )
+      .subscribe()
+
+
+
+
 
   }
 
@@ -46,19 +73,10 @@ export class HomeStudentPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomeStudentPage');
-    //this.fcm.getToken();
-    this.fcm.listenToNotifications().pipe(
-      tap(msg => {
-        // show a toast
-        const toast = this.toastCtrl.create({
-          message: msg.body,
-          duration: 3000
-        });
-        toast.present();
-      })
-    )
-      .subscribe()
+
+
   }
+
 
 }
 
