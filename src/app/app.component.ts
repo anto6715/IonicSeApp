@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import {AlertController, MenuController, Nav, Platform} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import * as firebase from 'firebase'
@@ -11,7 +11,7 @@ import {LessonPage} from "../pages/Student/lesson/lesson";
 import {User} from "../models/user";
 import {MaterialPage} from "../pages/material/material";
 import {TeachingListPage} from "../pages/teaching-list/teaching-list";
-
+import { FirebaseProvider } from "../providers/firebase/firebase";
 
 @Component({
   templateUrl: 'app.html'
@@ -24,7 +24,12 @@ export class MyApp {
   pages: Array<{title: string, component: any}>;
   pages2: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform,
+              public statusBar: StatusBar,
+              public splashScreen: SplashScreen,
+              public firebase: FirebaseProvider,
+              public menuCtrl: MenuController,
+              public alertCtrl: AlertController) {
     this.initializeApp();
 
     this.user = JSON.parse(localStorage.getItem('user'));
@@ -58,7 +63,24 @@ export class MyApp {
   }
 
   logout(){
-    localStorage.removeItem('user');
-    this.nav.setRoot(LoginPage);
+    //
+    this.firebase.addFcmToken(null).subscribe(data=>{
+      this.showAlert('logout completato');
+      localStorage.removeItem('user');
+      this.menuCtrl.close('menuStudent');
+      this.nav.setRoot(LoginPage);
+
+    });
+
+  }
+
+  showAlert(message: string) {
+    let alert = this.alertCtrl.create({
+      title:'Login',
+      subTitle: message,
+      buttons:['OK']
+
+    });
+    alert.present();
   }
 }

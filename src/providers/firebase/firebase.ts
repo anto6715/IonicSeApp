@@ -64,9 +64,7 @@ export class FirebaseProvider {
   }
 
   addFcmToken(token:string):Observable<Token>{
-    if (!token) {
-      this.showAlert("nessun token");
-    }
+
     this.user = JSON.parse(localStorage.getItem('user'));
     this.showAlert(this.user.name);
     this.showAlert(this.user.idUser.toString());
@@ -76,6 +74,8 @@ export class FirebaseProvider {
       "token":token,
     } );
   }
+
+
 
   showAlert(message: string) {
     let alert = this.alertCtrl.create({
