@@ -8,5 +8,6 @@ export interface Professor {
   age?: number;
   uid?: string;
   userType?: number;
+  idUser?:number;
 
 }

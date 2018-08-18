@@ -33,11 +33,13 @@ export class ChatPage implements OnInit{
   type:number =0;
   emailReceiver:string='';
   nameReceiver:string='';
-  receiver:{
-    type:number,
-    emailReceiver:string,
-    nameReceiver:string,
-  };
+  receiver:Message ={
+    emailReceiver:'',
+    nameReceiver:'',
+    type:0,
+    idReceiver:0,
+
+  } as Message;
   infoData:string[]=[];
 
   constructor(public navCtrl: NavController,
@@ -49,6 +51,7 @@ export class ChatPage implements OnInit{
 
     this.user = JSON.parse(localStorage.getItem('user'));
     this.teaching = this.navParams.get('teaching');
+
 
     this.angularFireDb.list('/'+this.teaching.name + "/messages").valueChanges().subscribe(data=>{
       this.message = JSON.parse(JSON.stringify(data));
@@ -71,7 +74,16 @@ export class ChatPage implements OnInit{
     console.log(this.msg);
      var date = new Date();
     console.log(date);
-    this.chatProvider.sendMessage(this.msg, this.type,this.emailReceiver, this.user.email, this.teaching.name, date, this.user.name, this.nameReceiver);
+    this.chatProvider.sendMessage(
+      this.msg,
+      this.type,
+      this.receiver.emailReceiver,
+      this.user.email,
+      this.teaching.name,
+      date,
+      this.user.name,
+      this.receiver.nameReceiver,
+      this.receiver.idReceiver);
     this.msg =null;
   }
 
@@ -110,6 +122,7 @@ export class ChatPage implements OnInit{
     });
     popover.onDidDismiss(data => {
       this.receiver = data;
+      console.log(this.receiver);
       if (this.receiver != null) {
         this.type=this.receiver.type;
         this.emailReceiver=this.receiver.emailReceiver;

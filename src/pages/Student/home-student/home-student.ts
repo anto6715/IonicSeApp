@@ -10,6 +10,9 @@ import { UserRestProvider} from "../../../providers/user-rest/user-rest";
 import {Token} from "../../../models/token";
 import {TeachingListPage} from "../../teaching-list/teaching-list";
 import { NotificationProvider } from "../../../providers/notification/notification";
+import {Teaching} from "../../../models/teaching";
+import { TeachingRestProvider } from "../../../providers/teaching-rest/teaching-rest";
+
 
 /**
  * Generated class for the HomeStudentPage page.
@@ -26,6 +29,7 @@ import { NotificationProvider } from "../../../providers/notification/notificati
 export class HomeStudentPage {
   user: User={} as User;
   tkn: Token;
+  teaching: Teaching[] =[];
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -35,15 +39,27 @@ export class HomeStudentPage {
               public fcm: FirebaseProvider,
               public toastCtrl: ToastController,
               private toastController: ToastController,
+              public teachingRest: TeachingRestProvider,
               public notificationRest: NotificationProvider) {
 
   this.menuCtrl.enable(false,'menuProfessor');
   this.menuCtrl.enable(true,'menuStudent');
   this.user =    JSON.parse(localStorage.getItem('user'));
-
-  this.notificationRest.sendNotification('Nuova notifica', 'ciao','altro',this.user.idUser).subscribe(data=>{
-    console.log('notifica inviata');
+  this.teachingRest.getTeachingByCourse(this.user.idCourse).subscribe(data=>{
+    data.forEach(teaching =>{
+      this.fcm.subscribeTopic(teaching.name.replace(/ /, '')).pipe(
+        tap (msg =>{
+          const toast = this.toastCtrl.create({
+            message: msg.body,
+            duration: 3000
+          });
+          toast.present();
+        })
+      ).subscribe();
+    })
   });
+
+
 
 
 

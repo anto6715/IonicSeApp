@@ -4,7 +4,7 @@ import { Firebase } from "@ionic-native/firebase";
 import {AlertController, Platform} from "ionic-angular";
 import { AngularFirestore} from "angularfire2/firestore";
 import { UserRestProvider } from "../user-rest/user-rest";
-import {Observable} from "rxjs";
+import {from, Observable} from "rxjs";
 import {Token} from "../../models/token";
 import {ServerUrl} from "../../Variable";
 import {User} from "../../models/user";
@@ -73,6 +73,10 @@ export class FirebaseProvider {
       "idUser":this.user.idUser,
       "token":token,
     } );
+  }
+
+  public subscribeTopic(topic:string){
+    return from(this.firebaseNative.subscribe(topic));
   }
 
 

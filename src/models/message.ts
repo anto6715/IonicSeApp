@@ -7,5 +7,6 @@ export interface Message {
   msg:string;
   nameSender:string;
   nameReceiver:string;
+  idReceiver:number;
 
 }

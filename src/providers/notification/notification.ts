@@ -20,7 +20,7 @@ export class NotificationProvider {
     console.log('Hello NotificationProvider Provider');
   }
 
-  sendNotification(title:string, body:string, data:string, idUser:number): Observable<any>{
+  sendToUser(title:string, body:string, data:string, idUser:number): Observable<any>{
 
     let notification: Notification = {
       title: title,
@@ -32,5 +32,7 @@ export class NotificationProvider {
     return this.http.post<any>(this.apiNotificationUrl+"/sendToUser", notification);
 
   }
+
+
 
 }
