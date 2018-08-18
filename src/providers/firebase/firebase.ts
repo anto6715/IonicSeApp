@@ -59,7 +59,7 @@ export class FirebaseProvider {
     }, err=>console.log(err));
   }
 
-  listenToNotifications() {
+  public listenToNotifications() {
     return this.firebaseNative.onNotificationOpen();
   }
 

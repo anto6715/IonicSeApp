@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {IonicPage, Nav, NavController, NavParams} from 'ionic-angular';
 import { AlertController } from "ionic-angular";
 import { AngularFireAuth } from "angularfire2/auth";
 import {HomeStudentPage} from "../Student/home-student/home-student";
@@ -26,6 +26,8 @@ var config = {
   templateUrl: 'login.html',
 })
 export class LoginPage {
+
+
 
   @ViewChild("username") uname;
   @ViewChild("password") passwd;

@@ -4,7 +4,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import * as firebase from 'firebase'
 
-import { HomePage } from '../pages/home/home';
 import {LoginPage} from "../pages/login/login";
 import {HomeStudentPage} from "../pages/Student/home-student/home-student";
 import {LessonPage} from "../pages/Student/lesson/lesson";
@@ -30,13 +29,16 @@ export class MyApp {
               public firebase: FirebaseProvider,
               public menuCtrl: MenuController,
               public alertCtrl: AlertController) {
+
     this.initializeApp();
 
     this.user = JSON.parse(localStorage.getItem('user'));
 
+
+
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Modifica', component: HomePage }
+
     ];
     this.pages2 = [
       { title: 'Orario Lezioni', component: LessonPage },
@@ -52,6 +54,9 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      if(this.user != null) {
+        this.nav.setRoot(HomeStudentPage);
+      }
     });
 
   }
@@ -83,4 +88,6 @@ export class MyApp {
     });
     alert.present();
   }
+
+
 }
