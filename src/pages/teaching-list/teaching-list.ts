@@ -44,7 +44,7 @@ export class TeachingListPage {
   }
 
   startChat(i:number) {
-    this.navCtrl.push(ChatPage, {'teaching':this.teaching[i]});
+    this.navCtrl.push(ChatPage, {'teaching':this.teaching[i].name});
 
   }
 }

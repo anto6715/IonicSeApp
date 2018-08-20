@@ -48,10 +48,13 @@ export class ChatProvider {
 
     });
     if (type !=0) {
-      this.notificationRest.sendToUser('Nuovo Messaggio privato',teachingName,'message',idReceiver).subscribe(data=>{
+      this.notificationRest.sendToUser('Nuovo Messaggio privato',teachingName,teachingName,idReceiver).subscribe(data=>{
         console.log('notifica inviata');
       })
     } else {
+      this.notificationRest.sendToTopic('Nuovo Messaggio', teachingName,teachingName, teachingName.replace(/ /, '')).subscribe( data =>{
+        console.log('notifica inviata');
+      })
 
     }
 

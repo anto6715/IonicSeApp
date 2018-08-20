@@ -8,6 +8,7 @@ import { ChatProvider } from "../../providers/chat/chat";
 import { UserRestProvider } from "../../providers/user-rest/user-rest";
 import { PopoverController} from "ionic-angular";
 import { PopoverPage } from "./popover";
+import { TeachingRestProvider} from "../../providers/teaching-rest/teaching-rest";
 
 /**
  * Generated class for the ChatPage page.
@@ -30,9 +31,7 @@ export class ChatPage implements OnInit{
   teaching: Teaching = {} as Teaching;
   message:  Message[] =[];
   msg:string;
-  type:number =0;
-  emailReceiver:string='';
-  nameReceiver:string='';
+  nameTeaching:string;
   receiver:Message ={
     emailReceiver:'',
     nameReceiver:'',
@@ -47,19 +46,24 @@ export class ChatPage implements OnInit{
               public angularFireDb: AngularFireDatabase,
               public chatProvider: ChatProvider,
               public userRestProvider: UserRestProvider,
-              public popoverCtrl: PopoverController) {
-
+              public popoverCtrl: PopoverController,
+              public teachingRestProvider: TeachingRestProvider) {
+    this.nameTeaching=this.navParams.get('teaching');
     this.user = JSON.parse(localStorage.getItem('user'));
-    this.teaching = this.navParams.get('teaching');
+    this.teachingRestProvider.getByNameAndIdCourse(this.nameTeaching, this.user.idCourse).subscribe(data=>{
+      this.teaching = data;
+      console.log(this.teaching);
+    });
 
 
-    this.angularFireDb.list('/'+this.teaching.name + "/messages").valueChanges().subscribe(data=>{
+    this.angularFireDb.list('/'+this.nameTeaching + "/messages").valueChanges().subscribe(data=>{
       this.message = JSON.parse(JSON.stringify(data));
       this.setInfoData();
 
     });
 
     this.getStudents();
+    this.scrollToBottom();
 
   }
 
@@ -76,7 +80,7 @@ export class ChatPage implements OnInit{
     console.log(date);
     this.chatProvider.sendMessage(
       this.msg,
-      this.type,
+      this.receiver.type,
       this.receiver.emailReceiver,
       this.user.email,
       this.teaching.name,
@@ -113,22 +117,26 @@ export class ChatPage implements OnInit{
     let popover = this.popoverCtrl.create(PopoverPage, {
       users: this.users,
       idUser: this.user.id,
-      receiver:this.type,
-      emailReceiver: this.emailReceiver,
+      receiver:this.receiver.type,
+      emailReceiver: this.receiver.emailReceiver,
       professor: this.teaching.professorDTO,
     });
     popover.present({
       ev: myEvent
     });
     popover.onDidDismiss(data => {
-      this.receiver = data;
-      console.log(this.receiver);
-      if (this.receiver != null) {
-        this.type=this.receiver.type;
-        this.emailReceiver=this.receiver.emailReceiver;
-        this.nameReceiver = this.receiver.nameReceiver;
-        console.log(data);
+
+      if (data == null) {
+        this.receiver.emailReceiver='';
+        this.receiver.nameReceiver='';
+        this.receiver.type=0;
+        this.receiver.idReceiver=0;
+      } else {
+        this.receiver = data;
+        console.log(this.receiver);
       }
+
+
 
     })
   }

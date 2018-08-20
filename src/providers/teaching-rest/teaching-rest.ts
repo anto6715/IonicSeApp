@@ -25,6 +25,10 @@ export class TeachingRestProvider {
     return this.http.get<Teaching[]>(this.apiTeachingUrl+"/getByIdCourse/"+idCourse);
   }
 
+  getByNameAndIdCourse(name:string, idCourse:number): Observable<Teaching>{
+    return this.http.get<Teaching>(this.apiTeachingUrl+"/getByNameAndIdCourse/"+name+"_"+idCourse);
+  }
+
 
 
 }

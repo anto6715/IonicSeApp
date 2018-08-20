@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
+import {AlertController, IonicPage, NavController, NavParams, Platform} from 'ionic-angular';
 import { Storage } from "@ionic/storage";
 import { MenuController} from "ionic-angular";
 import {User } from "../../../models/user";
@@ -12,6 +12,7 @@ import {TeachingListPage} from "../../teaching-list/teaching-list";
 import { NotificationProvider } from "../../../providers/notification/notification";
 import {Teaching} from "../../../models/teaching";
 import { TeachingRestProvider } from "../../../providers/teaching-rest/teaching-rest";
+import { NotificationHandler} from "../../handler/NotificationHandler";
 
 
 /**
@@ -30,6 +31,7 @@ export class HomeStudentPage {
   user: User={} as User;
   tkn: Token;
   teaching: Teaching[] =[];
+  handler: NotificationHandler;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -40,20 +42,22 @@ export class HomeStudentPage {
               public toastCtrl: ToastController,
               private toastController: ToastController,
               public teachingRest: TeachingRestProvider,
-              public notificationRest: NotificationProvider) {
+              public notificationRest: NotificationProvider,
+              private platfor: Platform) {
 
+
+  this.handler = new NotificationHandler(platfor, navCtrl);
   this.menuCtrl.enable(false,'menuProfessor');
   this.menuCtrl.enable(true,'menuStudent');
+
+
   this.user =    JSON.parse(localStorage.getItem('user'));
+
   this.teachingRest.getTeachingByCourse(this.user.idCourse).subscribe(data=>{
     data.forEach(teaching =>{
-      this.fcm.subscribeTopic(teaching.name.replace(/ /, '')).pipe(
+      this.fcm.subscribeTopic(teaching.name.replace(/ /, '')+"_"+this.user.idCourse).pipe(
         tap (msg =>{
-          const toast = this.toastCtrl.create({
-            message: msg.body,
-            duration: 3000
-          });
-          toast.present();
+          this.createToastMessage(msg.body);
         })
       ).subscribe();
     })
@@ -71,15 +75,12 @@ export class HomeStudentPage {
     this.fcm.listenToNotifications().pipe(
       tap(msg => {
         // show a toast
-        this.navCtrl.push(TeachingListPage);
-        const toast = this.toastCtrl.create({
-          message: msg.body,
-          duration: 3000
-        });
-        toast.present();
+        this.createToastMessage(msg);
       })
-    )
-      .subscribe()
+    ).subscribe(data=>{
+        this.handler.notificationHandler(data);
+
+      })
 
 
 
@@ -90,7 +91,8 @@ export class HomeStudentPage {
   createToastMessage(msg) {
     const toast = this.toastController.create({
       message: msg.body,
-      duration: 3000
+      duration: 3000,
+      position:'top'
     });
     toast.present();
   }

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import {ServerUrl} from "../../Variable";
 import { Notification} from "../../models/notification";
 import {Observable} from "rxjs";
+import {User} from "../../models/user";
 
 /*
   Generated class for the NotificationProvider provider.
@@ -12,6 +13,7 @@ import {Observable} from "rxjs";
 */
 @Injectable()
 export class NotificationProvider {
+  user:User = {} as User;
 
 
   apiNotificationUrl = `${ServerUrl.url}/notification`;
@@ -26,13 +28,28 @@ export class NotificationProvider {
       title: title,
       body: body,
       data: data,
+      type: 'chat',
       idUser: idUser,
+      token_topic:'',
     };
 
     return this.http.post<any>(this.apiNotificationUrl+"/sendToUser", notification);
 
   }
 
+  sendToTopic(title:string, body:string, data:string, topic:string){
 
+    this.user = JSON.parse(localStorage.getItem('user'));
+    let notification: Notification = {
+      title: title,
+      body: body,
+      data: data,
+      type: 'chat',
+      idUser:0,
+      token_topic: topic+"_"+this.user.idCourse,
+    };
+
+    return this.http.post<any>(this.apiNotificationUrl+"/sendToTopic", notification);
+  }
 
 }
