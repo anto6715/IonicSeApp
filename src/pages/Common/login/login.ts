@@ -1,18 +1,13 @@
 import {Component, ViewChild} from '@angular/core';
-import {IonicPage, Nav, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, NavController} from 'ionic-angular';
 import { AlertController } from "ionic-angular";
 import { AngularFireAuth } from "angularfire2/auth";
-import {HomeStudentPage} from "../Student/home-student/home-student";
-import { UserRestProvider} from "../../providers/user-rest/user-rest";
-import * as firebase from 'firebase'
-var config = {
-  apiKey: "AIzaSyCZ3Ha8coWfTCEFYbwnm2ia3iN6GvJpVls",
-  authDomain: "seapp-17679.firebaseapp.com",
-  databaseURL: "https://seapp-17679.firebaseio.com",
-  projectId: "seapp-17679",
-  storageBucket: "seapp-17679.appspot.com",
-  messagingSenderId: "462401369686"
-};
+import {HomeStudentPage} from "../../Student/home-student/home-student";
+import { UserRestProvider} from "../../../providers/user-rest/user-rest";
+import { Value } from "../../../Variable";
+import {User} from "../../../models/user";
+import {HomeProfessorPage} from "../../Professor/home-professor/home-professor";
+
 /**
  * Generated class for the LoginPage page.
  *
@@ -31,10 +26,9 @@ export class LoginPage {
 
   @ViewChild("username") uname;
   @ViewChild("password") passwd;
-  user: any;
+  user: User = {} as User;
 
   constructor(public navCtrl: NavController,
-              public navParams: NavParams,
               public alertCtrl: AlertController,
               public fireAuth: AngularFireAuth,
               private userRestProvider: UserRestProvider) {
@@ -74,11 +68,19 @@ export class LoginPage {
   getUser(uid: string) {
     this.userRestProvider.getUserByUid(uid)
       .then(data=>{
+        this.user = data;
         console.log(data);
         localStorage.setItem('user', JSON.stringify(data));
 
         this.showAlert('Successfull log in');
-        this.navCtrl.setRoot(HomeStudentPage);
+        if (this.user.userType == Value.student){
+          this.navCtrl.setRoot(HomeStudentPage);
+        } else if (this.user.userType == Value.professor) {
+          this.navCtrl.setRoot(HomeProfessorPage);
+        } else {
+          this.showAlert('utente non riconosciuto');
+        }
+
       })
       .catch(err=>{
         console.log(err.message);

@@ -1,14 +1,14 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
-import {AngularFireDatabase, snapshotChanges} from "angularfire2/database";
-import {User} from "../../models/user";
-import {Teaching} from "../../models/teaching";
-import {Message} from "../../models/message";
-import { ChatProvider } from "../../providers/chat/chat";
-import { UserRestProvider } from "../../providers/user-rest/user-rest";
+import {AngularFireDatabase} from "angularfire2/database";
+import {User} from "../../../models/user";
+import {Teaching} from "../../../models/teaching";
+import {Message} from "../../../models/message";
+import { ChatProvider } from "../../../providers/chat/chat";
+import { UserRestProvider } from "../../../providers/user-rest/user-rest";
 import { PopoverController} from "ionic-angular";
 import { PopoverPage } from "./popover";
-import { TeachingRestProvider} from "../../providers/teaching-rest/teaching-rest";
+import { TeachingRestProvider} from "../../../providers/teaching-rest/teaching-rest";
 
 /**
  * Generated class for the ChatPage page.
@@ -48,6 +48,7 @@ export class ChatPage implements OnInit{
               public userRestProvider: UserRestProvider,
               public popoverCtrl: PopoverController,
               public teachingRestProvider: TeachingRestProvider) {
+
     this.nameTeaching=this.navParams.get('teaching');
     this.user = JSON.parse(localStorage.getItem('user'));
     this.teachingRestProvider.getByNameAndIdCourse(this.nameTeaching, this.user.idCourse).subscribe(data=>{
@@ -63,7 +64,7 @@ export class ChatPage implements OnInit{
     });
 
     this.getStudents();
-    this.scrollToBottom();
+
 
   }
 
@@ -72,23 +73,27 @@ export class ChatPage implements OnInit{
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ChatPage');
+    this.scrollToBottom();
   }
 
   sendMessage(){
     console.log(this.msg);
-     var date = new Date();
+    var date = new Date();
     console.log(date);
-    this.chatProvider.sendMessage(
-      this.msg,
-      this.receiver.type,
-      this.receiver.emailReceiver,
-      this.user.email,
-      this.teaching.name,
-      date,
-      this.user.name,
-      this.receiver.nameReceiver,
-      this.receiver.idReceiver);
+    let sendMessage: Message = {
+      date: date,
+      idReceiver:this.receiver.idReceiver,
+      type:this.receiver.type,
+      nameReceiver:this.receiver.nameReceiver,
+      emailReceiver:this.receiver.emailReceiver,
+      msg:this.msg,
+      nameSender:this.user.name,
+      emailSender:this.user.email,
+
+    };
+    this.chatProvider.sendMessage(sendMessage, this.teaching.name);
     this.msg =null;
+    this.scrollToBottom();
   }
 
   onFocus() {
@@ -125,7 +130,6 @@ export class ChatPage implements OnInit{
       ev: myEvent
     });
     popover.onDidDismiss(data => {
-
       if (data == null) {
         this.receiver.emailReceiver='';
         this.receiver.nameReceiver='';

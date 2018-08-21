@@ -20,13 +20,11 @@ export class ChatProvider {
 
   }
 
-  public sendMessage(msg:string, type:number, emailReceveir:string, emailSender:string, teachingName:string,date: Date, nameSender:string, nameReceiver:string, idReceiver:number){
+ /* public sendMessage(msg:string, type:number, emailReceveir:string, emailSender:string, teachingName:string,date: Date, nameSender:string, nameReceiver:string, idReceiver:number){
 
     firebase.database().ref('/'+teachingName).once('value',
       function (snapshot) {
       let i = snapshot.child('/messages').numChildren();
-      console.log(idReceiver);
-      console.log(i);
       let data: Message = {
         date:date,
         type:type,  // 0 se pubblico, 1 se privato
@@ -49,6 +47,29 @@ export class ChatProvider {
     });
     if (type !=0) {
       this.notificationRest.sendToUser('Nuovo Messaggio privato',teachingName,teachingName,idReceiver).subscribe(data=>{
+        console.log('notifica inviata');
+      })
+    } else {
+      this.notificationRest.sendToTopic('Nuovo Messaggio', teachingName,teachingName, teachingName.replace(/ /, '')).subscribe( data =>{
+        console.log('notifica inviata');
+      })
+
+    }
+
+  }*/
+
+  public sendMessage(message:Message,teachingName:string){
+
+    firebase.database().ref('/'+teachingName).once('value',
+      function (snapshot) {
+        let i = snapshot.child('/messages').numChildren();
+        let updates = {};
+        updates['/' +teachingName +'/messages/'+ i] = message;
+        firebase.database().ref().update(updates);
+
+      });
+    if (message.type !=0) {
+      this.notificationRest.sendToUser('Nuovo Messaggio privato',teachingName,teachingName,message.idReceiver).subscribe(data=>{
         console.log('notifica inviata');
       })
     } else {

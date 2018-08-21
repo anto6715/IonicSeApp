@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {Teaching} from "../../models/teaching";
-import { TeachingRestProvider } from "../../providers/teaching-rest/teaching-rest";
-import {User} from "../../models/user";
+import {Teaching} from "../../../models/teaching";
+import { TeachingRestProvider } from "../../../providers/teaching-rest/teaching-rest";
+import {User} from "../../../models/user";
 import {ChatPage} from "../chat/chat";
 
 /**

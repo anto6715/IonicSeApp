@@ -8,11 +8,11 @@ import {tap} from "rxjs/operators";
 import { ToastController} from "ionic-angular";
 import { UserRestProvider} from "../../../providers/user-rest/user-rest";
 import {Token} from "../../../models/token";
-import {TeachingListPage} from "../../teaching-list/teaching-list";
+import {TeachingListPage} from "../../Common/teaching-list/teaching-list";
 import { NotificationProvider } from "../../../providers/notification/notification";
 import {Teaching} from "../../../models/teaching";
 import { TeachingRestProvider } from "../../../providers/teaching-rest/teaching-rest";
-import { NotificationHandler} from "../../handler/NotificationHandler";
+import { NotificationHandler} from "../../Common/handler/NotificationHandler";
 
 
 /**
@@ -42,11 +42,10 @@ export class HomeStudentPage {
               public toastCtrl: ToastController,
               private toastController: ToastController,
               public teachingRest: TeachingRestProvider,
-              public notificationRest: NotificationProvider,
-              private platfor: Platform) {
+              private platform: Platform) {
 
 
-  this.handler = new NotificationHandler(platfor, navCtrl);
+  this.handler = new NotificationHandler(platform, navCtrl);
   this.menuCtrl.enable(false,'menuProfessor');
   this.menuCtrl.enable(true,'menuStudent');
 
@@ -90,7 +89,7 @@ export class HomeStudentPage {
 
   createToastMessage(msg) {
     const toast = this.toastController.create({
-      message: msg.body,
+      message: 'Nuovo Messaggio:'+ msg.body,
       duration: 3000,
       position:'top',
       showCloseButton: true,

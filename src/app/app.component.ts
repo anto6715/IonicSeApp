@@ -4,12 +4,12 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import * as firebase from 'firebase'
 
-import {LoginPage} from "../pages/login/login";
+import {LoginPage} from "../pages/Common/login/login";
 import {HomeStudentPage} from "../pages/Student/home-student/home-student";
 import {LessonPage} from "../pages/Student/lesson/lesson";
 import {User} from "../models/user";
-import {MaterialPage} from "../pages/material/material";
-import {TeachingListPage} from "../pages/teaching-list/teaching-list";
+import {MaterialPage} from "../pages/Student/material/material";
+import {TeachingListPage} from "../pages/Common/teaching-list/teaching-list";
 import { FirebaseProvider } from "../providers/firebase/firebase";
 
 @Component({

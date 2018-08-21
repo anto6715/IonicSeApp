@@ -4,7 +4,7 @@ import { LessonRestProvider } from "../../../providers/lesson-rest/lesson-rest";
 import {Lesson} from "../../../models/lesson";
 import {ModalController} from "ionic-angular";
 import { CalendarModal, CalendarModalOptions, DayConfig, CalendarResult } from "ion2-calendar";
-import { MaterialPage } from "../../material/material";
+import { MaterialPage } from "../material/material";
 import {LessonReviewPage} from "../lesson-review/lesson-review";
 
 /**

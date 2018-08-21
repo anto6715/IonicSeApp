@@ -1,12 +1,12 @@
 import {Component, NgZone} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ViewController} from "ionic-angular";
-import {Material} from "../../models/material";
-import { MaterialRestProvider } from "../../providers/material-rest/material-rest";
+import {Material} from "../../../models/material";
+import { MaterialRestProvider } from "../../../providers/material-rest/material-rest";
 import { AlertController } from "ionic-angular";
-import {User} from "../../models/user";
-import { ReviewRestProvider } from "../../providers/review-rest/review-rest";
-import {Review} from "../../models/review";
+import {User} from "../../../models/user";
+import { ReviewRestProvider } from "../../../providers/review-rest/review-rest";
+import {Review} from "../../../models/review";
 
 /**
  * Generated class for the MaterialPage page.
