@@ -41,6 +41,7 @@ export class PopoverPage {
   }
 
   close(type:number, email:string, name:string, idUser:number) {
+    console.log(idUser);
     this.viewCtrl.dismiss({
       type:type,
       emailReceiver: email,

@@ -15,7 +15,7 @@ import {AlertController} from "ionic-angular";
 */
 @Injectable()
 export class UserRestProvider {
-  apiUserUrl = `${ServerUrl.url}/student`;
+  apiUserUrl = `${ServerUrl.url}/user`;
 
 
   constructor(public http: HttpClient,

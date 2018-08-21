@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {IonicPage, MenuController, NavController, NavParams, Platform} from 'ionic-angular';
+import {NotificationHandler} from "../../Common/handler/NotificationHandler";
+import {User} from "../../../models/user";
 
 /**
  * Generated class for the HomeProfessorPage page.
@@ -15,7 +17,21 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class HomeProfessorPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  handler: NotificationHandler;
+  user: User={} as User;
+
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private platform: Platform,
+              public menuCtrl: MenuController,) {
+
+    this.handler = new NotificationHandler(platform, navCtrl);
+    this.menuCtrl.enable(true,'menuProfessor');
+    this.menuCtrl.enable(false,'menuStudent');
+
+
+    this.user =    JSON.parse(localStorage.getItem('user'));
+
   }
 
   ionViewDidLoad() {

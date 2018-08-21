@@ -73,11 +73,8 @@ export class LessonPage{
       pickMode: 'single',
       cssClass: 'calendario',
       canBackwardsSelected:true,
-
-
-
-
     };
+
     let myCalendar =  this.modalCtrl.create(CalendarModal, {
       options: options
     });
