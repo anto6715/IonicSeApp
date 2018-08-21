@@ -6,10 +6,7 @@ import {User } from "../../../models/user";
 import { FirebaseProvider } from "../../../providers/firebase/firebase";
 import {tap} from "rxjs/operators";
 import { ToastController} from "ionic-angular";
-import { UserRestProvider} from "../../../providers/user-rest/user-rest";
 import {Token} from "../../../models/token";
-import {TeachingListPage} from "../../Common/teaching-list/teaching-list";
-import { NotificationProvider } from "../../../providers/notification/notification";
 import {Teaching} from "../../../models/teaching";
 import { TeachingRestProvider } from "../../../providers/teaching-rest/teaching-rest";
 import { NotificationHandler} from "../../Common/handler/NotificationHandler";
@@ -29,44 +26,35 @@ import { NotificationHandler} from "../../Common/handler/NotificationHandler";
 })
 export class HomeStudentPage {
   user: User={} as User;
-  tkn: Token;
   teaching: Teaching[] =[];
   handler: NotificationHandler;
 
   constructor(public navCtrl: NavController,
-              public navParams: NavParams,
               public storage: Storage,
               public menuCtrl: MenuController,
               public alertCtrl: AlertController,
               public fcm: FirebaseProvider,
-              public toastCtrl: ToastController,
               private toastController: ToastController,
               public teachingRest: TeachingRestProvider,
               private platform: Platform) {
 
 
-  this.handler = new NotificationHandler(platform, navCtrl);
-  this.menuCtrl.enable(false,'menuProfessor');
-  this.menuCtrl.enable(true,'menuStudent');
+    this.handler = new NotificationHandler(platform, navCtrl);
+    this.menuCtrl.enable(false,'menuProfessor');
+    this.menuCtrl.enable(true,'menuStudent');
 
 
-  this.user =    JSON.parse(localStorage.getItem('user'));
+    this.user =    JSON.parse(localStorage.getItem('user'));
 
-  this.teachingRest.getTeachingByCourse(this.user.idCourse).subscribe(data=>{
-    data.forEach(teaching =>{
-      this.fcm.subscribeTopic(teaching.name.replace(/ /, '')+"_"+this.user.idCourse).pipe(
-        tap (msg =>{
-          this.createToastMessage(msg.body);
-        })
-      ).subscribe();
-    })
-  });
-
-
-
-
-
-
+    this.teachingRest.getTeachingByCourse(this.user.idCourse).subscribe(data=>{
+      data.forEach(teaching =>{
+        this.fcm.subscribeTopic(teaching.name.replace(/ /, '')+"_"+this.user.idCourse).pipe(
+          tap (msg =>{
+            this.createToastMessage(msg.body);
+          })
+        ).subscribe();
+      })
+    });
 
     if (!this.user.token) {
       this.fcm.getToken(this.user.idUser);
@@ -80,11 +68,6 @@ export class HomeStudentPage {
         this.createToastMessage(res);
       }
     });
-
-
-
-
-
   }
 
   createToastMessage(msg) {
@@ -114,18 +97,5 @@ export class HomeStudentPage {
 
 
   }
-
-
-  showAlert(message: string) {
-    let alert = this.alertCtrl.create({
-      title:'Login',
-      subTitle: message,
-      buttons:['OK']
-
-    });
-    alert.present();
-  }
-
-
 }
 
