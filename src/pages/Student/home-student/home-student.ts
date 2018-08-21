@@ -72,15 +72,15 @@ export class HomeStudentPage {
     if (!this.user.token) {
       this.fcm.getToken(this.user.idUser);
     }
-    this.fcm.listenToNotifications().pipe(
-      tap(msg => {
-        // show a toast
-        this.createToastMessage(msg);
-      })
-    ).subscribe(data=>{
-        this.handler.notificationHandler(data);
-
-      })
+    this.fcm.listenToNotifications().subscribe(res => {
+      if(res.tap) {
+        // background mode
+        this.handler.notificationHandler(res)
+      } else {
+        // foreground mode
+        this.createToastMessage(res);
+      }
+    });
 
 
 
@@ -92,7 +92,14 @@ export class HomeStudentPage {
     const toast = this.toastController.create({
       message: msg.body,
       duration: 3000,
-      position:'top'
+      position:'top',
+      showCloseButton: true,
+      closeButtonText:'apri'
+    });
+    toast.onDidDismiss((data, role) =>{
+      if (role == 'close') {
+        this.handler.notificationHandler(msg);
+      }
     });
     toast.present();
   }
