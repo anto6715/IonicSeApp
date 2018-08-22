@@ -4,8 +4,10 @@ import { LessonRestProvider } from "../../../providers/lesson-rest/lesson-rest";
 import {Lesson} from "../../../models/lesson";
 import {ModalController} from "ionic-angular";
 import { CalendarModal, CalendarModalOptions, DayConfig, CalendarResult } from "ion2-calendar";
-import { MaterialPage } from "../material/material";
-import {LessonReviewPage} from "../lesson-review/lesson-review";
+import { MaterialPage } from "../../Student/material/material";
+import {LessonReviewPage} from "../../Student/lesson-review/lesson-review";
+import {User} from "../../../models/user";
+import {Value} from "../../../Variable";
 
 /**
  * Generated class for the LessonPage page.
@@ -22,11 +24,12 @@ import {LessonReviewPage} from "../lesson-review/lesson-review";
 export class LessonPage{
 
 
-  user:any;
+  user:User = {} as User;
   lesson: Lesson[] = [];
   searchDate: string;
   title: string;
   todayDate: string;
+  value = Value;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -39,7 +42,7 @@ export class LessonPage{
     var d = new Date();
     var MM = d.getMonth() +1;
     this.todayDate = d.getFullYear()+"-"+MM+"-"+d.getUTCDate();
-    this.getLesson(this.todayDate,this.user.idCourse);
+    this.getLesson(this.todayDate);
 
   }
 
@@ -47,23 +50,46 @@ export class LessonPage{
     console.log('ionViewDidLoad LessonPage');
   }
 
-  getLesson(date: string, id:number) {
-    this.lessonRestProvider.getLessonStudentByDate(date,id).subscribe(data=>{
-      //console.log(data);
-      this.zone.run(()=>this.lesson = data);
-      if (data.length ==0){
-        if (this.searchDate == null){
-          this.title= 'Nessuna lezione    ' + this.todayDate;
+  getLesson(date: string) {
+
+    if (this.user.userType == Value.student){
+      this.lessonRestProvider.getLessonStudentByDate(date,this.user.idCourse).subscribe(data=>{
+        //console.log(data);
+        this.zone.run(()=>this.lesson = data);
+        if (data.length ==0){
+          if (this.searchDate == null){
+            this.title= 'Nessuna lezione    ' + this.todayDate;
+          } else {
+            this.title= 'Nessuna lezione    ' + this.searchDate;
+          }
+
         } else {
-          this.title= 'Nessuna lezione    ' + this.searchDate;
+          this.title = date;
         }
+        console.log(this.lesson);
 
-      } else {
-        this.title = date;
-      }
-      console.log(this.lesson);
+      })
+    }
 
-    })
+    if (this.user.userType == Value.professor) {
+      this.lessonRestProvider.getLessonProfByDate(date,this.user.id).subscribe(data=>{
+        //console.log(data);
+        this.zone.run(()=>this.lesson = data);
+        if (data.length ==0){
+          if (this.searchDate == null){
+            this.title= 'Nessuna lezione    ' + this.todayDate;
+          } else {
+            this.title= 'Nessuna lezione    ' + this.searchDate;
+          }
+
+        } else {
+          this.title = date;
+        }
+        console.log(this.lesson);
+
+      })
+    }
+
   }
 
   openCalendar() {
@@ -84,7 +110,7 @@ export class LessonPage{
     myCalendar.onDidDismiss((date: CalendarResult, type: string) => {
       if (type === 'done') {
         this.searchDate = date.years+"-"+date.months+"-"+date.date;
-        this.getLesson(this.searchDate,this.user.idCourse);
+        this.getLesson(this.searchDate);
       }
     })
   }

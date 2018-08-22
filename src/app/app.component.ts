@@ -6,7 +6,7 @@ import * as firebase from 'firebase'
 
 import {LoginPage} from "../pages/Common/login/login";
 import {HomeStudentPage} from "../pages/Student/home-student/home-student";
-import {LessonPage} from "../pages/Student/lesson/lesson";
+import {LessonPage} from "../pages/Common/lesson/lesson";
 import {User} from "../models/user";
 import {MaterialPage} from "../pages/Student/material/material";
 import {TeachingListPage} from "../pages/Common/teaching-list/teaching-list";
@@ -40,6 +40,7 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
+      { title: 'Orario Lezioni', component: LessonPage },
       { title: 'Chat', component: TeachingListPage},
 
     ];

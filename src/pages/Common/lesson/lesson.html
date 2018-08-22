@@ -32,8 +32,11 @@
       {{l.teachingDTO.name}}
     </ion-card-header>
 
-    <ion-item>
+    <ion-item *ngIf="user.userType == 1">
       <b>Professore:</b> {{l.teachingDTO.professorDTO.name}} {{l.teachingDTO.professorDTO.surname}}
+    </ion-item>
+    <ion-item *ngIf="user.userType == value.professor">
+      <b>Corso:</b> {{l.teachingDTO.courseDTO.name}}
     </ion-item>
     <hr>
     <ion-item>
