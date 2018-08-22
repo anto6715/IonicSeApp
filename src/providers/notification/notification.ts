@@ -37,7 +37,7 @@ export class NotificationProvider {
 
   }
 
-  sendToTopic(title:string, body:string, data:string, topic:string){
+  sendToTopic(title:string, body:string, data:string, topic:string, idCourse:number){
 
     this.user = JSON.parse(localStorage.getItem('user'));
     let notification: Notification = {
@@ -46,7 +46,7 @@ export class NotificationProvider {
       data: data,
       type: 'chat',
       idUser:0,
-      token_topic: topic+"_"+this.user.idCourse,
+      token_topic: topic+"_"+idCourse,
     };
 
     return this.http.post<any>(this.apiNotificationUrl+"/sendToTopic", notification);

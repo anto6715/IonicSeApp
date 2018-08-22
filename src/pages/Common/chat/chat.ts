@@ -9,6 +9,7 @@ import { UserRestProvider } from "../../../providers/user-rest/user-rest";
 import { PopoverController} from "ionic-angular";
 import { PopoverPage } from "./popover";
 import { TeachingRestProvider} from "../../../providers/teaching-rest/teaching-rest";
+import {Value} from "../../../Variable";
 
 /**
  * Generated class for the ChatPage page.
@@ -32,6 +33,7 @@ export class ChatPage implements OnInit{
   message:  Message[] =[];
   msg:string;
   nameTeaching:string;
+  idTeaching:number;
   receiver:Message ={
     emailReceiver:'',
     nameReceiver:'',
@@ -50,11 +52,10 @@ export class ChatPage implements OnInit{
               public teachingRestProvider: TeachingRestProvider) {
 
     this.nameTeaching=this.navParams.get('teaching');
+    this.idTeaching= this.navParams.get('id');
+    console.log(this.idTeaching);
     this.user = JSON.parse(localStorage.getItem('user'));
-    this.teachingRestProvider.getByNameAndIdCourse(this.nameTeaching, this.user.idCourse).subscribe(data=>{
-      this.teaching = data;
-      console.log(this.teaching);
-    });
+    this.getTeaching();
 
 
     this.angularFireDb.list('/'+this.nameTeaching + "/messages").valueChanges().subscribe(data=>{
@@ -62,8 +63,6 @@ export class ChatPage implements OnInit{
       this.setInfoData();
 
     });
-
-    this.getStudents();
 
 
   }
@@ -91,7 +90,7 @@ export class ChatPage implements OnInit{
       emailSender:this.user.email,
 
     };
-    this.chatProvider.sendMessage(sendMessage, this.teaching.name);
+    this.chatProvider.sendMessage(sendMessage, this.teaching);
     this.msg =null;
     this.scrollToBottom();
   }
@@ -111,10 +110,31 @@ export class ChatPage implements OnInit{
   }
 
   getStudents(){
-    this.userRestProvider.getStudentsByCourse(this.user.idCourse).subscribe(data=>{
+    this.userRestProvider.getStudentsByCourse(this.teaching.idCourse).subscribe(data=>{
       this.users = data;
       console.log(this.users);
     })
+  }
+
+  getTeaching(){
+
+    if (this.user.userType == Value.student){
+      this.teachingRestProvider.getByNameAndIdCourse(this.nameTeaching, this.user.idCourse).subscribe(data=>{
+        this.teaching = data;
+        console.log(this.teaching);
+        this.getStudents();
+      });
+    }
+
+    if (this.user.userType == Value.professor) {
+      this.teachingRestProvider.getById(this.idTeaching).subscribe(data=>{
+        this.teaching = data;
+        console.log(this.teaching);
+        this.getStudents();
+      })
+
+    }
+
   }
 
   presentPopover(myEvent) {

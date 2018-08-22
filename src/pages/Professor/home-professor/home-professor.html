@@ -44,10 +44,10 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-card class="card">
+  <ion-card class="card" *ngFor="let c of courses">
 
     <ion-card-header class="headerCard">
-      Corso di Laurea
+      Corso di Studio
     </ion-card-header>
 
     <ion-card-content>
@@ -55,21 +55,28 @@
       <ion-list>
         <ion-item>
           <ion-label text-center>
-            <b></b>
+            <b>{{c.name}}</b>
           </ion-label>
         </ion-item>
         <hr>
         <ion-item>
           <ion-label>
-            <b>Sede:</b> &emsp;&emsp;
+            <b>Sede:</b>   &emsp; {{c.location}}&emsp;&emsp;
           </ion-label>
         </ion-item>
         <hr>
         <ion-item>
           <ion-label>
-            <b>Lingua:</b> &emsp;&emsp;
+            <b>Lingua:</b> &emsp;&emsp;{{c.language}}
           </ion-label>
         </ion-item>
+        <hr>
+        <ion-item>
+          <ion-label>
+            <b>Tipologia:</b> &emsp;&emsp;{{c.type}}
+          </ion-label>
+        </ion-item>
+
 
       </ion-list>
 

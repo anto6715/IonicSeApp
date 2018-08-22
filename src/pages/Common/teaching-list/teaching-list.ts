@@ -4,6 +4,7 @@ import {Teaching} from "../../../models/teaching";
 import { TeachingRestProvider } from "../../../providers/teaching-rest/teaching-rest";
 import {User} from "../../../models/user";
 import {ChatPage} from "../chat/chat";
+import { Value } from "../../../Variable";
 
 /**
  * Generated class for the TeachingListPage page.
@@ -27,7 +28,7 @@ export class TeachingListPage {
               public teachingRestProvider: TeachingRestProvider) {
 
     this.user = JSON.parse(localStorage.getItem('user'));
-    this.getTeachingByCourse(this.user.idCourse);
+    this.getTeaching();
   }
 
   ionViewDidLoad() {
@@ -35,16 +36,31 @@ export class TeachingListPage {
   }
 
 
-  getTeachingByCourse(idCourse:number){
-    this.teachingRestProvider.getTeachingByCourse(idCourse).subscribe(data=>{
-      console.log(data);
-      this.teaching = data;
-    })
+  getTeaching(){
+    if (this.user.userType == Value.student) {
+      this.teachingRestProvider.getTeachingByCourse(this.user.idCourse).subscribe(data=>{
+        console.log(data);
+        this.teaching = data;
+      })
+    }
+
+    if (this.user.userType == Value.professor) {
+      this.teachingRestProvider.getByIdProf(this.user.id).subscribe(data=>{
+        this.teaching = data;
+        console.log(this.teaching);
+      })
+
+    }
+
+
 
   }
 
   startChat(i:number) {
-    this.navCtrl.push(ChatPage, {'teaching':this.teaching[i].name});
+    this.navCtrl.push(ChatPage, {
+      'teaching':this.teaching[i].name,
+      'id': this.teaching[i].id,
+    });
 
   }
 }

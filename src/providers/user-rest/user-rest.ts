@@ -16,6 +16,7 @@ import {AlertController} from "ionic-angular";
 @Injectable()
 export class UserRestProvider {
   apiUserUrl = `${ServerUrl.url}/user`;
+  apiStudentUrl = `${ServerUrl.url}/student`;
 
 
   constructor(public http: HttpClient,
@@ -35,7 +36,7 @@ export class UserRestProvider {
   }
 
   getStudentsByCourse(idCourse:number): Observable<User[]>{
-    return this.http.get<User[]>(this.apiUserUrl+'/getByCourse/'+idCourse);
+    return this.http.get<User[]>(this.apiStudentUrl+'/getByCourse/'+idCourse);
   }
 
 

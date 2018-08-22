@@ -4,6 +4,7 @@ import * as firebase from "firebase";
 import {Message} from "../../models/message";
 import { NotificationProvider} from "../notification/notification";
 import {NavController} from "ionic-angular";
+import {Teaching} from "../../models/teaching";
 
 /*
   Generated class for the ChatProvider provider.
@@ -58,23 +59,24 @@ export class ChatProvider {
 
   }*/
 
-  public sendMessage(message:Message,teachingName:string){
+  public sendMessage(message:Message,teaching:Teaching){
 
-    firebase.database().ref('/'+teachingName).once('value',
+    firebase.database().ref('/'+teaching.name).once('value',
       function (snapshot) {
         let i = snapshot.child('/messages').numChildren();
         let updates = {};
-        updates['/' +teachingName +'/messages/'+ i] = message;
+        updates['/' +teaching.name +'/messages/'+ i] = message;
         firebase.database().ref().update(updates);
 
       });
     if (message.type !=0) {
-      this.notificationRest.sendToUser('Nuovo Messaggio privato',teachingName,teachingName,message.idReceiver).subscribe(data=>{
+      this.notificationRest.sendToUser('Nuovo Messaggio privato',teaching.name,teaching.name,message.idReceiver).subscribe(data=>{
         console.log('notifica inviata');
       })
     } else {
-      this.notificationRest.sendToTopic('Nuovo Messaggio', teachingName,teachingName, teachingName.replace(/ /, '')).subscribe( data =>{
+      this.notificationRest.sendToTopic('Nuovo Messaggio', teaching.name,teaching.name, teaching.name.replace(/ /, ''), teaching.courseDTO.id).subscribe( data =>{
         console.log('notifica inviata');
+        console.log(teaching.courseDTO.id);
       })
 
     }

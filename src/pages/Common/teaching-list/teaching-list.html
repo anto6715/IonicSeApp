@@ -12,7 +12,7 @@
 
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="user.userType == 1">
 
   <ion-title text-center class="title">
     {{user.courseDTO.name}}
@@ -34,7 +34,40 @@
 
     <ion-card-content>
       <ion-buttons align-items-center="">
-        <button ion-button  class="btn" round (click)="startChat(i)"><ion-icon name="chatboxes"></ion-icon></button>
+        <button ion-button  class="btnStudent" round (click)="startChat(i)"><ion-icon name="chatboxes"></ion-icon></button>
+      </ion-buttons>
+    </ion-card-content>
+
+
+  </ion-card>
+
+
+
+</ion-content>
+
+<ion-content *ngIf="user.userType == 3">
+
+  <ion-card *ngFor="let t of teaching; let i = index" class="list">
+    <ion-card-header class="headerCard" text-center>
+      {{t.name}}
+    </ion-card-header>
+    <ion-item>
+      <b>Corso:</b> {{t.courseDTO.name}}
+    </ion-item>
+    <hr>
+    <ion-item>
+      <b>Credits:</b> {{t.credits}}
+    </ion-item>
+    <hr>
+    <ion-item>
+      <b>Year:</b> {{t.year}}
+    </ion-item>
+
+
+    <ion-card-content>
+      <ion-buttons align-items-center="">
+        <button ion-button  class="btnProf" round (click)="startChat(i)"><ion-icon name="chatboxes"></ion-icon></button>
+        <button ion-button  align-items-end class="btnProf" round>Recensioni</button>
       </ion-buttons>
     </ion-card-content>
 

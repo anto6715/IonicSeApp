@@ -29,6 +29,14 @@ export class TeachingRestProvider {
     return this.http.get<Teaching>(this.apiTeachingUrl+"/getByNameAndIdCourse/"+name+"_"+idCourse);
   }
 
+  getByIdProf(id:number): Observable<Teaching[]> {
+   return this.http.get<Teaching[]>(this.apiTeachingUrl +"/getByIdProf/"+id);
+  }
+
+  getById(id:number): Observable<Teaching>{
+    return this.http.get<Teaching>(this.apiTeachingUrl+"/getById/"+id);
+  }
+
 
 
 }

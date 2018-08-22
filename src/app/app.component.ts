@@ -11,6 +11,8 @@ import {User} from "../models/user";
 import {MaterialPage} from "../pages/Student/material/material";
 import {TeachingListPage} from "../pages/Common/teaching-list/teaching-list";
 import { FirebaseProvider } from "../providers/firebase/firebase";
+import { Value } from "../Variable";
+import {HomeProfessorPage} from "../pages/Professor/home-professor/home-professor";
 
 @Component({
   templateUrl: 'app.html'
@@ -38,6 +40,7 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
+      { title: 'Chat', component: TeachingListPage},
 
     ];
     this.pages2 = [
@@ -55,7 +58,13 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       if(this.user != null) {
-        this.nav.setRoot(HomeStudentPage);
+        if (this.user.userType == Value.student) {
+          this.nav.setRoot(HomeStudentPage);
+        }
+        if (this.user.userType == Value.professor) {
+          this.nav.setRoot(HomeProfessorPage);
+        }
+
       }
     });
 
