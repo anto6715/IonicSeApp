@@ -4,6 +4,7 @@ import {Lesson} from "../../../models/lesson";
 import { ReviewRestProvider } from "../../../providers/review-rest/review-rest";
 import {User} from "../../../models/user";
 import {Review} from "../../../models/review";
+import {Value} from "../../../Variable";
 
 /**
  * Generated class for the LessonReviewPage page.
@@ -18,7 +19,7 @@ import {Review} from "../../../models/review";
   templateUrl: 'lesson-review.html',
 })
 export class LessonReviewPage {
-
+  value = Value;
   lesson:Lesson ={} as Lesson;
   note:string;
   rate:number;
@@ -27,6 +28,7 @@ export class LessonReviewPage {
   user:User ={} as User;
   newReview: Review = {} as Review;
   review:Review;
+  reviews: Review[] = [];
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -36,7 +38,7 @@ export class LessonReviewPage {
 
     this.lesson = navParams.get('lesson');
     this.user = JSON.parse(localStorage.getItem('user'));
-    this.getReview(this.lesson.id);
+    this.getReview();
     console.log(this.lesson);
   }
 
@@ -49,11 +51,20 @@ export class LessonReviewPage {
     this.viewCtrl.dismiss(data);
   }
 
-  getReview(idLesson:number) {
-    this.reviewRestProvider.getReviewLesson(this.user.id, idLesson).subscribe(data=>{
-      console.log(data);
-      this.review = data;
-    })
+  getReview() {
+    if (this.user.userType == Value.student) {
+      this.reviewRestProvider.getReviewLesson(this.user.id, this.lesson.id).subscribe(data=>{
+        console.log(data);
+        this.review = data;
+      })
+    }
+
+    if (this.user.userType == Value.professor) {
+      this.reviewRestProvider.getReviewLessonByIdLesson(this.lesson.id).subscribe(data=>{
+        this.reviews = data;
+      })
+    }
+
   }
 
 

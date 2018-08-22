@@ -26,6 +26,10 @@ export class ReviewRestProvider {
     return this.http.get<Review>(this.apiReviewUrl+"/getByIdStudentAndIdLesson/"+idStudent+"_"+idLesson);
   }
 
+  public getReviewLessonByIdLesson(idLesson:number): Observable<Review[]>{
+    return this.http.get<Review[]>(this.apiReviewUrl+"/getByIdLesson/"+idLesson);
+  }
+
   public sendReview(review:Review):Observable<Review>{
     return this.http.post<Review>(this.apiReviewUrl+"/save/",{
       "note": review.note,

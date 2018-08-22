@@ -13,6 +13,7 @@ import {TeachingListPage} from "../pages/Common/teaching-list/teaching-list";
 import { FirebaseProvider } from "../providers/firebase/firebase";
 import { Value } from "../Variable";
 import {HomeProfessorPage} from "../pages/Professor/home-professor/home-professor";
+import {ReviewsProfessorPage} from "../pages/Professor/reviews-professor/reviews-professor";
 
 @Component({
   templateUrl: 'app.html'
@@ -20,7 +21,7 @@ import {HomeProfessorPage} from "../pages/Professor/home-professor/home-professo
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
   user: User = {} as User;
-  rootPage: any = LoginPage;
+  rootPage: any = ReviewsProfessorPage;
 
   pages: Array<{title: string, component: any}>;
   pages2: Array<{title: string, component: any}>;
@@ -42,6 +43,7 @@ export class MyApp {
     this.pages = [
       { title: 'Orario Lezioni', component: LessonPage },
       { title: 'Chat', component: TeachingListPage},
+      { title: 'Recensioni', component: ReviewsProfessorPage}
 
     ];
     this.pages2 = [
@@ -83,6 +85,7 @@ export class MyApp {
       this.showAlert('logout completato');
       localStorage.removeItem('user');
       this.menuCtrl.close('menuStudent');
+      this.menuCtrl.close('menuProfessor');
       this.nav.setRoot(LoginPage);
 
     });
