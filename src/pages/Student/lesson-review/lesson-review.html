@@ -94,8 +94,6 @@
 
 
 <ion-content  *ngIf="user.userType == value.professor">
-
-
   <ion-card >
     <ion-card-header class="headerCard">
       {{lesson.teachingDTO.name}}
@@ -108,7 +106,6 @@
       <b>Orario:</b> {{lesson.start}}-{{lesson.end}}
     </ion-item>
     <hr>
-
     <ion-card-content *ngFor="let r of reviews; let i = index">
       <ion-item text-center>
         <b>Recensione {{i+1}}</b>
@@ -127,20 +124,12 @@
       <ion-item text-center>
         <b>Note</b>
       </ion-item>
-
       <ion-item >
         <ion-label *ngIf="r.note != null" text-center="">{{r.note}}</ion-label>
       </ion-item>
       <hr>
     </ion-card-content>
-
-
-
-
   </ion-card>
-
-
-
 </ion-content>
 
 

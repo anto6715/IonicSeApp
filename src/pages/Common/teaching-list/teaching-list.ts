@@ -22,7 +22,7 @@ export class TeachingListPage {
 
   teaching:Teaching[] =[];
   user: User ={} as User;
-
+  value = Value;
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public teachingRestProvider: TeachingRestProvider) {
@@ -34,8 +34,6 @@ export class TeachingListPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad TeachingListPage');
   }
-
-
   getTeaching(){
     if (this.user.userType == Value.student) {
       this.teachingRestProvider.getTeachingByCourse(this.user.idCourse).subscribe(data=>{
@@ -43,19 +41,13 @@ export class TeachingListPage {
         this.teaching = data;
       })
     }
-
     if (this.user.userType == Value.professor) {
       this.teachingRestProvider.getByIdProf(this.user.id).subscribe(data=>{
         this.teaching = data;
         console.log(this.teaching);
       })
-
     }
-
-
-
   }
-
   startChat(i:number) {
     this.navCtrl.push(ChatPage, {
       'teaching':this.teaching[i].name,

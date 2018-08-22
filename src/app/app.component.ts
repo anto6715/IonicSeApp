@@ -51,9 +51,6 @@ export class MyApp {
       { title: 'Chat', component: TeachingListPage}
     ];
   }
-
-
-
   initializeApp() {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -67,7 +64,6 @@ export class MyApp {
         if (this.user.userType == Value.professor) {
           this.nav.setRoot(HomeProfessorPage);
         }
-
       }
     });
 
