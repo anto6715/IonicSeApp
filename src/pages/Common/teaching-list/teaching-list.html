@@ -34,15 +34,10 @@
 
     <ion-card-content>
       <ion-buttons align-items-center="">
-        <button ion-button  class="btnStudent" round (click)="startChat(i)"><ion-icon name="chatboxes"></ion-icon></button>
+        <button ion-button  class="btn" round (click)="startChat(i)"><ion-icon name="chatboxes"></ion-icon></button>
       </ion-buttons>
     </ion-card-content>
-
-
   </ion-card>
-
-
-
 </ion-content>
 
 <ion-content *ngIf="user.userType == 3">
@@ -66,8 +61,7 @@
 
     <ion-card-content>
       <ion-buttons align-items-center="">
-        <button ion-button  class="btnProf" round (click)="startChat(i)"><ion-icon name="chatboxes"></ion-icon></button>
-        <button ion-button  align-items-end class="btnProf" round>Recensioni</button>
+        <button ion-button  class="btn" round (click)="startChat(i)"><ion-icon name="chatboxes"></ion-icon></button>
       </ion-buttons>
     </ion-card-content>
 
