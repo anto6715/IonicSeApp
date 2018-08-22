@@ -12,6 +12,8 @@ import { Value } from "../../../Variable";
       <ion-list-header>Invia a:</ion-list-header>
       <ion-buttons>
         <button ion-item (click)="close(publicMessage,' ', ' ',0)" ><ion-icon color="yellowdark" *ngIf="receiver == 0" name="checkmark"></ion-icon>Tutti</button>
+      </ion-buttons>
+      <ion-buttons *ngIf="professor.id != idUser">
         <button ion-item (click)="close(privateMessage,professor.email, professor.name, professor.idUser)" ><ion-icon color="yellowdark" *ngIf="emailReceiver == professor.email" name="checkmark"></ion-icon>Professore</button>
       </ion-buttons>
       <ion-buttons *ngFor="let u of users">
@@ -22,6 +24,7 @@ import { Value } from "../../../Variable";
 })
 export class PopoverPage {
 
+  user:User = {} as User;
   users:User[]=[];
   idUser:number;
   receiver:number;
@@ -29,6 +32,7 @@ export class PopoverPage {
   professor:Professor = {} as Professor;
   publicMessage:number = Value.public;
   privateMessage:number=Value.private;
+  value= Value;
 
   constructor(public viewCtrl: ViewController,
               public navParams: NavParams) {

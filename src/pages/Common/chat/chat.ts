@@ -33,7 +33,6 @@ export class ChatPage implements OnInit{
   message:  Message[] =[];
   msg:string;
   nameTeaching:string;
-  idTeaching:number;
   receiver:Message ={
     emailReceiver:'',
     nameReceiver:'',
@@ -52,8 +51,6 @@ export class ChatPage implements OnInit{
               public teachingRestProvider: TeachingRestProvider) {
 
     this.nameTeaching=this.navParams.get('teaching');
-    this.idTeaching= this.navParams.get('id');
-    console.log(this.idTeaching);
     this.user = JSON.parse(localStorage.getItem('user'));
     this.getTeaching();
 
@@ -127,7 +124,7 @@ export class ChatPage implements OnInit{
     }
 
     if (this.user.userType == Value.professor) {
-      this.teachingRestProvider.getById(this.idTeaching).subscribe(data=>{
+      this.teachingRestProvider.getByNameAndIdProf(this.nameTeaching, this.user.id).subscribe(data=>{
         this.teaching = data;
         console.log(this.teaching);
         this.getStudents();

@@ -32,7 +32,7 @@
       {{l.teachingDTO.name}}
     </ion-card-header>
 
-    <ion-item *ngIf="user.userType == 1">
+    <ion-item *ngIf="user.userType == value.student">
       <b>Professore:</b> {{l.teachingDTO.professorDTO.name}} {{l.teachingDTO.professorDTO.surname}}
     </ion-item>
     <ion-item *ngIf="user.userType == value.professor">
@@ -48,11 +48,17 @@
     </ion-item>
 
 
-    <ion-card-content>
+    <ion-card-content *ngIf="user.userType == value.student">
       <ion-buttons align-items-center="">
         <button ion-button  class="btn" round (click)="materialModal(l.id)">Materiale</button>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <button ion-button  align-items-end class="btn" round (click)="reviewModal(i)">Recensione</button>
+      </ion-buttons>
+    </ion-card-content>
+
+    <ion-card-content *ngIf="user.userType == value.professor">
+      <ion-buttons align-items-center="">
+        <button ion-button  class="btnProf" round (click)="openReviews()">Recensioni</button>
       </ion-buttons>
     </ion-card-content>
 

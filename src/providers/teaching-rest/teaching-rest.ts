@@ -33,8 +33,8 @@ export class TeachingRestProvider {
    return this.http.get<Teaching[]>(this.apiTeachingUrl +"/getByIdProf/"+id);
   }
 
-  getById(id:number): Observable<Teaching>{
-    return this.http.get<Teaching>(this.apiTeachingUrl+"/getById/"+id);
+  getByNameAndIdProf(name:string,id:number): Observable<Teaching>{
+    return this.http.get<Teaching>(this.apiTeachingUrl+"/getByNameAndIdProf/"+name+"_"+id);
   }
 
 
