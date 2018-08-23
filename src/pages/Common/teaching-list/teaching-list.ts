@@ -23,11 +23,14 @@ export class TeachingListPage {
   teaching:Teaching[] =[];
   user: User ={} as User;
   value = Value;
+  scope:any;
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public teachingRestProvider: TeachingRestProvider) {
 
     this.user = JSON.parse(localStorage.getItem('user'));
+    this.scope = this.navParams.get('scope');
+    console.log(this.scope);
     this.getTeaching();
   }
 

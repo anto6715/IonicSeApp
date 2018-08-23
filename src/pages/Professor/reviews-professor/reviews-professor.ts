@@ -18,9 +18,12 @@ import {LessonPage} from "../../Common/lesson/lesson";
 })
 export class ReviewsProfessorPage {
   tab1Root = LessonPage;
-  tab2Root = HomeProfessorPage;
+  tab2Root = TeachingListPage;
+  tab2Params:any;
+  scope:string = 'material';
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.tab2Params = {scope: 'material'};
   }
 
   ionViewDidLoad() {
