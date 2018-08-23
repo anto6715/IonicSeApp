@@ -44,7 +44,7 @@
     <ion-card-content>
       <ion-buttons align-items-center="">
         <button ion-button  class="btn" round (click)="startChat(i)"  *ngIf="scope == 'chat'"><ion-icon name="chatboxes"></ion-icon></button>
-        <button ion-button  class="btn" round (click)="startChat(i)"  *ngIf="scope == 'material'">Materiale</button>
+        <button ion-button  class="btn" round (click)="materialModal(t.id)"  *ngIf="scope == 'material'">Materiale</button>
       </ion-buttons>
 
     </ion-card-content>

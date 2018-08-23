@@ -7,6 +7,7 @@ import { AlertController } from "ionic-angular";
 import {User} from "../../../models/user";
 import { ReviewRestProvider } from "../../../providers/review-rest/review-rest";
 import {Review} from "../../../models/review";
+import {Value} from "../../../Variable";
 
 /**
  * Generated class for the MaterialPage page.
@@ -29,6 +30,7 @@ export class MaterialPage {
   newReview:Review= {} as Review;
   enableSend:boolean[]= [];
   enableReview:boolean[]=[];
+  value = Value;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -41,33 +43,46 @@ export class MaterialPage {
 
     this.user = JSON.parse(localStorage.getItem('user'));
 
-    this.getMaterialByIdLesson(navParams.get('idLesson'))
+    this.getMaterial()
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MaterialPage');
   }
 
-  getMaterialByIdLesson(id:number) {
-    this.materialRestProvider.getMaterialByIdLesson(id).subscribe(data=>{
-      this.material = data;
-      if (data.length == 0){
-        console.log("nessun materiale");
-        this.showAlert('Non è presente materiale didattico per la lezione selezionata');
-        this.dismiss();
-      } else {
-        console.log("prova");
-        var i =0;
-        this.material.forEach(data=>{
-          this.getReview(data.id, i);
-          i++;
+  getMaterial() {
+    let id = this.navParams.get('id');
+    if (this.user.userType == Value.student) {
+      this.materialRestProvider.getMaterialByIdLesson(id).subscribe(data=>{
+        this.material = data;
+        if (data.length == 0){
+          console.log("nessun materiale");
+          this.showAlert('Non è presente materiale didattico per la lezione selezionata');
+          this.dismiss();
+        } else {
+          console.log("prova");
+          var i =0;
+          this.material.forEach(data=>{
+            this.getReview(data.id, i);
+            i++;
+          })
+        }
 
+        console.log(this.material);
+      })
+    }
 
-        })
-      }
+    if (this.user.userType == Value.professor) {
+      this.materialRestProvider.getMaterialByIdTeaching(id).subscribe(data=>{
+        this.material = data;
+        if (data.length == 0){
+          console.log("nessun materiale");
+          this.showAlert('Non è presente materiale didattico per l\'insegnamento selezionato');
+          this.dismiss();
+        }
+      })
+    }
 
-      console.log(this.material);
-    })
 
   }
 

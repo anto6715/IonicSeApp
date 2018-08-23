@@ -26,51 +26,57 @@
     <ion-card-header class="headerCard" text-center>
       {{m.name}}
     </ion-card-header>
+    <ion-card-content *ngIf="user.userType == value.student">
+      <ion-item text-center="" *ngIf="m.Review != null">
+        <b>Valutazione</b>
+        <rating [(ngModel)]="m.Review.rate"
+                readOnly="true"
+                max="5"
+                emptyStarIconName="star-outline"
+                halfStarIconName="star-half"
+                starIconName="star"
+                nullable="false"
 
-    <ion-item text-center="" *ngIf="m.Review != null">
-      <b>Valutazione</b>
-      <rating [(ngModel)]="m.Review.rate"
-              readOnly="true"
-      max="5"
-      emptyStarIconName="star-outline"
-      halfStarIconName="star-half"
-      starIconName="star"
-      nullable="false"
+                (ngModelChange)="onModelChange($event, i)">
+        </rating>
+      </ion-item>
 
-      (ngModelChange)="onModelChange($event, i)">
-      </rating>
-    </ion-item>
+      <ion-item text-center="" *ngIf="m.Review == null">
+        <b>Valutazione</b>
+        <rating [(ngModel)]="rate[i]"
+                readOnly={{enableReview[i]}}
+                max="5"
+                emptyStarIconName="star-outline"
+                halfStarIconName="star-half"
+                starIconName="star"
+                nullable="false"
 
-    <ion-item text-center="" *ngIf="m.Review == null">
-      <b>Valutazione</b>
-      <rating [(ngModel)]="rate[i]"
-              readOnly={{enableReview[i]}}
-              max="5"
-              emptyStarIconName="star-outline"
-              halfStarIconName="star-half"
-              starIconName="star"
-              nullable="false"
+                (ngModelChange)="onModelChange($event, i)">
+        </rating>
+      </ion-item>
+      <hr>
+      <ion-item text-center>
+        <b>Note</b>
+      </ion-item>
 
-              (ngModelChange)="onModelChange($event, i)">
-      </rating>
-    </ion-item>
-    <hr>
-    <ion-item text-center>
-      <b>Note</b>
-    </ion-item>
+      <ion-item *ngIf="m.Review != null">
+        <ion-label *ngIf="m.Review.note != null">{{m.Review.note}}</ion-label>
+      </ion-item>
 
-    <ion-item *ngIf="m.Review != null">
-      <ion-label *ngIf="m.Review.note != null">{{m.Review.note}}</ion-label>
-    </ion-item>
+      <ion-item *ngIf="m.Review == null">
+        <ion-label floating>Inserisci recensione</ion-label>
+        <ion-input [(ngModel)]="note[i]" [disabled]="!enableSend[i]" type="text" ></ion-input>
+      </ion-item>
+    </ion-card-content>
 
-    <ion-item *ngIf="m.Review == null">
-      <ion-label floating>Inserisci recensione</ion-label>
-      <ion-input [(ngModel)]="note[i]" [disabled]="!enableSend[i]" type="text" ></ion-input>
-    </ion-item>
+
+
+
 
     <ion-item>
       <ion-buttons>
-        <button ion-button class="btn" round [disabled]="!enableSend[i]" (click)="sendReview(i)">Invia</button>
+        <button ion-button class="btn" round [disabled]="!enableSend[i]" (click)="sendReview(i)"  *ngIf="user.userType == value.student">Invia</button>
+        <button ion-button class="btn" round  *ngIf="user.userType == value.professor">Recensioni</button>
         <button ion-button class="btn" round (click)="download(m.link)">Download</button>
       </ion-buttons>
     </ion-item>

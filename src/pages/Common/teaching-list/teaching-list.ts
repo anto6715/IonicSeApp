@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
 import {Teaching} from "../../../models/teaching";
 import { TeachingRestProvider } from "../../../providers/teaching-rest/teaching-rest";
 import {User} from "../../../models/user";
 import {ChatPage} from "../chat/chat";
 import { Value } from "../../../Variable";
+import {MaterialPage} from "../../Student/material/material";
 
 /**
  * Generated class for the TeachingListPage page.
@@ -26,7 +27,8 @@ export class TeachingListPage {
   scope:any;
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              public teachingRestProvider: TeachingRestProvider) {
+              public teachingRestProvider: TeachingRestProvider,
+              public modalCtrl: ModalController,) {
 
     this.user = JSON.parse(localStorage.getItem('user'));
     this.scope = this.navParams.get('scope');
@@ -57,5 +59,13 @@ export class TeachingListPage {
       'id': this.teaching[i].id,
     });
 
+  }
+
+  materialModal(id:number) {
+    let profileModal = this.modalCtrl.create(MaterialPage, {id: id});
+    profileModal.onDidDismiss(data => {
+      console.log(data);
+    });
+    profileModal.present();
   }
 }
