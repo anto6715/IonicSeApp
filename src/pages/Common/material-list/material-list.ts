@@ -1,16 +1,14 @@
 import {Component, NgZone} from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { ViewController} from "ionic-angular";
+import {AlertController, IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
 import {Material} from "../../../models/material";
-import { MaterialRestProvider } from "../../../providers/material-rest/material-rest";
-import { AlertController } from "ionic-angular";
-import {User} from "../../../models/user";
-import { ReviewRestProvider } from "../../../providers/review-rest/review-rest";
 import {Review} from "../../../models/review";
+import {User} from "../../../models/user";
 import {Value} from "../../../Variable";
+import {MaterialRestProvider} from "../../../providers/material-rest/material-rest";
+import {ReviewRestProvider} from "../../../providers/review-rest/review-rest";
 
 /**
- * Generated class for the MaterialPage page.
+ * Generated class for the MaterialListPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -18,10 +16,10 @@ import {Value} from "../../../Variable";
 
 @IonicPage()
 @Component({
-  selector: 'page-material',
-  templateUrl: 'material.html',
+  selector: 'page-material-list',
+  templateUrl: 'material-list.html',
 })
-export class MaterialPage {
+export class MaterialListPage {
   material: Material[] = [];
   note: string[] =[];
   review:Review[]=[];

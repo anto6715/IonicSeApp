@@ -5,7 +5,7 @@ import { TeachingRestProvider } from "../../../providers/teaching-rest/teaching-
 import {User} from "../../../models/user";
 import {ChatPage} from "../chat/chat";
 import { Value } from "../../../Variable";
-import {MaterialPage} from "../../Student/material/material";
+import { MaterialListPage} from "../material-list/material-list";
 
 /**
  * Generated class for the TeachingListPage page.
@@ -62,7 +62,7 @@ export class TeachingListPage {
   }
 
   materialModal(id:number) {
-    let profileModal = this.modalCtrl.create(MaterialPage, {id: id});
+    let profileModal = this.modalCtrl.create(MaterialListPage, {id: id});
     profileModal.onDidDismiss(data => {
       console.log(data);
     });

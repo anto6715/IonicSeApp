@@ -7,5 +7,6 @@ export interface Material {
   link: string;
   name: string;
   Review: Review;
+  date: string;
 
 }

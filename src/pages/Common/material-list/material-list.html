@@ -1,5 +1,5 @@
 <!--
-  Generated template for the MaterialPage page.
+  Generated template for the MaterialListPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
@@ -70,7 +70,9 @@
     </ion-card-content>
 
 
-
+    <ion-item *ngIf="user.userType == value.professor">
+      <b>Data:</b> {{m.date}}
+    </ion-item>
 
 
     <ion-item>

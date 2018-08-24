@@ -2,13 +2,11 @@ import { Component, ViewChild } from '@angular/core';
 import {AlertController, MenuController, Nav, Platform} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import * as firebase from 'firebase'
 
 import {LoginPage} from "../pages/Common/login/login";
 import {HomeStudentPage} from "../pages/Student/home-student/home-student";
 import {LessonPage} from "../pages/Common/lesson/lesson";
 import {User} from "../models/user";
-import {MaterialPage} from "../pages/Student/material/material";
 import {TeachingListPage} from "../pages/Common/teaching-list/teaching-list";
 import { FirebaseProvider } from "../providers/firebase/firebase";
 import { Value } from "../Variable";

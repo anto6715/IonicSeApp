@@ -4,7 +4,7 @@ import { LessonRestProvider } from "../../../providers/lesson-rest/lesson-rest";
 import {Lesson} from "../../../models/lesson";
 import {ModalController} from "ionic-angular";
 import { CalendarModal, CalendarModalOptions, DayConfig, CalendarResult } from "ion2-calendar";
-import { MaterialPage } from "../../Student/material/material";
+import { MaterialListPage } from "../material-list/material-list";
 import {LessonReviewPage} from "../../Student/lesson-review/lesson-review";
 import {User} from "../../../models/user";
 import {Value} from "../../../Variable";
@@ -116,7 +116,7 @@ export class LessonPage{
   }
 
   materialModal(id:number) {
-    let profileModal = this.modalCtrl.create(MaterialPage, {id: id});
+    let profileModal = this.modalCtrl.create(MaterialListPage, {id: id});
     profileModal.onDidDismiss(data => {
       console.log(data);
     });
