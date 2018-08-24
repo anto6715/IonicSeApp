@@ -124,7 +124,7 @@ export class LessonPage{
   }
 
   reviewModal(i:number){
-    let profileModal = this.modalCtrl.create(LessonReviewPage, {lesson: this.lesson[i]});
+    let profileModal = this.modalCtrl.create(LessonReviewPage, {idLesson: this.lesson[i].id});
     profileModal.onDidDismiss(data => {
       console.log(data);
     });

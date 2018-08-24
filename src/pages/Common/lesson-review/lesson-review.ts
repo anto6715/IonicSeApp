@@ -5,6 +5,8 @@ import { ReviewRestProvider } from "../../../providers/review-rest/review-rest";
 import {User} from "../../../models/user";
 import {Review} from "../../../models/review";
 import {Value} from "../../../Variable";
+import { LessonRestProvider } from "../../../providers/lesson-rest/lesson-rest";
+import {Teaching} from "../../../models/teaching";
 
 /**
  * Generated class for the LessonReviewPage page.
@@ -20,7 +22,10 @@ import {Value} from "../../../Variable";
 })
 export class LessonReviewPage {
   value = Value;
-  lesson:Lesson ={} as Lesson;
+  lesson:Lesson ={
+    teachingDTO: {},
+    roomDTO:{},
+  } as Lesson;
   note:string;
   rate:number;
   enableSend:boolean;
@@ -29,14 +34,17 @@ export class LessonReviewPage {
   newReview: Review = {} as Review;
   review:Review;
   reviews: Review[] = [];
+  idLesson:number;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public viewCtrl: ViewController,
               public alertCtrl: AlertController,
-              public reviewRestProvider: ReviewRestProvider) {
+              public reviewRestProvider: ReviewRestProvider,
+              public lessonRestProvider: LessonRestProvider) {
 
-    this.lesson = navParams.get('lesson');
+    this.idLesson = navParams.get('idLesson');
+    this.getLesson();
     this.user = JSON.parse(localStorage.getItem('user'));
     this.getReview();
     console.log(this.lesson);
@@ -53,14 +61,14 @@ export class LessonReviewPage {
 
   getReview() {
     if (this.user.userType == Value.student) {
-      this.reviewRestProvider.getReviewLesson(this.user.id, this.lesson.id).subscribe(data=>{
+      this.reviewRestProvider.getReviewLesson(this.user.id, this.idLesson).subscribe(data=>{
         console.log(data);
         this.review = data;
       })
     }
 
     if (this.user.userType == Value.professor) {
-      this.reviewRestProvider.getReviewLessonByIdLesson(this.lesson.id).subscribe(data=>{
+      this.reviewRestProvider.getReviewLessonByIdLesson(this.idLesson).subscribe(data=>{
         this.reviews = data;
       })
     }
@@ -103,6 +111,14 @@ export class LessonReviewPage {
     this.rate = event;
     this.enableSend=true;
     console.log(this.rate);
+  }
+
+  getLesson(){
+    this.lessonRestProvider.getById(this.idLesson).subscribe(data=>{
+      this.lesson= data;
+      console.log(this.lesson);
+    })
+
   }
 
 }

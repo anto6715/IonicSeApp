@@ -22,11 +22,11 @@
 
 
   <ion-card>
-    <ion-card-header class="headerCard">
+    <ion-card-header class="headerCard" >
       {{lesson.teachingDTO.name}}
     </ion-card-header>
 
-    <ion-item>
+    <ion-item *ngIf="lesson.teachingDTO.professorDTO != null">
       <b>Professore:</b> {{lesson.teachingDTO.professorDTO.name}} {{lesson.teachingDTO.professorDTO.surname}}
     </ion-item>
     <hr>

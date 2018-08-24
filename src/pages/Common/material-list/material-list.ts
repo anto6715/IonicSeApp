@@ -126,7 +126,7 @@ export class MaterialListPage {
     this.newReview.idReviewType=2;
     this.newReview.idStudent= this.user.id;
     //console.log(this.newReview);
-    this.reviewRestProvider.sendReview(this.newReview).subscribe(data=>{
+    this.reviewRestProvider.sendReview(this.newReview, 1).subscribe(data=>{ // serve id prof del materiale
       console.log(data);
 
       if(data != null){

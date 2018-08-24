@@ -36,6 +36,8 @@ export class ReviewRestProvider {
   }
 
 
+
+
   public sendReview(review:Review, id:number):Observable<Review>{
 
     let request =  this.http.post<Review>(this.apiReviewUrl+"/save/",{
@@ -48,15 +50,15 @@ export class ReviewRestProvider {
     });
     let data:number;
     if (review.idLesson== null) {
-      console.log('material')
+      console.log('material');
       data = review.idMaterial;
-      this.notificationProvider.sendToUser('Nuova Recensione','Hai una nuova recensione',data,id,'review-material').subscribe(data=>{
+      this.notificationProvider.sendToUser('Nuova Recensione','Un suo materiale ha una nuova recensione',data,id,'review-material').subscribe(data=>{
         console.log('notifica inviata');
       })
     }  else {
-      console.log('lesson')
+      console.log('lesson');
       data = review.idLesson;
-      this.notificationProvider.sendToUser('Nuova Recensione','Hai una nuova recensione',data,id,'review-lesson').subscribe(data=>{
+      this.notificationProvider.sendToUser('Nuova Recensione','Una sua lezione ha una nuova recensione',data,id,'review-lesson').subscribe(data=>{
         console.log('notifica inviata');
       })
     }

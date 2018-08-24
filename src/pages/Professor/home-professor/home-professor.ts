@@ -50,7 +50,7 @@ export class HomeProfessorPage {
           })
         ).subscribe();
       })
-    })
+    });
 
 
     if (!this.user.token) {

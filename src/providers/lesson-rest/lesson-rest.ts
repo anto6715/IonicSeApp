@@ -23,6 +23,10 @@ export class LessonRestProvider {
     return this.http.get<Lesson[]>(this.apiLessonUrl + "/getByDate/" + date + "_" + id);
   }
 
+  public getById(id:number): Observable<Lesson> {
+    return this.http.get<Lesson>(this.apiLessonUrl +'/getById/'+id);
+  }
+
   getLessonProfByDate(date:string, id: number): Observable<Lesson[]> {
     return this.http.get<Lesson[]>(this.apiLessonUrl+"/getByDateAndIdProf/"+ date + "_" + id);
   }
