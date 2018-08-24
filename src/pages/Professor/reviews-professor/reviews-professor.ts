@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
 import { TeachingListPage } from "../../Common/teaching-list/teaching-list";
 import {HomeProfessorPage} from "../home-professor/home-professor";
 import {LessonPage} from "../../Common/lesson/lesson";
@@ -22,12 +22,15 @@ export class ReviewsProfessorPage {
   tab2Params:any;
   scope:string = 'material';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,) {
     this.tab2Params = {scope: 'material'};
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ReviewsProfessorPage');
   }
+
+
 
 }

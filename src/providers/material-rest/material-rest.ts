@@ -26,4 +26,8 @@ export class MaterialRestProvider {
     return this.http.get<Material[]>(this.apiMaterialUrl+"/getByIdTeaching/"+id);
   }
 
+  getMaterialById(id:number): Observable<Material> {
+    return this.http.get<Material>(this.apiMaterialUrl+"/getById/"+id);
+  }
+
 }

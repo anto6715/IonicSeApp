@@ -1,11 +1,12 @@
 import {Component, NgZone} from '@angular/core';
-import {AlertController, IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
+import {AlertController, IonicPage, ModalController, NavController, NavParams, ViewController} from 'ionic-angular';
 import {Material} from "../../../models/material";
 import {Review} from "../../../models/review";
 import {User} from "../../../models/user";
 import {Value} from "../../../Variable";
 import {MaterialRestProvider} from "../../../providers/material-rest/material-rest";
 import {ReviewRestProvider} from "../../../providers/review-rest/review-rest";
+import {MaterialReviewsPage} from "../../Professor/material-reviews/material-reviews";
 
 /**
  * Generated class for the MaterialListPage page.
@@ -36,6 +37,7 @@ export class MaterialListPage {
               public materialRestProvider: MaterialRestProvider,
               public alertCtrl: AlertController,
               public reviewRestProvider: ReviewRestProvider,
+              public modalCtrl: ModalController,
               public zone: NgZone) {
 
 
@@ -134,5 +136,15 @@ export class MaterialListPage {
       }
 
     });
+  }
+
+  materialReviews(id:number) {
+    let profileModal = this.modalCtrl.create(MaterialReviewsPage, {
+      id:id,
+    });
+    profileModal.onDidDismiss(data => {
+      console.log(data);
+    });
+    profileModal.present();
   }
 }

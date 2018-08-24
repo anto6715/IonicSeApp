@@ -61,11 +61,9 @@ export class TeachingListPage {
 
   }
 
-  materialModal(id:number) {
-    let profileModal = this.modalCtrl.create(MaterialListPage, {id: id});
-    profileModal.onDidDismiss(data => {
-      console.log(data);
-    });
-    profileModal.present();
+  materialList(id:number) {
+    this.navCtrl.push(MaterialListPage, {
+      id: id,
+    })
   }
 }
