@@ -75,7 +75,7 @@ export class LessonReviewPage {
     this.newReview.idReviewType=1;
     this.newReview.idStudent= this.user.id;
     //console.log(this.newReview);
-    this.reviewRestProvider.sendReview(this.newReview).subscribe(data=>{
+    this.reviewRestProvider.sendReview(this.newReview, this.lesson.teachingDTO.professorDTO.idUser).subscribe(data=>{
       console.log(data);
 
       if(data != null){

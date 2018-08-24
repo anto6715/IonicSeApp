@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {Lesson} from "../../models/lesson";
 import {Review} from "../../models/review";
 import {ServerUrl} from "../../Variable";
+import { NotificationProvider } from "../notification/notification";
 
 /*
   Generated class for the ReviewRestProvider provider.
@@ -14,7 +15,8 @@ import {ServerUrl} from "../../Variable";
 @Injectable()
 export class ReviewRestProvider {
   apiReviewUrl = `${ServerUrl.url}/review`;
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient,
+              public notificationProvider: NotificationProvider) {
     console.log('Hello ReviewRestProvider Provider');
   }
 
@@ -34,8 +36,9 @@ export class ReviewRestProvider {
   }
 
 
-  public sendReview(review:Review):Observable<Review>{
-    return this.http.post<Review>(this.apiReviewUrl+"/save/",{
+  public sendReview(review:Review, id:number):Observable<Review>{
+
+    let request =  this.http.post<Review>(this.apiReviewUrl+"/save/",{
       "note": review.note,
       "rate": review.rate,
       "idStudent": review.idStudent,
@@ -43,6 +46,23 @@ export class ReviewRestProvider {
       "idReviewType": review.idReviewType,
       "idLesson": review.idLesson
     });
+    let data:number;
+    if (review.idLesson== null) {
+      console.log('material')
+      data = review.idMaterial;
+      this.notificationProvider.sendToUser('Nuova Recensione','Hai una nuova recensione',data,id,'review-material').subscribe(data=>{
+        console.log('notifica inviata');
+      })
+    }  else {
+      console.log('lesson')
+      data = review.idLesson;
+      this.notificationProvider.sendToUser('Nuova Recensione','Hai una nuova recensione',data,id,'review-lesson').subscribe(data=>{
+        console.log('notifica inviata');
+      })
+    }
+
+
+    return request;
   }
 
 }

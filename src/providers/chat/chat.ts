@@ -70,11 +70,11 @@ export class ChatProvider {
 
       });
     if (message.type !=0) {
-      this.notificationRest.sendToUser('Nuovo Messaggio privato',teaching.name,teaching.name,message.idReceiver).subscribe(data=>{
+      this.notificationRest.sendToUser('Nuovo Messaggio privato',teaching.name,teaching.name,message.idReceiver, 'chat').subscribe(data=>{
         console.log('notifica inviata');
       })
     } else {
-      this.notificationRest.sendToTopic('Nuovo Messaggio', teaching.name,teaching.name, teaching.name.replace(/ /, ''), teaching.courseDTO.id).subscribe( data =>{
+      this.notificationRest.sendToTopic('Nuovo Messaggio', teaching.name,teaching.name, teaching.name.replace(/ /, ''), teaching.courseDTO.id, 'chat').subscribe( data =>{
         console.log('notifica inviata');
         console.log(teaching.courseDTO.id);
       })

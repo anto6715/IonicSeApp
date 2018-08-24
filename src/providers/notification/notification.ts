@@ -22,13 +22,13 @@ export class NotificationProvider {
     console.log('Hello NotificationProvider Provider');
   }
 
-  sendToUser(title:string, body:string, data:string, idUser:number): Observable<any>{
+  sendToUser(title:string, body:string, data:any, idUser:number, type:string): Observable<any>{
 
     let notification: Notification = {
       title: title,
       body: body,
       data: data,
-      type: 'chat',
+      type: type,
       idUser: idUser,
       token_topic:'',
     };
@@ -37,14 +37,14 @@ export class NotificationProvider {
 
   }
 
-  sendToTopic(title:string, body:string, data:string, topic:string, idCourse:number){
+  sendToTopic(title:string, body:string, data:any, topic:string, idCourse:number, type:string){
 
     this.user = JSON.parse(localStorage.getItem('user'));
     let notification: Notification = {
       title: title,
       body: body,
       data: data,
-      type: 'chat',
+      type: type,
       idUser:0,
       token_topic: topic+"_"+idCourse,
     };
