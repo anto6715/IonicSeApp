@@ -5,7 +5,7 @@ import {Lesson} from "../../../models/lesson";
 import {ModalController} from "ionic-angular";
 import { CalendarModal, CalendarModalOptions, DayConfig, CalendarResult } from "ion2-calendar";
 import { MaterialListPage } from "../material-list/material-list";
-import {LessonReviewPage} from "../../Student/lesson-review/lesson-review";
+import {LessonReviewPage} from "../lesson-review/lesson-review";
 import {User} from "../../../models/user";
 import {Value} from "../../../Variable";
 
