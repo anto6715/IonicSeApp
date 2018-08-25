@@ -7,6 +7,8 @@ import {Value} from "../../../Variable";
 import {MaterialRestProvider} from "../../../providers/material-rest/material-rest";
 import {ReviewRestProvider} from "../../../providers/review-rest/review-rest";
 import {MaterialReviewsPage} from "../../Professor/material-reviews/material-reviews";
+import {LessonRestProvider} from "../../../providers/lesson-rest/lesson-rest";
+import {Lesson} from "../../../models/lesson";
 
 /**
  * Generated class for the MaterialListPage page.
@@ -30,6 +32,8 @@ export class MaterialListPage {
   enableSend:boolean[]= [];
   enableReview:boolean[]=[];
   value = Value;
+  idLesson:number;
+  lesson:Lesson = {} as Lesson;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -38,10 +42,13 @@ export class MaterialListPage {
               public alertCtrl: AlertController,
               public reviewRestProvider: ReviewRestProvider,
               public modalCtrl: ModalController,
+              public lessonRestProvider: LessonRestProvider,
               public zone: NgZone) {
 
 
     this.user = JSON.parse(localStorage.getItem('user'));
+    this.idLesson = this.navParams.get('idLesson');
+    this.getLesson();
 
     this.getMaterial()
   }
@@ -51,9 +58,8 @@ export class MaterialListPage {
   }
 
   getMaterial() {
-    let id = this.navParams.get('id');
     if (this.user.userType == Value.student) {
-      this.materialRestProvider.getMaterialByIdLesson(id).subscribe(data=>{
+      this.materialRestProvider.getMaterialByIdLesson(this.idLesson).subscribe(data=>{
         this.material = data;
         if (data.length == 0){
           console.log("nessun materiale");
@@ -73,7 +79,7 @@ export class MaterialListPage {
     }
 
     if (this.user.userType == Value.professor) {
-      this.materialRestProvider.getMaterialByIdTeaching(id).subscribe(data=>{
+      this.materialRestProvider.getMaterialByIdTeaching(this.idLesson).subscribe(data=>{
         this.material = data;
         if (data.length == 0){
           console.log("nessun materiale");
@@ -126,7 +132,7 @@ export class MaterialListPage {
     this.newReview.idReviewType=2;
     this.newReview.idStudent= this.user.id;
     //console.log(this.newReview);
-    this.reviewRestProvider.sendReview(this.newReview, 1).subscribe(data=>{ // serve id prof del materiale
+    this.reviewRestProvider.sendReview(this.newReview, this.lesson.teachingDTO.professorDTO.idUser).subscribe(data=>{ // serve id prof del materiale
       console.log(data);
 
       if(data != null){
@@ -140,11 +146,19 @@ export class MaterialListPage {
 
   materialReviews(id:number) {
     let profileModal = this.modalCtrl.create(MaterialReviewsPage, {
-      id:id,
+      idMaterial:id,
     });
     profileModal.onDidDismiss(data => {
       console.log(data);
     });
     profileModal.present();
+  }
+
+  getLesson(){
+    this.lessonRestProvider.getById(this.idLesson).subscribe(data=>{
+      this.lesson= data;
+      console.log(this.lesson);
+    })
+
   }
 }

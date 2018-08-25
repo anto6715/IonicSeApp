@@ -29,7 +29,7 @@ export class MaterialReviewsPage {
               public viewCtrl: ViewController,
               public reviewRestProvider: ReviewRestProvider,
               public materialRestProvider: MaterialRestProvider) {
-    this.idMaterial = this.navParams.get('id');
+    this.idMaterial = this.navParams.get('idMaterial');
     this.getMaterial();
     this.getReviews();
   }
