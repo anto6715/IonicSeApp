@@ -63,7 +63,7 @@ export class TeachingListPage {
 
   materialList(id:number) {
     this.navCtrl.push(MaterialListPage, {
-      idLesson: id,
+      idTeaching: id,
     })
   }
 }

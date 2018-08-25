@@ -46,7 +46,8 @@ export class MyApp {
     ];
     this.pages2 = [
       { title: 'Orario Lezioni', component: LessonPage },
-      { title: 'Chat', component: TeachingListPage}
+      { title: 'Chat', component: TeachingListPage},
+      { title: 'Materiale Didattico', component: TeachingListPage}
     ];
   }
   initializeApp() {
@@ -77,7 +78,11 @@ export class MyApp {
         scope:'chat',
       });
     }
-    else {
+    else if (page.title == 'Materiale Didattico') {
+      this.nav.push(page.component, {
+        scope: 'material',
+      });
+    } else {
       this.nav.push(page.component);
     }
   }

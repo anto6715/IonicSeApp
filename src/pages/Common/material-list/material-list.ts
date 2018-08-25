@@ -33,6 +33,7 @@ export class MaterialListPage {
   enableReview:boolean[]=[];
   value = Value;
   idLesson:number;
+  idTeaching:number;
   lesson:Lesson = {} as Lesson;
 
   constructor(public navCtrl: NavController,
@@ -48,6 +49,9 @@ export class MaterialListPage {
 
     this.user = JSON.parse(localStorage.getItem('user'));
     this.idLesson = this.navParams.get('idLesson');
+    this.idTeaching = this.navParams.get('idTeaching');
+    console.log(this.idLesson);
+    console.log(this.idTeaching);
     this.getLesson();
 
     this.getMaterial()
@@ -58,33 +62,39 @@ export class MaterialListPage {
   }
 
   getMaterial() {
-    if (this.user.userType == Value.student) {
-      this.materialRestProvider.getMaterialByIdLesson(this.idLesson).subscribe(data=>{
+
+      if (this.idLesson != null) {
+        this.materialRestProvider.getMaterialByIdLesson(this.idLesson).subscribe(data=>{
+          this.material = data;
+          if (data.length == 0){
+            console.log("nessun materiale");
+            this.showAlert('Non è presente materiale didattico per la lezione selezionata');
+            this.dismiss();
+          } else {
+            console.log("prova");
+            var i =0;
+            this.material.forEach(data=>{
+              this.getReview(data.id, i);
+              i++;
+            })
+          }
+
+          console.log(this.material);
+        })
+      } else {
+      this.materialRestProvider.getMaterialByIdTeaching(this.idTeaching).subscribe(data=>{
         this.material = data;
         if (data.length == 0){
           console.log("nessun materiale");
-          this.showAlert('Non è presente materiale didattico per la lezione selezionata');
+          this.showAlert('Non è presente materiale didattico per l\'insegnamento selezionato');
           this.dismiss();
-        } else {
+        } else if (this.user.userType == Value.student) {
           console.log("prova");
           var i =0;
           this.material.forEach(data=>{
             this.getReview(data.id, i);
             i++;
           })
-        }
-
-        console.log(this.material);
-      })
-    }
-
-    if (this.user.userType == Value.professor) {
-      this.materialRestProvider.getMaterialByIdTeaching(this.idLesson).subscribe(data=>{
-        this.material = data;
-        if (data.length == 0){
-          console.log("nessun materiale");
-          this.showAlert('Non è presente materiale didattico per l\'insegnamento selezionato');
-          this.dismiss();
         }
       })
     }
@@ -155,10 +165,13 @@ export class MaterialListPage {
   }
 
   getLesson(){
-    this.lessonRestProvider.getById(this.idLesson).subscribe(data=>{
-      this.lesson= data;
-      console.log(this.lesson);
-    })
+    if (this.idLesson != null) {
+      this.lessonRestProvider.getById(this.idLesson).subscribe(data=>{
+        this.lesson= data;
+        console.log(this.lesson);
+      })
+    }
+
 
   }
 }
