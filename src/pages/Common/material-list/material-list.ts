@@ -34,7 +34,6 @@ export class MaterialListPage {
   value = Value;
   idLesson:number;
   idTeaching:number;
-  lesson:Lesson = {} as Lesson;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -52,7 +51,6 @@ export class MaterialListPage {
     this.idTeaching = this.navParams.get('idTeaching');
     console.log(this.idLesson);
     console.log(this.idTeaching);
-    this.getLesson();
 
     this.getMaterial()
   }
@@ -72,31 +70,27 @@ export class MaterialListPage {
             this.dismiss();
           } else {
             console.log("prova");
-            var i =0;
-            this.material.forEach(data=>{
+            this.material.forEach((data,i)=>{
               this.getReview(data.id, i);
-              i++;
             })
           }
 
           console.log(this.material);
         })
       } else {
-      this.materialRestProvider.getMaterialByIdTeaching(this.idTeaching).subscribe(data=>{
-        this.material = data;
-        if (data.length == 0){
-          console.log("nessun materiale");
-          this.showAlert('Non è presente materiale didattico per l\'insegnamento selezionato');
-          this.dismiss();
-        } else if (this.user.userType == Value.student) {
-          console.log("prova");
-          var i =0;
-          this.material.forEach(data=>{
-            this.getReview(data.id, i);
-            i++;
-          })
-        }
-      })
+        this.materialRestProvider.getMaterialByIdTeaching(this.idTeaching).subscribe(data=>{
+          this.material = data;
+          if (data.length == 0){
+            console.log("nessun materiale");
+            this.showAlert('Non è presente materiale didattico per l\'insegnamento selezionato');
+            this.dismiss();
+          } else if (this.user.userType == Value.student) {
+            console.log("prova");
+            this.material.forEach((data,i)=>{
+              this.getReview(data.id, i);
+            })
+          }
+        })
     }
 
 
@@ -141,8 +135,7 @@ export class MaterialListPage {
     this.newReview.idMaterial = this.material[i].id;
     this.newReview.idReviewType=2;
     this.newReview.idStudent= this.user.id;
-    //console.log(this.newReview);
-    this.reviewRestProvider.sendReview(this.newReview, this.lesson.teachingDTO.professorDTO.idUser).subscribe(data=>{ // serve id prof del materiale
+    this.reviewRestProvider.sendReview(this.newReview, this.material[i].idUserProf).subscribe(data=>{
       console.log(data);
 
       if(data != null){
@@ -164,14 +157,8 @@ export class MaterialListPage {
     profileModal.present();
   }
 
-  getLesson(){
-    if (this.idLesson != null) {
-      this.lessonRestProvider.getById(this.idLesson).subscribe(data=>{
-        this.lesson= data;
-        console.log(this.lesson);
-      })
-    }
 
 
-  }
+
+
 }

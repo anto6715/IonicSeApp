@@ -8,5 +8,6 @@ export interface Material {
   name: string;
   Review: Review;
   date: string;
+  idUserProf: number;
 
 }
