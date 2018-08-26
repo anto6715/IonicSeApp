@@ -32,13 +32,13 @@ export class LessonPage{
   value = Value;
 
   constructor(public navCtrl: NavController,
-              public navParams: NavParams,
               public lessonRestProvider: LessonRestProvider,
               public modalCtrl: ModalController,
               public zone: NgZone
               ) {
 
     this.user = JSON.parse(localStorage.getItem('user'));
+
     var d = new Date();
     var MM = d.getMonth() +1;
     this.todayDate = d.getFullYear()+"-"+MM+"-"+d.getUTCDate();
@@ -51,45 +51,25 @@ export class LessonPage{
   }
 
   getLesson(date: string) {
-
-    if (this.user.userType == Value.student){
-      this.lessonRestProvider.getLessonStudentByDate(date,this.user.idCourse).subscribe(data=>{
-        //console.log(data);
-        this.zone.run(()=>this.lesson = data);
-        if (data.length ==0){
-          if (this.searchDate == null){
-            this.title= 'Nessuna lezione    ' + this.todayDate;
-          } else {
-            this.title= 'Nessuna lezione    ' + this.searchDate;
-          }
-
-        } else {
-          this.title = date;
-        }
-        console.log(this.lesson);
-
-      })
+    let subscription;
+    if (this.user.userType == Value.student) {
+      subscription = this.lessonRestProvider.getLessonStudentByDate(date,this.user.idCourse);
+    } else {
+      subscription = this.lessonRestProvider.getLessonProfByDate(date,this.user.id);
     }
-
-    if (this.user.userType == Value.professor) {
-      this.lessonRestProvider.getLessonProfByDate(date,this.user.id).subscribe(data=>{
-        //console.log(data);
-        this.zone.run(()=>this.lesson = data);
-        if (data.length ==0){
-          if (this.searchDate == null){
-            this.title= 'Nessuna lezione    ' + this.todayDate;
-          } else {
-            this.title= 'Nessuna lezione    ' + this.searchDate;
-          }
-
+    subscription.subscribe(data=>{
+      this.zone.run(()=>this.lesson = data);
+      if (data.length ==0){
+        if (this.searchDate == null){
+          this.title= 'Nessuna lezione    ' + this.todayDate;
         } else {
-          this.title = date;
+          this.title= 'Nessuna lezione    ' + this.searchDate;
         }
-        console.log(this.lesson);
-
-      })
-    }
-
+      } else {
+        this.title = date;
+      }
+      console.log(this.lesson);
+    })
   }
 
   openCalendar() {

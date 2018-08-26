@@ -5,49 +5,47 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar class="nvb" color="yellowdark">
     <ion-title>Lezioni</ion-title>
   </ion-navbar>
-
 </ion-header>
 
+
 <ion-content class="title">
-  <ion-title>
-    {{title}}
-  </ion-title>
+      <div>
+        <ion-title>
+      {{title}}
+        </ion-title>
+      </div>
 </ion-content>
 <ion-content>
   <ion-fab bottom right>
     <button ion-fab (click)="openCalendar()" color="yellowdark"><ion-icon name="calendar"></ion-icon></button>
   </ion-fab>
-
-
 </ion-content>
-<ion-content  >
 
-
+<ion-content>
   <ion-card *ngFor="let l of lesson; let i = index" class="list">
     <ion-card-header class="headerCard">
       {{l.teachingDTO.name}}
     </ion-card-header>
+    <div>
+      <ion-item *ngIf="user.userType == value.student">
+        <b>Professore:</b> {{l.teachingDTO.professorDTO.name}} {{l.teachingDTO.professorDTO.surname}}
+      </ion-item>
+      <ion-item *ngIf="user.userType == value.professor">
+        <b>Corso:</b> {{l.teachingDTO.courseDTO.name}}
+      </ion-item>
+      <hr>
 
-    <ion-item *ngIf="user.userType == value.student">
-      <b>Professore:</b> {{l.teachingDTO.professorDTO.name}} {{l.teachingDTO.professorDTO.surname}}
-    </ion-item>
-    <ion-item *ngIf="user.userType == value.professor">
-      <b>Corso:</b> {{l.teachingDTO.courseDTO.name}}
-    </ion-item>
-    <hr>
-    <ion-item>
-      <b>Aula:</b> {{l.roomDTO.name}}
-    </ion-item>
-    <hr>
-    <ion-item>
-      <b>Orario:</b> {{l.start}}-{{l.end}}
-    </ion-item>
-
-
+      <ion-item>
+        <b>Aula:</b> {{l.roomDTO.name}}
+      </ion-item>
+      <hr>
+      <ion-item>
+        <b>Orario:</b> {{l.start}}-{{l.end}}
+      </ion-item>
+    </div>
     <ion-card-content *ngIf="user.userType == value.student">
       <ion-buttons align-items-center="">
         <button ion-button  class="btn" round (click)="materialModal(l.id)">Materiale</button>
@@ -62,10 +60,6 @@
       </ion-buttons>
     </ion-card-content>
 
-
   </ion-card>
-
-
-
 </ion-content>
 

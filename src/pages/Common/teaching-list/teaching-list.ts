@@ -27,8 +27,7 @@ export class TeachingListPage {
   scope:any;
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              public teachingRestProvider: TeachingRestProvider,
-              public modalCtrl: ModalController,) {
+              public teachingRestProvider: TeachingRestProvider) {
 
     this.user = JSON.parse(localStorage.getItem('user'));
     this.scope = this.navParams.get('scope');

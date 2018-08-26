@@ -66,7 +66,6 @@ export class LessonReviewPage {
         this.review = data;
       })
     }
-
     if (this.user.userType == Value.professor) {
       this.reviewRestProvider.getReviewLessonByIdLesson(this.idLesson).subscribe(data=>{
         this.reviews = data;

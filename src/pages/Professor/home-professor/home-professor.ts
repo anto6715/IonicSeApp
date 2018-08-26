@@ -39,9 +39,10 @@ export class HomeProfessorPage {
     this.menuCtrl.enable(true,'menuProfessor');
     this.menuCtrl.enable(false,'menuStudent');
 
-
     this.user =    JSON.parse(localStorage.getItem('user'));
+
     this.getCourses(this.user.id);
+
     this.teachingRestProvider.getByIdProf(this.user.id).subscribe(data=>{
       data.forEach(teaching=>{
         this.fcm.subscribeTopic(teaching.name.replace(/ /, '')+"_"+teaching.courseDTO.id).pipe(

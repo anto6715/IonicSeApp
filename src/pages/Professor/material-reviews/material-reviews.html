@@ -5,16 +5,12 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar class="nvb" color="yellowdark">
-
     <ion-buttons>
       <button ion-button (click)="dismiss()" class="close">Close</button>
       <ion-title class="title" text-right>Recensioni</ion-title>
     </ion-buttons>
-
   </ion-navbar>
-
 </ion-header>
 
 
@@ -37,16 +33,12 @@
                 halfStarIconName="star-half"
                 starIconName="star"
                 nullable="false"
-
                 (ngModelChange)="onModelChange($event)">
         </rating>
       </ion-item>
-
-      <ion-item text-center>
+      <ion-item text-center *ngIf="r.note != null">
         <b>Note</b>
-      </ion-item>
-      <ion-item >
-        <ion-label *ngIf="r.note != null" text-center="">{{r.note}}</ion-label>
+        <ion-label  text-center="">{{r.note}}</ion-label>
       </ion-item>
       <hr>
     </ion-card-content>

@@ -39,9 +39,6 @@ export class LoginPage {
   }
 
   signInUser() {
-
-
-
       this.fireAuth.auth.signInWithEmailAndPassword(this.uname.value, 'prova123')
       .then(data =>{
         console.log(data);

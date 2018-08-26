@@ -75,7 +75,7 @@ export class ChatPage implements OnInit{
   sendMessage(){
     console.log(this.msg);
     var date = new Date();
-    console.log(date);
+
     let sendMessage: Message = {
       date: date,
       idReceiver:this.receiver.idReceiver,
@@ -85,8 +85,8 @@ export class ChatPage implements OnInit{
       msg:this.msg,
       nameSender:this.user.name,
       emailSender:this.user.email,
-
     };
+
     this.chatProvider.sendMessage(sendMessage, this.teaching);
     this.msg =null;
     this.scrollToBottom();
@@ -114,7 +114,6 @@ export class ChatPage implements OnInit{
   }
 
   getTeaching(){
-
     if (this.user.userType == Value.student){
       this.teachingRestProvider.getByNameAndIdCourse(this.nameTeaching, this.user.idCourse).subscribe(data=>{
         this.teaching = data;
@@ -122,16 +121,13 @@ export class ChatPage implements OnInit{
         this.getStudents();
       });
     }
-
     if (this.user.userType == Value.professor) {
       this.teachingRestProvider.getByNameAndIdProf(this.nameTeaching, this.user.id).subscribe(data=>{
         this.teaching = data;
         console.log(this.teaching);
         this.getStudents();
       })
-
     }
-
   }
 
   presentPopover(myEvent) {
@@ -139,7 +135,7 @@ export class ChatPage implements OnInit{
     let popover = this.popoverCtrl.create(PopoverPage, {
       users: this.users,
       idUser: this.user.id,
-      receiver:this.receiver.type,
+      type:this.receiver.type,
       emailReceiver: this.receiver.emailReceiver,
       professor: this.teaching.professorDTO,
     });
@@ -147,7 +143,7 @@ export class ChatPage implements OnInit{
       ev: myEvent
     });
     popover.onDidDismiss(data => {
-      if (data == null) {
+      /*if (data == null) {
         this.receiver.emailReceiver='';
         this.receiver.nameReceiver='';
         this.receiver.type=0;
@@ -155,27 +151,25 @@ export class ChatPage implements OnInit{
       } else {
         this.receiver = data;
         console.log(this.receiver);
+      }*/
+      console.log(data);
+      if (data != null) {
+        this.receiver = data;
+        console.log('ciao');
       }
-
-
-
     })
   }
 
   setInfoData(){
-    let i =0;
     var today = new Date();
-    this.message.forEach(data =>{
+    this.message.forEach((data,i) =>{
       var d = new Date(data.date);
       if(d.getDate()== today.getDate() && d.getMonth() == today.getMonth() && d.getFullYear() == today.getFullYear()){
         this.infoData[i]=d.getHours()+":"+d.getMinutes();
-        i++;
       } else {
         var MM = d.getMonth()+1;
         this.infoData[i] = d.getDate()+'/'+MM;
-        i++;
       }
-
     })
 
   }

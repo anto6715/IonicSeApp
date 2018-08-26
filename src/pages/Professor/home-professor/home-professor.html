@@ -11,20 +11,15 @@
     </button>
     <ion-title id="tit">Benvenuto</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
 <ion-content padding class="master">
-
   <ion-card class="card">
-
     <ion-card-header class="headerCard">
       Professore
     </ion-card-header>
-
     <ion-card-content>
-
       <ion-list>
         <hr>
         <ion-item>
@@ -38,20 +33,15 @@
             <b>Cognome: </b>&emsp;{{user.surname}}
           </ion-label>
         </ion-item>
-
       </ion-list>
-
     </ion-card-content>
   </ion-card>
 
   <ion-card class="card" *ngFor="let c of courses">
-
     <ion-card-header class="headerCard">
       Corso di Studio
     </ion-card-header>
-
     <ion-card-content>
-
       <ion-list>
         <ion-item>
           <ion-label text-center>
@@ -76,11 +66,7 @@
             <b>Tipologia:</b> &emsp;&emsp;{{c.type}}
           </ion-label>
         </ion-item>
-
-
       </ion-list>
-
     </ion-card-content>
   </ion-card>
-
 </ion-content>

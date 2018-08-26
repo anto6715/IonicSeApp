@@ -20,10 +20,8 @@ export class ReviewsProfessorPage {
   tab1Root = LessonPage;
   tab2Root = TeachingListPage;
   tab2Params:any;
-  scope:string = 'material';
 
-  constructor(public navCtrl: NavController,
-              public navParams: NavParams,) {
+  constructor(public navCtrl: NavController) {
     this.tab2Params = {scope: 'material'};
   }
 

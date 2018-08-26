@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import {AlertController, IonicPage, NavController, NavParams, Platform} from 'ionic-angular';
+import { IonicPage, NavController, Platform} from 'ionic-angular';
 import { Storage } from "@ionic/storage";
 import { MenuController} from "ionic-angular";
 import {User } from "../../../models/user";
 import { FirebaseProvider } from "../../../providers/firebase/firebase";
-import {tap} from "rxjs/operators";
+import { tap } from "rxjs/operators";
 import { ToastController} from "ionic-angular";
-import {Token} from "../../../models/token";
 import {Teaching} from "../../../models/teaching";
 import { TeachingRestProvider } from "../../../providers/teaching-rest/teaching-rest";
 import { NotificationHandler} from "../../Common/handler/NotificationHandler";
@@ -32,7 +31,6 @@ export class HomeStudentPage {
   constructor(public navCtrl: NavController,
               public storage: Storage,
               public menuCtrl: MenuController,
-              public alertCtrl: AlertController,
               public fcm: FirebaseProvider,
               private toastController: ToastController,
               public teachingRest: TeachingRestProvider,
@@ -42,7 +40,6 @@ export class HomeStudentPage {
     this.handler = new NotificationHandler(platform, navCtrl);
     this.menuCtrl.enable(false,'menuProfessor');
     this.menuCtrl.enable(true,'menuStudent');
-
 
     this.user =    JSON.parse(localStorage.getItem('user'));
 
@@ -94,8 +91,6 @@ export class HomeStudentPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomeStudentPage');
-
-
   }
 }
 

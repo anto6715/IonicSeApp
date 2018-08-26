@@ -49,9 +49,6 @@ export class MaterialListPage {
     this.user = JSON.parse(localStorage.getItem('user'));
     this.idLesson = this.navParams.get('idLesson');
     this.idTeaching = this.navParams.get('idTeaching');
-    console.log(this.idLesson);
-    console.log(this.idTeaching);
-
     this.getMaterial()
   }
 
@@ -60,40 +57,27 @@ export class MaterialListPage {
   }
 
   getMaterial() {
-
-      if (this.idLesson != null) {
-        this.materialRestProvider.getMaterialByIdLesson(this.idLesson).subscribe(data=>{
-          this.material = data;
-          if (data.length == 0){
-            console.log("nessun materiale");
-            this.showAlert('Non è presente materiale didattico per la lezione selezionata');
-            this.dismiss();
-          } else {
-            console.log("prova");
-            this.material.forEach((data,i)=>{
-              this.getReview(data.id, i);
-            })
-          }
-
-          console.log(this.material);
-        })
-      } else {
-        this.materialRestProvider.getMaterialByIdTeaching(this.idTeaching).subscribe(data=>{
-          this.material = data;
-          if (data.length == 0){
-            console.log("nessun materiale");
-            this.showAlert('Non è presente materiale didattico per l\'insegnamento selezionato');
-            this.dismiss();
-          } else if (this.user.userType == Value.student) {
-            console.log("prova");
-            this.material.forEach((data,i)=>{
-              this.getReview(data.id, i);
-            })
-          }
-        })
+    let subscription;
+    if (this.idLesson != null) {
+      subscription = this.materialRestProvider.getMaterialByIdLesson(this.idLesson);
+    } else {
+      subscription = this.materialRestProvider.getMaterialByIdTeaching(this.idTeaching);
     }
+    subscription.subscribe(data=>{
+      this.material = data;
+      if (data.length == 0){
+        console.log("nessun materiale");
+        this.showAlert('Non è presente materiale didattico per la lezione selezionata');
+        this.dismiss();
+      } else {
+        console.log("prova");
+        this.material.forEach((data,i)=>{
+          this.getReview(data.id, i);
+        })
+      }
 
-
+      console.log(this.material);
+    })
   }
 
   dismiss() {
