@@ -12,6 +12,7 @@ import { FirebaseProvider } from "../providers/firebase/firebase";
 import { Value } from "../Variable";
 import {HomeProfessorPage} from "../pages/Professor/home-professor/home-professor";
 import {ReviewsProfessorPage} from "../pages/Professor/reviews-professor/reviews-professor";
+import {SegnalationListPage} from "../pages/Professor/segnalation-list/segnalation-list";
 
 @Component({
   templateUrl: 'app.html'
@@ -41,7 +42,8 @@ export class MyApp {
     this.pages = [
       { title: 'Orario Lezioni', component: LessonPage },
       { title: 'Chat', component: TeachingListPage},
-      { title: 'Recensioni', component: ReviewsProfessorPage}
+      { title: 'Recensioni', component: ReviewsProfessorPage},
+      { title: 'Segnalazioni', component: SegnalationListPage}
 
     ];
     this.pages2 = [
