@@ -69,6 +69,7 @@ export class LoginPage {
         console.log(data);
         localStorage.setItem('user', JSON.stringify(data));
 
+
         this.showAlert('Successfull log in');
         if (this.user.userType == Value.student){
           this.navCtrl.setRoot(HomeStudentPage);
