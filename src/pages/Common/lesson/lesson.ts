@@ -8,6 +8,7 @@ import { MaterialListPage } from "../material-list/material-list";
 import {LessonReviewPage} from "../lesson-review/lesson-review";
 import {User} from "../../../models/user";
 import {Value} from "../../../Variable";
+import {MapsPage} from "../maps/maps";
 
 /**
  * Generated class for the LessonPage page.
@@ -113,6 +114,9 @@ export class LessonPage{
   }
 
 
-
-
+  openMaps(id: number) {
+    this.navCtrl.push(MapsPage, {
+      id:id,
+    })
+  }
 }

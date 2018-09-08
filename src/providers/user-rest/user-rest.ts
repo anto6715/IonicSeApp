@@ -38,17 +38,4 @@ export class UserRestProvider {
   getStudentsByCourse(idCourse:number): Observable<User[]>{
     return this.http.get<User[]>(this.apiStudentUrl+'/getByCourse/'+idCourse);
   }
-
-
-
-
-  showAlert(message: string) {
-    let alert = this.alertCtrl.create({
-      title:'Login',
-      subTitle: message,
-      buttons:['OK']
-
-    });
-    alert.present();
-  }
 }

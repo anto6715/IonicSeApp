@@ -35,8 +35,6 @@ export class FirebaseProvider {
     let token;
     if (this.platform.is('android')) {
       token = await this.firebaseNative.getToken();
-
-      console.log(token);
     }
 
     if (this.platform.is('ios')) {
@@ -46,8 +44,6 @@ export class FirebaseProvider {
 
     this.addFcmToken(token).subscribe(data=>{
       this.tkn = data;
-      this.showAlert(this.tkn.token);
-      this.showAlert('fatto');
     })
   }
 
@@ -66,8 +62,6 @@ export class FirebaseProvider {
   addFcmToken(token:string):Observable<Token>{
 
     this.user = JSON.parse(localStorage.getItem('user'));
-    this.showAlert(this.user.name);
-    this.showAlert(this.user.idUser.toString());
 
     return this.http.post<Token>(this.apiFcmUrl+'/addFcmToken',{
       "idUser":this.user.idUser,
@@ -77,17 +71,5 @@ export class FirebaseProvider {
 
   public subscribeTopic(topic:string){
     return from(this.firebaseNative.subscribe(topic));
-  }
-
-
-
-  showAlert(message: string) {
-    let alert = this.alertCtrl.create({
-      title:'Login',
-      subTitle: message,
-      buttons:['OK']
-
-    });
-    alert.present();
   }
 }

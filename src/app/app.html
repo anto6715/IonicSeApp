@@ -1,7 +1,7 @@
 <ion-menu  [content]="content" id="menuProfessor">
   <ion-header color="yellow">
     <ion-toolbar color="yellow">
-      <ion-title>Home</ion-title>
+      <ion-title>{{user.name}} {{user.surname}}, Docente</ion-title>
     </ion-toolbar>
   </ion-header>
 
@@ -19,7 +19,7 @@
 <ion-menu  [content]="content2" id="menuStudent">
   <ion-header color="yellow">
     <ion-toolbar color="yellow">
-      <ion-title *ngIf="user != null">MyApp</ion-title>
+      <ion-title *ngIf="user != null">{{user.name}} {{user.surname}}, Studente</ion-title>
     </ion-toolbar>
   </ion-header>
 

@@ -21,44 +21,6 @@ export class ChatProvider {
 
   }
 
- /* public sendMessage(msg:string, type:number, emailReceveir:string, emailSender:string, teachingName:string,date: Date, nameSender:string, nameReceiver:string, idReceiver:number){
-
-    firebase.database().ref('/'+teachingName).once('value',
-      function (snapshot) {
-      let i = snapshot.child('/messages').numChildren();
-      let data: Message = {
-        date:date,
-        type:type,  // 0 se pubblico, 1 se privato
-        emailSender:emailSender,
-        emailReceiver:emailReceveir,  // 0 se tutti, altrimenti id destinatario
-        msg:msg,
-        nameSender:nameSender,
-        nameReceiver:nameReceiver,
-        idReceiver:idReceiver,
-      };
-
-
-      let updates = {};
-      updates['/' +teachingName +'/messages/'+ i] = data;
-      firebase.database().ref().update(updates);
-
-
-
-
-    });
-    if (type !=0) {
-      this.notificationRest.sendToUser('Nuovo Messaggio privato',teachingName,teachingName,idReceiver).subscribe(data=>{
-        console.log('notifica inviata');
-      })
-    } else {
-      this.notificationRest.sendToTopic('Nuovo Messaggio', teachingName,teachingName, teachingName.replace(/ /, '')).subscribe( data =>{
-        console.log('notifica inviata');
-      })
-
-    }
-
-  }*/
-
   public sendMessage(message:Message,teaching:Teaching){
 
     firebase.database().ref('/'+teaching.name).once('value',
