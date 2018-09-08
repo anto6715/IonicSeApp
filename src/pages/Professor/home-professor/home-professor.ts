@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {IonicPage, MenuController, NavController, NavParams, Platform, ToastController} from 'ionic-angular';
-import {NotificationHandler} from "../../Common/handler/NotificationHandler";
+import {NotificationHandler} from "../../../models/NotificationHandler";
 import {User} from "../../../models/user";
 import {Course} from "../../../models/course";
 import { CourseRestProvider } from "../../../providers/course-rest/course-rest";

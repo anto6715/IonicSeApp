@@ -8,7 +8,7 @@ import { tap } from "rxjs/operators";
 import { ToastController} from "ionic-angular";
 import {Teaching} from "../../../models/teaching";
 import { TeachingRestProvider } from "../../../providers/teaching-rest/teaching-rest";
-import { NotificationHandler} from "../../Common/handler/NotificationHandler";
+import { NotificationHandler} from "../../../models/NotificationHandler";
 
 
 /**

@@ -1,7 +1,7 @@
 import {NavController, Platform} from "ionic-angular";
-import {ChatPage} from "../chat/chat";
-import {LessonReviewPage} from "../lesson-review/lesson-review";
-import {MaterialReviewsPage} from "../../Professor/material-reviews/material-reviews";
+import {ChatPage} from "../pages/Common/chat/chat";
+import {LessonReviewPage} from "../pages/Common/lesson-review/lesson-review";
+import {MaterialReviewsPage} from "../pages/Professor/material-reviews/material-reviews";
 
 export class NotificationHandler {
 
