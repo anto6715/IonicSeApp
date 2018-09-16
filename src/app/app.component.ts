@@ -13,6 +13,7 @@ import { Value } from "../Variable";
 import {HomeProfessorPage} from "../pages/Professor/home-professor/home-professor";
 import {ReviewsProfessorPage} from "../pages/Professor/reviews-professor/reviews-professor";
 import {SegnalationListPage} from "../pages/Professor/segnalation-list/segnalation-list";
+import {AndroidPermissions} from "@ionic-native/android-permissions";
 
 @Component({
   templateUrl: 'app.html'
@@ -30,7 +31,8 @@ export class MyApp {
               public splashScreen: SplashScreen,
               public firebase: FirebaseProvider,
               public menuCtrl: MenuController,
-              public alertCtrl: AlertController) {
+              public alertCtrl: AlertController,
+              private androidPermissions: AndroidPermissions) {
 
     this.initializeApp();
 
@@ -54,6 +56,15 @@ export class MyApp {
   }
   initializeApp() {
     this.platform.ready().then(() => {
+      this.androidPermissions.hasPermission(this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE)
+        .then(status => {
+          if (status.hasPermission) {
+          } else {
+            this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE)
+              .then(status =>{
+              });
+          }
+        });
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();

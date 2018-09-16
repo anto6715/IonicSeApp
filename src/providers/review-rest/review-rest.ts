@@ -21,11 +21,11 @@ export class ReviewRestProvider {
   }
 
   public getReviewMaterial(idStudent:number, idMaterial): Observable<Review>{
-    return this.http.get<Review>(this.apiReviewUrl+"/getByIdStudentAndIdMaterial/"+idStudent+"_"+idMaterial);
+    return this.http.get<Review>(this.apiReviewUrl+"/getByIdStudentAndIdMaterial/"+idStudent+"/"+idMaterial);
   }
 
   public getReviewLesson(idStudent:number, idLesson): Observable<Review>{
-    return this.http.get<Review>(this.apiReviewUrl+"/getByIdStudentAndIdLesson/"+idStudent+"_"+idLesson);
+    return this.http.get<Review>(this.apiReviewUrl+"/getByIdStudentAndIdLesson/"+idStudent+"/"+idLesson);
   }
 
   public getReviewLessonByIdLesson(idLesson:number): Observable<Review[]>{
@@ -40,7 +40,7 @@ export class ReviewRestProvider {
 
   public sendReview(review:Review, id:number):Observable<Review>{
 
-    let request =  this.http.post<Review>(this.apiReviewUrl+"/save/",{
+    let request =  this.http.post<Review>(this.apiReviewUrl+"/save",{
       "note": review.note,
       "rate": review.rate,
       "idStudent": review.idStudent,

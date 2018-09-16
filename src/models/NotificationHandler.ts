@@ -2,6 +2,7 @@ import {NavController, Platform} from "ionic-angular";
 import {ChatPage} from "../pages/Common/chat/chat";
 import {LessonReviewPage} from "../pages/Common/lesson-review/lesson-review";
 import {MaterialReviewsPage} from "../pages/Professor/material-reviews/material-reviews";
+import {SegnalationListPage} from "../pages/Professor/segnalation-list/segnalation-list";
 
 export class NotificationHandler {
 
@@ -22,6 +23,12 @@ export class NotificationHandler {
     }
     if (msg.type == 'review-lesson') {
       this.navCtrl.push(LessonReviewPage, {'idLesson': msg.data});
+    }
+    if (msg.type == 'modify-lesson') {
+      this.navCtrl.push(LessonReviewPage, {'idLesson': msg.data});
+    }
+    if (msg.type == 'modify-segnalation') {
+      this.navCtrl.push(SegnalationListPage);
     }
 
   }

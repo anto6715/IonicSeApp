@@ -1,5 +1,13 @@
 import {Component, NgZone} from '@angular/core';
-import {AlertController, IonicPage, ModalController, NavController, NavParams, ViewController} from 'ionic-angular';
+import {
+  AlertController,
+  IonicPage,
+  ModalController,
+  NavController,
+  NavParams,
+  ToastController,
+  ViewController
+} from 'ionic-angular';
 import {Material} from "../../../models/material";
 import {Review} from "../../../models/review";
 import {User} from "../../../models/user";
@@ -8,7 +16,13 @@ import {MaterialRestProvider} from "../../../providers/material-rest/material-re
 import {ReviewRestProvider} from "../../../providers/review-rest/review-rest";
 import {MaterialReviewsPage} from "../../Professor/material-reviews/material-reviews";
 import {LessonRestProvider} from "../../../providers/lesson-rest/lesson-rest";
+import {AngularFireStorage } from "angularfire2/storage";
 import {Lesson} from "../../../models/lesson";
+import firebase from 'firebase';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
+import {AndroidPermissions} from "@ionic-native/android-permissions";
+declare var cordova: any;
 
 /**
  * Generated class for the MaterialListPage page.
@@ -34,6 +48,8 @@ export class MaterialListPage {
   value = Value;
   idLesson:number;
   idTeaching:number;
+  directory:any;
+
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -42,18 +58,32 @@ export class MaterialListPage {
               public alertCtrl: AlertController,
               public reviewRestProvider: ReviewRestProvider,
               public modalCtrl: ModalController,
+              public afStorage: AngularFireStorage,
               public lessonRestProvider: LessonRestProvider,
-              public zone: NgZone) {
+              public zone: NgZone,
+              private toastController: ToastController,
+              private transfer: FileTransfer,
+              private file: File,
+              private androidPermissions: AndroidPermissions) {
+    this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.CAMERA).then(
+      result => console.log('Has permission?',result.hasPermission),
+      err => this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.CAMERA)
+    );
 
 
     this.user = JSON.parse(localStorage.getItem('user'));
     this.idLesson = this.navParams.get('idLesson');
     this.idTeaching = this.navParams.get('idTeaching');
-    this.getMaterial()
+    this.getMaterial();
+    this.directory = this.file.dataDirectory;
+
   }
+
+
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MaterialPage');
+
   }
 
   getMaterial() {
@@ -85,10 +115,32 @@ export class MaterialListPage {
     this.viewCtrl.dismiss(data);
   }
 
-  download(link:string){
-    console.log(link);
+  download(url:string, name:string){
+    this.createToastMessage('Download in corso', 'bottom',1000);
+    const fileTransfer: FileTransferObject = this.transfer.create();
+    fileTransfer.download(url, cordova.file.externalRootDirectory+'/Download/'+name).then((entry) =>{
+      this.createToastMessage('Download completato', 'top',3000)
+    }, (error) => {
+      this.showAlert(error.code);
+    })
   }
 
+
+  createToastMessage(msg:string, position:string, duration:number) {
+    const toast = this.toastController.create({
+      message: msg,
+      duration: duration,
+      position:position,
+      showCloseButton: true,
+      closeButtonText:'ok'
+    });
+    toast.onDidDismiss((data, role) =>{
+      if (role == 'close') {
+        return
+      }
+    });
+    toast.present();
+  }
 
   showAlert(message: string) {
     let alert = this.alertCtrl.create({

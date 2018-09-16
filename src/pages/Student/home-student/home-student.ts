@@ -41,7 +41,7 @@ export class HomeStudentPage {
     this.menuCtrl.enable(false,'menuProfessor');
     this.menuCtrl.enable(true,'menuStudent');
 
-    this.user =    JSON.parse(localStorage.getItem('user'));
+    this.user = JSON.parse(localStorage.getItem('user'));
 
     this.teachingRest.getTeachingByCourse(this.user.idCourse).subscribe(data=>{
       data.forEach(teaching =>{

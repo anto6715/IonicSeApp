@@ -20,7 +20,7 @@ export class LessonRestProvider {
   }
 
   getLessonStudentByDate(date:string, id: number):Observable<Lesson[]> {
-    return this.http.get<Lesson[]>(this.apiLessonUrl + "/getByDate/" + date + "_" + id);
+    return this.http.get<Lesson[]>(this.apiLessonUrl + "/getByDate/" + date + "/" + id);
   }
 
   public getById(id:number): Observable<Lesson> {
@@ -28,7 +28,7 @@ export class LessonRestProvider {
   }
 
   getLessonProfByDate(date:string, id: number): Observable<Lesson[]> {
-    return this.http.get<Lesson[]>(this.apiLessonUrl+"/getByDateAndIdProf/"+ date + "_" + id);
+    return this.http.get<Lesson[]>(this.apiLessonUrl+"/getByDateAndIdProf/"+ date + "/" + id);
   }
 
 }

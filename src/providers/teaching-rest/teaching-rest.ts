@@ -26,7 +26,7 @@ export class TeachingRestProvider {
   }
 
   getByNameAndIdCourse(name:string, idCourse:number): Observable<Teaching>{
-    return this.http.get<Teaching>(this.apiTeachingUrl+"/getByNameAndIdCourse/"+name+"_"+idCourse);
+    return this.http.get<Teaching>(this.apiTeachingUrl+"/getByNameAndIdCourse/"+name+"/"+idCourse);
   }
 
   getByIdProf(id:number): Observable<Teaching[]> {
@@ -34,7 +34,7 @@ export class TeachingRestProvider {
   }
 
   getByNameAndIdProf(name:string,id:number): Observable<Teaching>{
-    return this.http.get<Teaching>(this.apiTeachingUrl+"/getByNameAndIdProf/"+name+"_"+id);
+    return this.http.get<Teaching>(this.apiTeachingUrl+"/getByNameAndIdProf/"+name+"/"+id);
   }
 
 

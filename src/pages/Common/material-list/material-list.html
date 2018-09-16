@@ -71,7 +71,7 @@
       <ion-buttons>
         <button ion-button class="btn" round [disabled]="!enableSend[i]" (click)="sendReview(i)"  *ngIf="user.userType == value.student">Invia</button>
         <button ion-button class="btn" round  (click)="materialReviews(m.id)" *ngIf="user.userType == value.professor">Recensioni</button>
-        <button ion-button class="btn" round (click)="download(m.link)">Download</button>
+        <button ion-button class="btn" round (click)="download(m.link, m.name)">Download</button>
       </ion-buttons>
     </ion-item>
 
