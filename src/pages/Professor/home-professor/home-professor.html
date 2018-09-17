@@ -9,28 +9,33 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title id="tit">Benvenuto</ion-title>
+    <ion-title id="tit" class="title-toolbar">Benvenuto</ion-title>
   </ion-navbar>
 </ion-header>
 
 
-<ion-content padding class="master">
+<ion-content padding class="container">
   <ion-card class="card">
-    <ion-card-header class="headerCard">
+    <ion-card-header class="header-card">
       Professore
     </ion-card-header>
     <ion-card-content>
       <ion-list>
-        <hr>
         <ion-item>
           <ion-label>
-            <b>Nome: </b>&emsp;{{user.name}}
+            <div class="column-flex">
+              <div class="column-label"><b>Nome: </b></div>
+              <div class="column-text">{{user.name}}</div>
+            </div>
           </ion-label>
         </ion-item>
         <hr>
         <ion-item>
           <ion-label>
-            <b>Cognome: </b>&emsp;{{user.surname}}
+            <div class="column-flex">
+              <div class="column-label"><b>Cognome: </b></div>
+              <div class="column-text">{{user.surname}}</div>
+            </div>
           </ion-label>
         </ion-item>
       </ion-list>
@@ -38,7 +43,7 @@
   </ion-card>
 
   <ion-card class="card" *ngFor="let c of courses">
-    <ion-card-header class="headerCard">
+    <ion-card-header class="header-card">
       Corso di Studio
     </ion-card-header>
     <ion-card-content>
@@ -51,19 +56,28 @@
         <hr>
         <ion-item>
           <ion-label>
-            <b>Sede:</b>   &emsp; {{c.location}}&emsp;&emsp;
+            <div class="column-flex">
+              <div class="column-label"><b>Sede:</b></div>
+              <div class="column-text">{{c.location}}</div>
+            </div>
           </ion-label>
         </ion-item>
         <hr>
         <ion-item>
           <ion-label>
-            <b>Lingua:</b> &emsp;&emsp;{{c.language}}
+            <div class="column-flex">
+              <div class="column-label"><b>Lingua:</b></div>
+              <div class="column-text">{{c.language}}</div>
+            </div>
           </ion-label>
         </ion-item>
         <hr>
         <ion-item>
           <ion-label>
-            <b>Tipologia:</b> &emsp;&emsp;{{c.type}}
+            <div class="column-flex">
+              <div class="column-label"><b>Tipologia:</b></div>
+              <div class="column-text">{{c.type}}</div>
+            </div>
           </ion-label>
         </ion-item>
       </ion-list>

@@ -25,6 +25,7 @@ import {Room} from "../../../models/room";
 })
 export class MapsPage {
 
+
   map: GoogleMap;
   idRoom:number;
   room:Room = {} as Room;

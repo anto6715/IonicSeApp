@@ -5,19 +5,70 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar class="nvb" color="yellowdark">
-    <ion-title>Lezioni</ion-title>
+  <ion-navbar color="yellowdark">
+    <ion-title class="title-toolbar"> Lezioni</ion-title>
   </ion-navbar>
 </ion-header>
 
 
-<ion-content class="title">
-      <div>
-        <ion-title>
-      {{title}}
-        </ion-title>
-      </div>
+<ion-content class="container">
+  <ion-title class="title-top">{{title}}</ion-title>
+
+  <ion-card *ngFor="let l of lesson; let i = index" class="card">
+    <ion-card-header class="header-card">
+      {{l.teachingDTO.name}}
+    </ion-card-header>
+    <div>
+      <ion-item *ngIf="user.userType == value.student">
+        <div class="column-flex">
+          <div class="column-label"><b>Professore:</b></div>
+          <div class="column-text">{{l.teachingDTO.professorDTO.name}} {{l.teachingDTO.professorDTO.surname}}</div>
+        </div>
+      </ion-item>
+      <ion-item *ngIf="user.userType == value.professor">
+        <div class="column-flex">
+          <div class="column-label"><b>Corso:</b></div>
+          <div class="column-text">{{l.teachingDTO.courseDTO.name}}</div>
+        </div>
+      </ion-item>
+      <hr>
+      <ion-item>
+        <div class="column-flex">
+          <div class="column-label"><b>Aula:</b></div>
+          <div class="column-text">{{l.roomDTO.name}}
+            <button ion-button icon-only (click)="openMaps(l.roomDTO.id)" style="margin-left: 40px"><ion-icon name="pin" class="pin"></ion-icon></button>
+          </div>
+        </div>
+      </ion-item>
+      <hr>
+      <ion-item>
+        <div class="column-flex">
+          <div class="column-label"><b>Orario:</b></div>
+          <div class="column-text">{{l.start}}-{{l.end}}</div>
+        </div>
+      </ion-item>
+    </div>
+    <ion-card-content *ngIf="user.userType == value.student">
+      <ion-buttons class="column-flex">
+        <button ion-button class="btn" (click)="materialModal(l.id)">Materiale</button>
+        <button ion-button class="btn" (click)="reviewModal(i)">Recensione</button>
+      </ion-buttons>
+    </ion-card-content>
+
+    <ion-card-content *ngIf="user.userType == value.professor">
+      <ion-buttons align-items-center="">
+        <button ion-button  class="btn" (click)="reviewModal(i)">Recensioni</button>
+      </ion-buttons>
+    </ion-card-content>
+
+  </ion-card>
+
+  <ion-fab bottom right>
+    <button ion-fab (click)="openCalendar()" color="yellowdark"><ion-icon name="calendar"></ion-icon></button>
+  </ion-fab>
 </ion-content>
+
+<!--
 <ion-content>
   <ion-fab bottom right>
     <button ion-fab (click)="openCalendar()" color="yellowdark"><ion-icon name="calendar"></ion-icon></button>
@@ -63,3 +114,4 @@
   </ion-card>
 </ion-content>
 
+-->

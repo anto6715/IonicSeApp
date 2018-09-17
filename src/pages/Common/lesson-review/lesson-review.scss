@@ -1,28 +1,4 @@
 page-lesson-review {
-
-  .headerCard{
-    background-color: #ffd700;
-    font-weight: bold;
-
-  }
-
-  .close{
-    align-self: right;
-    color: #488aff;
-    font-weight: bold;
-    font-size: larger;
-    float: left;
-    display: inline-block;
-  }
-
-  .btn{
-    margin-right: auto;
-    margin-left: auto;
-    display: block !important;
-    background-color: #ffd700;
-    color: #222222;
-  }
-
   ul {
     padding: 10px;
     &.rating li {
@@ -34,5 +10,4 @@ page-lesson-review {
       }
     }
   }
-
 }

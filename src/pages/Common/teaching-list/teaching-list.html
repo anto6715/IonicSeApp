@@ -6,39 +6,51 @@
 -->
 <ion-header>
 
-  <ion-navbar class="nvb" color="yellowdark" text-left>
-    <ion-title>Lista Insegnamenti</ion-title>
+  <ion-navbar color="yellowdark" text-left>
+    <ion-title class="title-toolbar">Lista Insegnamenti</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-<ion-content >
+<ion-content class="container">
 
-  <ion-title text-center class="title" *ngIf="user.userType == value.student">
+  <ion-title class="title-top" *ngIf="user.userType == value.student">
     {{user.courseDTO.name}}
   </ion-title>
 
-  <ion-card *ngFor="let t of teaching; let i = index" class="list">
-    <ion-card-header class="headerCard" text-center>
+  <ion-card *ngFor="let t of teaching; let i = index">
+    <ion-card-header class="header-card">
       {{t.name}}
     </ion-card-header>
 
     <ion-item *ngIf="user.userType == value.student">
-      <b>Professore:</b> {{t.professorDTO.name}} {{t.professorDTO.surname}}
+      <div class="column-flex">
+        <div class="column-label"><b>Professore:</b> </div>
+        <div class="column-text">{{t.professorDTO.name}} {{t.professorDTO.surname}}</div>
+      </div>
     </ion-item>
 
     <ion-item *ngIf="user.userType == value.professor">
-      <b>Corso:</b> {{t.courseDTO.name}}
+      <div class="column-flex">
+        <div class="column-label"><b>Corso:</b></div>
+        <div class="column-text"> {{t.courseDTO.name}}</div>
+      </div>
     </ion-item>
     <hr>
 
     <ion-item>
-      <b>Crediti:</b> {{t.credits}}
+      <div class="column-flex">
+        <div class="column-label"><b>Crediti:</b></div>
+        <div class="column-text">{{t.credits}}</div>
+      </div>
     </ion-item>
     <hr>
 
     <ion-item >
-      <b>Year:</b> {{t.year}}
+      <div class="column-flex">
+        <div class="column-label"><b>Year:</b></div>
+        <div class="column-text">{{t.year}}</div>
+      </div>
     </ion-item>
 
     <ion-card-content>

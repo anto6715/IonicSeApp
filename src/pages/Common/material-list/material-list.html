@@ -6,19 +6,21 @@
 -->
 <ion-header>
   <ion-navbar class="nvb" color="yellowdark">
-    <ion-buttons>
-      <button ion-button (click)="dismiss()" class="close">Close</button>
-      <ion-title class="title" text-right>Materiale</ion-title>
-    </ion-buttons>
+    <div class="column-flex">
+<!--      <div>
+        <ion-buttons><button ion-button (click)="dismiss()" class="close-button">Close</button></ion-buttons>
+      </div>-->
+      <ion-title class="title-toolbar">Materiale</ion-title>
+    </div>
   </ion-navbar>
 </ion-header>
 
 
 
 
-<ion-content  >
-  <ion-card *ngFor="let m of material; let i = index" class="list">
-    <ion-card-header class="headerCard" text-center>
+<ion-content class="container">
+  <ion-card *ngFor="let m of material; let i = index" class="card">
+    <ion-card-header class="header-card" text-center>
       {{m.name}}
     </ion-card-header>
     <ion-card-content *ngIf="user.userType == value.student">
@@ -69,9 +71,10 @@
     </ion-item>
     <ion-item>
       <ion-buttons>
-        <button ion-button class="btn" round [disabled]="!enableSend[i]" (click)="sendReview(i)"  *ngIf="user.userType == value.student">Invia</button>
-        <button ion-button class="btn" round  (click)="materialReviews(m.id)" *ngIf="user.userType == value.professor">Recensioni</button>
-        <button ion-button class="btn" round (click)="download(m.link)">Download</button>
+        <button ion-button class="btn" [disabled]="!enableSend[i]" (click)="sendReview(i)"  *ngIf="user.userType == value.student">Invia</button>
+        <button ion-button class="btn" (click)="materialReviews(m.id)" *ngIf="user.userType == value.professor">Recensioni</button>
+        <hr>
+        <button ion-button class="btn" (click)="download(m.link)">Download</button>
       </ion-buttons>
     </ion-item>
 

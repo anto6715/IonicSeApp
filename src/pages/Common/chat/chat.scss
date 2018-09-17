@@ -1,6 +1,7 @@
 page-chat {
   ion-content{
-   background: url(../../../img.jpg) no-repeat center center fixed;
+    background-color: #f2f2f2;
+/*    background: url(../../../img.jpg) no-repeat center center fixed;*/
   }
 
   .private{
@@ -25,16 +26,17 @@ page-chat {
     border-style: solid; }
 
   .message-wrap {
-    padding: 0 7px; }
+    padding: 10px 7px; }
   .message-wrap .message {
     position: relative;
     padding: 7px 0; }
   .message-wrap .message .user-img {
     position: absolute;
     border-radius: 30px;
-    width: 30px;
-    height: 30px;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.36); }
+    width: 40px;
+    height: 40px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.36);
+    margin-top: 15px;}
   .message-wrap .message .msg-detail {
     width: 100%;
     display: inline-block; }
@@ -42,7 +44,7 @@ page-chat {
     margin: 0; }
   .message-wrap .message .msg-detail .msg-info p {
     font-size: .8em;
-    color: #ffffff; } // colore nome utente
+    color: #666666; } // colore nome utente
   .message-wrap .message .msg-detail .msg-content {
     position: relative;
     margin-top: 5px;
@@ -89,10 +91,10 @@ page-chat {
     right: 10px;
     top: 50px; }
   .message-wrap .message.right .msg-detail .msg-content {
-    background-color: #eac400;
+    background-color: #FFE082;
     float: right; }
   .message-wrap .message.right .msg-detail .msg-content span.triangle {
-    background-color: #eac400;
+    background-color: #FFE082;
     border-bottom-width: 0;
     border-left-width: 0;
     right: -5px; }

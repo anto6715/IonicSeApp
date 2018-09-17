@@ -6,12 +6,12 @@
 -->
 <ion-header>
   <ion-navbar class="nvb" color="yellowdark" text-left>
-    <ion-title>Recensioni</ion-title>
+    <ion-title class="title-toolbar">Recensioni</ion-title>
   </ion-navbar>
 </ion-header>
 
-  <ion-tabs color="yellowdark">
-    <ion-tab tabTitle="Lezioni" tabIcon="book" [root]="tab1Root"></ion-tab>
-    <ion-tab tabTitle="Materiale" tabIcon="attach" [root]="tab2Root" [rootParams]="tab2Params"></ion-tab>
-  </ion-tabs>
+<ion-tabs color="yellowdark" class="bottom-tab">
+  <ion-tab tabTitle="Lezioni" tabIcon="book" [root]="tab1Root"></ion-tab>
+  <ion-tab tabTitle="Materiale" tabIcon="attach" [root]="tab2Root" [rootParams]="tab2Params"></ion-tab>
+</ion-tabs>
 
