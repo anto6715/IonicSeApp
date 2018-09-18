@@ -1,11 +1,11 @@
 <ion-menu  [content]="content" id="menuProfessor">
   <ion-header color="yellow">
     <ion-toolbar color="yellow">
-      <ion-title *ngIf="user != null">{{user.name}} {{user.surname}}, Docente</ion-title>
+      <ion-title>Docente</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <ion-content>
+  <ion-content style="margin-top: 20px">
     <ion-list>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}
@@ -19,12 +19,12 @@
 <ion-menu  [content]="content2" id="menuStudent">
   <ion-header color="yellow">
     <ion-toolbar color="yellow">
-      <ion-title *ngIf="user != null">{{user.name}} {{user.surname}}, Studente</ion-title>
+      <ion-title>Studente</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <ion-content>
-    <ion-list>
+  <ion-content style="margin-top: 20px">
+    <ion-list >
       <button menuClose ion-item *ngFor="let p of pages2" (click)="openPage(p)">
         {{p.title}}
       </button>

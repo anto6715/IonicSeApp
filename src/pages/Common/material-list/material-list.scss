@@ -12,23 +12,6 @@ page-material-list {
     }
   }
 
-  .headerCard{
-    background-color: #ffd700;
-    font-weight: bold;
-    font-size: large;
-  }
-  .close{
-    align-self: right;
-    color: #488aff;
-    font-weight: bold;
-    font-size: larger;
-    float: left;
-    display: inline-block;
-  }
-
-  .title{
-    float: right;
-  }
   .download{
     background-color: #eac400;
     margin-right: auto;
@@ -44,12 +27,4 @@ page-material-list {
     display: block !important;
     color: #000;
   }
-
-  .btn{
-    margin-right: auto;
-    margin-left: auto;
-    background-color: #ffd700;
-    color: #222222;
-  }
-
 }

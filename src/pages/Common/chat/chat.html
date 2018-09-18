@@ -15,14 +15,17 @@
 
 
 
-<ion-content>
+<ion-content class="container">
   <div class="message-wrap" *ngIf="message.length !=0">
 
     <div *ngFor="let m of message; let i = index"
          class="message"
          [class.right]=" m.emailSender === user.email "
          [class.left]=" m.emailSender != user.email ">
-      <img class="user-img" src="user.jpg" alt="" *ngIf="m.type==0 || m.emailReceiver == user.email || m.emailSender == user.email">
+      <div *ngIf="m.type==0 || m.emailReceiver == user.email || m.emailSender == user.email">
+        <img class="user-img" src="user.jpg" alt="" >
+      </div>
+
       <div class="msg-detail" *ngIf="m.type==0 || m.emailReceiver == user.email || m.emailSender == user.email">
         <div class="msg-info" *ngIf="infoData != null">
           <p>

@@ -6,20 +6,23 @@
 -->
 <ion-header>
   <ion-navbar class="nvb" color="yellowdark" text-left>
-    <ion-title>Lista Segnalazioni</ion-title>
+    <ion-title class="title-toolbar">Lista Segnalazioni</ion-title>
   </ion-navbar>
 </ion-header>
 
 
-<ion-content >
+<ion-content class="container">
 
-  <ion-card *ngFor="let s of segnalations; let i = index" class="list">
-    <ion-card-header class="headerCard" text-center>
+  <ion-card *ngFor="let s of segnalations; let i = index" class="card">
+    <ion-card-header class="header-card" text-center>
       Segnalazione {{i+1}}
     </ion-card-header>
 
     <ion-item>
-      <b>Aula:</b> {{s.roomDTO.name}}
+      <div class="column-flex">
+        <div class="column-label"><b>Aula:</b></div>
+        <div class="column-text">{{s.roomDTO.name}}</div>
+      </div>
     </ion-item>
     <hr>
     <ion-item>
@@ -32,15 +35,17 @@
     </ion-item>
     <hr>
     <ion-item>
-      <b>Stato:</b>
-      <span style="background-color:sandybrown" *ngIf="s.idState== segnalationState.Sent">Inviata</span>
-      <span style="background-color:dodgerblue" *ngIf="s.idState== segnalationState.Accepted">Accettata</span>
-      <span style="background-color:#eac400" *ngIf="s.idState== segnalationState.Processing">In Lavorazione</span>
-      <span style="background-color:limegreen" *ngIf="s.idState== segnalationState.Completed">Completata</span>
-      <span style="background-color:red" *ngIf="s.idState== segnalationState.Rejected">Respinta</span>
+      <div class="column-flex">
+        <div class="column-label"><b>Stato:</b></div>
+        <div class="column-text">
+          <span style="background-color:sandybrown" *ngIf="s.idState== segnalationState.Sent">Inviata</span>
+          <span style="background-color:dodgerblue" *ngIf="s.idState== segnalationState.Accepted">Accettata</span>
+          <span style="background-color:#eac400" *ngIf="s.idState== segnalationState.Processing">In Lavorazione</span>
+          <span style="background-color:limegreen" *ngIf="s.idState== segnalationState.Completed">Completata</span>
+          <span style="background-color:red" *ngIf="s.idState== segnalationState.Rejected">Respinta</span>
+        </div>
+      </div>
     </ion-item>
-
-
       <ion-item *ngIf="s.note">
         <hr>
         <b>Nota:</b>

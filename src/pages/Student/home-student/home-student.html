@@ -10,41 +10,45 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title id="tit">Benvenuto</ion-title>
+    <ion-title class="title-header" id="tit">Benvenuto</ion-title>
   </ion-navbar>
 </ion-header>
 
 
 
 
-<ion-content padding class="master">
+<ion-content padding class="container">
   <ion-card class="card">
-    <ion-card-header class="headerCard">
+    <ion-card-header class="header-card">
       Studente
     </ion-card-header>
     <ion-card-content>
       <ion-list>
-        <hr>
         <ion-item>
-          <ion-label>
-            <b>Nome: </b>&emsp;{{user.name}}
+          <ion-label class="column-flex">
+            <div class="column-label"><b>Nome:</b></div>
+            <div class="column-text">{{user.name}}</div>
           </ion-label>
         </ion-item>
         <hr>
         <ion-item>
-          <ion-label>
-            <b>Cognome: </b>&emsp;{{user.surname}}
+          <ion-label class="column-flex">
+            <div class="column-label"><b>Cognome: </b></div>
+            <div class="column-text">{{user.surname}}</div>
           </ion-label>
         </ion-item>
         <hr>
         <ion-item>
-          <ion-label>
-           <b> Matricola:</b>&emsp;{{user.matricola}}
+          <ion-label class="column-flex">
+            <div class="column-label"><b>Matricola: </b></div>
+            <div class="column-text">{{user.matricola}}</div>
           </ion-label>
         </ion-item>
+        <hr>
         <ion-item>
-          <ion-label>
-            <b>Anno Iscrizione:</b>&emsp; {{user.yearStart}}
+          <ion-label class="column-flex">
+            <div class="column-label"><b>Anno Iscrizione:</b></div>
+            <div class="column-text">{{user.yearStart}}</div>
           </ion-label>
         </ion-item>
       </ion-list>
@@ -52,7 +56,7 @@
   </ion-card>
 
   <ion-card class="card">
-    <ion-card-header class="headerCard">
+    <ion-card-header class="header-card">
       Corso di Laurea
     </ion-card-header>
     <ion-card-content>
@@ -64,14 +68,16 @@
         </ion-item>
         <hr>
         <ion-item>
-          <ion-label>
-            <b>Sede:</b> &emsp;&emsp; {{user.courseDTO.location}}
+          <ion-label class="column-flex">
+            <div class="column-label"><b>Sede</b></div>
+            <div class="column-text">{{user.courseDTO.location}}</div>
           </ion-label>
         </ion-item>
         <hr>
         <ion-item>
-          <ion-label>
-            <b>Lingua:</b> &emsp;&emsp;  {{user.courseDTO.language}}
+          <ion-label class="column-flex">
+            <div class="column-label"><b>Lingua:</b></div>
+            <div class="column-text">{{user.courseDTO.language}}</div>
           </ion-label>
         </ion-item>
       </ion-list>
