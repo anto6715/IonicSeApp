@@ -36,7 +36,7 @@ export class ChatProvider {
         console.log('notifica inviata');
       })
     } else {
-      this.notificationRest.sendToTopic('Nuovo Messaggio', teaching.name,teaching.name, teaching.name.replace(/ /, ''), teaching.courseDTO.id, 'chat').subscribe( data =>{
+      this.notificationRest.sendToTopic('Nuovo Messaggio', teaching.name,teaching.name, teaching.name.replace(/ /g, ''), teaching.courseDTO.id, 'chat').subscribe( data =>{
         console.log('notifica inviata');
         console.log(teaching.courseDTO.id);
       })

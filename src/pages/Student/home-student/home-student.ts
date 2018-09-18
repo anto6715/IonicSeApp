@@ -45,7 +45,8 @@ export class HomeStudentPage {
 
     this.teachingRest.getTeachingByCourse(this.user.idCourse).subscribe(data=>{
       data.forEach(teaching =>{
-        this.fcm.subscribeTopic(teaching.name.replace(/ /, '')+"_"+this.user.idCourse).pipe(
+        console.log(teaching.name.replace(/ /g, '')+"_"+this.user.idCourse);
+        this.fcm.subscribeTopic(teaching.name.replace(/ /g, '')+"_"+this.user.idCourse).pipe(
           tap (msg =>{
             this.createToastMessage(msg.body);
           })
