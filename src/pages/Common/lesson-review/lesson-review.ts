@@ -48,6 +48,7 @@ export class LessonReviewPage {
     this.user = JSON.parse(localStorage.getItem('user'));
     this.getReview();
     console.log(this.lesson);
+
   }
 
   ionViewDidLoad() {
@@ -116,6 +117,17 @@ export class LessonReviewPage {
     this.lessonRestProvider.getById(this.idLesson).subscribe(data=>{
       this.lesson= data;
       console.log(this.lesson);
+
+      var d = new Date();
+      var lessonDate = new Date(this.lesson.date);
+      console.log(this.lesson.date);
+      console.log(d);
+      console.log(lessonDate>d);
+      if (lessonDate > d) {
+
+        this.enableSend=false;
+        this.enableReview=true;
+      }
     })
 
   }

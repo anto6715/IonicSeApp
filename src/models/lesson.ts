@@ -6,9 +6,9 @@ export interface Lesson {
 
   id: number;
   idTeaching: number;
-  date: String;
+  date: string;
   start:  string;
-  end:  String;
+  end:  string;
   roomDTO: Room;
   teachingDTO: Teaching;
   review:Review;
